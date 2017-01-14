@@ -384,6 +384,3 @@ YOU WIN - THIEF CAUGHT!</code></pre>
 <p>You need to submit your assignment using the <code>give</code> command on a CSE machine:</p>
 <pre><code>$ 1927 classrun 17x1 give assn2 *.c *.h Makefile assn2Diary.txt</code></pre>
 <hr>
-
-
-</body></html>

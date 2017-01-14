@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<!-- saved from url=(0069)https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/bonus.html -->
-<html xmlns="http://www.w3.org/1999/xhtml" class="gr__cse_unsw_edu_au"><!--
-    This document is automatically generated.  Changes may be lost.
-    Edit the corresponding Markdown file and run '~jashankj/bin/md'
-    to update this file.
-  --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="generator" content="pandoc">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>COMP1927 17x1 / Assignment 2</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link rel="stylesheet" href="./bonus_files/bootstrap.min.css" crossorigin="anonymous" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u">
-  <style type="text/css">
-body { max-width: 80ex; margin-left: auto; margin-right: auto; }
-  </style>
 </head>
 <body class="container" data-gr-c-s-loaded="true">
 <header class="page-header">
@@ -93,11 +74,4 @@ body { max-width: 80ex; margin-left: auto; margin-right: auto; }
 <strong>Hint</strong> Careful construction of your assignment solution will let you share code and a Makefile between both <code>assn2</code> and <code>assn2Bonus</code>.
 </div>
 <hr>
-<footer class="text-muted text-center">
-<p>COMP1927 17x1 brought to you by the UNSW School of Computer Science and Engineering.<br>
-Found a problem? Email <i>cs1927 at cse dot unsw dot edu dot au</i></p>
-<p><small>CRICOS Provider 00098G</small></p>
-</footer>
 
-
-</body></html>
