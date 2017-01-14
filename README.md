@@ -1,9 +1,9 @@
-# comp1027Assign2
+# comp1927Assign2
 
 Police academy 1927 &amp; master thief
 
 
- **Marks:** 15 (worth 15%) + *bonus*<br> **Submit:** ```1927 classrun 17x1 give assn2```<br> **Due:** 23:59 Friday 3rd February 2017<br>- * **Cut-off:** 23:59 Sunday 5th February 2017* -
+ **Marks:** 15 (worth 15%) + *bonus*<br> **Submit:** ```1927 classrun 17x1 give assn2```<br> **Due:** 23:59 Friday 3rd February 2017<br> * **Cut-off:** 23:59 Sunday 5th February 2017* -
 
 
 <p class="text-center lead">
