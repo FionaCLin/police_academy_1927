@@ -1,10 +1,10 @@
 # comp1027Assign2
+
 Police academy 1927 &amp; master thief
 
-<h1 id="police-academy-1927">police academy 1927
-<p class="lead">
+
  **Marks:** 15 (worth 15%) + *bonus*<br> **Submit:** ```1927 classrun 17x1 give assn2```<br> **Due:** 23:59 Friday 3rd February 2017<br>- * **Cut-off:** 23:59 Sunday 5th February 2017* -
-</p>
+
 
 <p class="text-center lead">
 — *setup* — *inputs* — *tasks* — *assessment* —
