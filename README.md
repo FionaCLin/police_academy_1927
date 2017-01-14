@@ -7,7 +7,7 @@
 
 <h1 id="police-academy-1927">police academy 1927</h1>
 <p class="lead">
-<strong>Marks:</strong> 15 (worth 15%) + <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/bonus.html">bonus</a><br><strong>Submit:</strong> <code>1927 classrun 17x1 give assn2</code><br><strong>Due:</strong> 23:59 Friday 3rd February 2017<br><small><strong>Cut-off:</strong> 23:59 Sunday 5th February 2017</small>
+<strong>Marks:</strong> 15 (worth 15%) + <a href="https://github.com/FionaCLin/assign2Comp1927/blob/setup-README/bonus.md">bonus</a><br><strong>Submit:</strong> <code>1927 classrun 17x1 give assn2</code><br><strong>Due:</strong> 23:59 Friday 3rd February 2017<br><small><strong>Cut-off:</strong> 23:59 Sunday 5th February 2017</small>
 </p>
 </header>
 <p class="text-center lead">
