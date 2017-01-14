@@ -1,0 +1,20 @@
+As you complete your work on this assignment, you must maintain an
+assignment diary where you will reflect on what you have done. In a text
+file called assn2Diary.txt, place the date and time of your work
+together with some brief comments of the work you have completed such as
+what you worked on, what you accomplished and what bugs you fixed.
+
+You should discuss your choices of data structures and additional ADTs
+you have used in your implementation. It should also discuss how you
+have tested your implementation.
+
+You may like to base your assignment diary on logs from a version
+control system, like Git or Subversion. Make sure your commit messages
+are informative!
+
+
+Jan 14 2017
+set up assign2 git repository, set up assign2Diary.txt
+create branch 'task0' for Task0
+add testGraph.c to branch task0
+
