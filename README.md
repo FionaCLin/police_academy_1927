@@ -110,12 +110,12 @@ usage: assn2 <city-data> <agent-data> <cycles> [<seed>]
 #### The Commands
 <p>Once the program has started the user will be prompted for input. The available commands are listed below:</p>
 <dl>
-**run** This will run an entire simulation, printing out a trace of the agents location for each cycle of the game. It will print out how the game finished ie with the thief being caught, getting away, time running out.</p>
- - <kbd>step</kbd>This command will run just one cycle of the game, printing out the new location of the agents for the next cycle. If the game finished in that cycle, it will also print out how the game finished. This allows the user to step through the game one cycle at a time.</p>
- - <kbd>stats</kbd>This prints out statistics about the agent. This includes the name of the agents’ current location, the name of the agent’s goal location if it is the thief or was given the thief’s location, and the agents’ stamina.</p>
- - <kbd>display</kbd>This will display the current locations of all agents.</p>
- - <kbd>map</kbd>This prints out the graph connectivity information that represents the map of the city.</p>
- - <kbd>quit</kbd>Quits the game!</p>
+<kbd>run</kbd> This will run an entire simulation, printing out a trace of the agents location for each cycle of the game. It will print out how the game finished ie with the thief being caught, getting away, time running out.</p>
+<kbd>step</kbd>This command will run just one cycle of the game, printing out the new location of the agents for the next cycle. If the game finished in that cycle, it will also print out how the game finished. This allows the user to step through the game one cycle at a time.</p>
+<kbd>stats</kbd>This prints out statistics about the agent. This includes the name of the agents’ current location, the name of the agent’s goal location if it is the thief or was given the thief’s location, and the agents’ stamina.</p>
+<kbd>display</kbd>This will display the current locations of all agents.</p>
+<kbd>map</kbd>This prints out the graph connectivity information that represents the map of the city.</p>
+<kbd>quit</kbd>Quits the game!</p>
 </dd>
 </dl>
 #### Sample Outpt (Stage 0)
