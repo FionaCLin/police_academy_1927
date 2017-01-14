@@ -18,7 +18,7 @@
 <p>The police are aiming for any of the four detectives to catch the thief before they escapes to the getaway city, and before the time runs out… and the aim of the thief is to reach the getaway before time runs out, and before being caught.</p>
 <p>In our simulation, the detectives have a map of the city, but do not know where the thief is or where he is trying to get to. The thief also has a map but does not really know how to use it and wanders randomly through the cities trying to reach the goal destination. The detectives employ different strategies depending on what they have been assigned to.</p>
 <h2 id="setting-up">Setting Up</h2>
-<p>The supplied files are in <samp><a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/files/">/web/cs1927/17x1/assignments/assn2/files</a></samp>. Change to your assignment 2 directory, and copy them down by running</p>
+<p>The supplied files are in <samp><a href="https://github.com/FionaCLin/assign2Comp1927/tree/setup-README/files">https://github.com/FionaCLin/assign2Comp1927/files</a></samp>. Change to your assignment 2 directory, and copy them down by running</p>
 <pre><code>$ cp /web/cs1927/17x1/assignments/assn2/files/* .</code></pre>
 <p>If you’ve done the above correctly, you should find the following files now in the directory:</p>
 <dl>
