@@ -1,7 +1,7 @@
-/* 
+/*
   Graph.c
-   
-  
+
+
 */
 
 #include <assert.h>
@@ -11,19 +11,25 @@
 #include "Graph.h"
 
 
-struct graphRep { 
+struct graphRep {
     //TODO
-}; 
+};
 
-// Create an edge from v to w 
-Edge mkEdge(Vertex v, Vertex w, int weight) { 
-    assert(v >= 0 && w >= 0); 
-    Edge e = {v,w,weight}; 
-    return e; 
-} 
+static int isValidEdge(Graph g, Edge e){
+    assert(g != NULL);
+    return (e.v >= 0 && e.v < g->V &&
+                        e.w >= 0 && e.w < g->V );
+}
+
+// Create an edge from v to w
+Edge mkEdge(Vertex v, Vertex w, int weight) {
+    assert(v >= 0 && w >= 0);
+    Edge e = {v,w,weight};
+    return e;
+}
 
 //Initialise a new graph
-Graph newGraph(int nV) { 
+Graph newGraph(int nV) {
     //COMPLETE THIS
     return NULL;
 }
@@ -33,11 +39,11 @@ Graph newGraph(int nV) {
 //     the vertices are not valid
 //     it would create a self loop
 //     there already exists an edge between the vertices
-void insertE(Graph g, Edge e) { 
-    assert(g != NULL); 
-    
+void insertE(Graph g, Edge e) {
+    assert(g != NULL);
+
     //COMPLETE THIS
-} 
+}
 
 //returns 1 if there is an edge from v to w
 //returns 0 otherwise
@@ -49,7 +55,7 @@ int isAdjacent(Graph g, Vertex v, Vertex w){
 //returns the number of adjacent vertices
 //and fills the adj array with the adjacent vertices
 int adjacentVertices(Graph g, Vertex v, Vertex adj[]){
-    //COMPLETE THIS 
+    //COMPLETE THIS
     return 0;
 }
 
@@ -79,28 +85,28 @@ int numE(Graph g){
 
 // returns the number of edges and fills the array of edges.
 // nE is the max size of the es array
-// The edges in the edges function should be in ascending order and not 
-// contain duplicates. 
+// The edges in the edges function should be in ascending order and not
+// contain duplicates.
 int edges(Edge es[], int nE, Graph g){
     //COMPLETE THIS
     return -1;
 }
 
 //Display the graph
-void show(Graph g) { 
-    assert(g != NULL); 
-    printf("V=%d, E=%d\n", numV(g), numE(g)); 
-    int i, j; 
-    for (i = 0; i < numV(g); i++) { 
-        int nshown = 0; 
-        for (j = 0; j < numV(g); j++) { 
-            if (isAdjacent(g,i,j)) {                
-                printf("%d-%d : TODO ",i,j); 
-                nshown++; 
-            } 
-        } 
-        if (nshown > 0){
-            printf("\n"); 
+void show(Graph g) {
+    assert(g != NULL);
+    printf("V=%d, E=%d\n", numV(g), numE(g));
+    int i, j;
+    for (i = 0; i < numV(g); i++) {
+        int nshown = 0;
+        for (j = 0; j < numV(g); j++) {
+            if (isAdjacent(g,i,j)) {
+                printf("%d-%d : TODO ",i,j);
+                nshown++;
+            }
         }
-    } 
+        if (nshown > 0){
+            printf("\n");
+        }
+    }
 }
