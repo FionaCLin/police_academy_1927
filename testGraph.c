@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "GRAPH.h"
+#include "Graph.h"
 #include "time.h"
 
 #define MAXV 5
@@ -41,11 +41,11 @@ int eqE(Edge a, Edge b) {
 }
 
 int randV(Graph g){
-    return GRAPHnumV(g) *(rand()/(RAND_MAX + 1.0));
+    return numV(g) *(rand()/(RAND_MAX + 1.0));
 }
 
 Graph makeGraph(int V, int E){
-    Graph g = GRAPHinit(V);
+    Graph g = newGraph(V);
     while(numE(g) < E){
         int v1 = randV(g);
         int v2 = randV(g);
@@ -60,7 +60,6 @@ Graph makeGraph(int V, int E){
 
 int main(int argc, char * argv[]){
     srand(time(NULL));
-    Graph randG = randomGraph(MAXV,MAXE);
     printf("Here is my random graph\n");
     show(randG);
 
@@ -74,13 +73,12 @@ int main(int argc, char * argv[]){
     //    testEdges();
     //    testNumE();
 
-    GRAPHdestroy(randG);
     return 0;
 }
 
 void testNumV() {
     int i;
-    graph g = null;
+    Graph g = NULL;
 
     printf("------------------------------");
     printf("\n>>>Test int numv(graph g)<<<\n");
@@ -120,6 +118,7 @@ void testNumE() {
         destroyGraph(g);
     }
 }
+
 void testMkEdge() {
     Graph g = NULL;
 
@@ -173,7 +172,7 @@ void testNewGraph() {
 
 }
 
-void testInsertE() {
+void testInsertEandIsAdjacent() {
     Graph g = NULL;
     int adj;
     printf("------------------------------------------------------");
@@ -200,19 +199,15 @@ void testInsertE() {
                 insertE(g,mkEdge(v1, v2, j));
                 j++;
                 assert(numE(g) == j);
+                printf("\n ## passed insertE##\n");
                 adj = isAdjacent(g, v1, v2);
                 assert(adj == 1);
-                printf("\n ## passed ##\n");
+                printf("\n ## passed isAdjacent##\n");
                 v2++;
             }
         }
         destroyGraph(g);
     }
-
-
-}
-void testIsAdjacent() {
-
 }
 
 void testAdjacentVertices();
