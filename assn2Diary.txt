@@ -18,3 +18,11 @@ set up assign2 git repository, set up assign2Diary.txt
 create branch 'task0' for Task0
 add testGraph.c to branch task0
 
+Jan 15-20 2017
+add more test cases to task0
+read spec and lecture slides to understand graph's implementation
+also research and design the graph representation struct
+
+
+Jan 15-21 2017
+
