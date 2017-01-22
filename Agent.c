@@ -22,7 +22,7 @@ struct agentRep{
 
 //This creates one individual thief or detective
 //You may need to add more to this
-Agent initAgent(Vertex start, int maxCycles,int stamina, 
+Agent initAgent(Vertex start, int maxCycles,int stamina,
                               int strategy, Graph g, char * name){
     if(start >= numV(g)){
         printf("Error starting vertex %d not valid\n",start);
@@ -39,7 +39,7 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     agent->strategy = strategy;
     agent->map = g;
     agent->name = strdup(name);
-  
+
     return agent;
 }
 
@@ -52,27 +52,27 @@ int filterEdges(Agent a,int numEdges,Edge *possibleMoves,Edge * filteredMoves){
     int i;
     for(i=0;i<numEdges;i++){
         if(possibleMoves[i].weight <= a->stamina){
-            filteredMoves[numFiltered++] = possibleMoves[i];     
+            filteredMoves[numFiltered++] = possibleMoves[i];
         }
     }
     return numFiltered;
 }
 
-// Get a legal move. This should be a move that the agent has enough 
-// stamina to make and is a valid edge from the graph. 
+// Get a legal move. This should be a move that the agent has enough
+// stamina to make and is a valid edge from the graph.
 // You need to implement all other strategies.
 Edge getNextMove(Agent agent,Graph g){
-    Edge nextMove;          
+    Edge nextMove;
     //Stationary strategy useful for debugging
     if(agent->strategy == STATIONARY){
-        nextMove = mkEdge(agent->currentLocation,agent->currentLocation,0);  
-    }else if(agent->strategy == RANDOM){      
+        nextMove = mkEdge(agent->currentLocation,agent->currentLocation,0);
+    }else if(agent->strategy == RANDOM){
          Edge * possibleMoves = malloc(numV(g) * sizeof(Edge));
          Edge * filteredMoves = malloc(numV(g) * sizeof(Edge));
 
          //Get all edges to adjacent vertices
          int numEdges = incidentEdges(g,agent->currentLocation,possibleMoves);
-         
+
          //Filter out edges that the agent does not have enough stamina for
          int numFilteredEdges = filterEdges(agent,numEdges,possibleMoves,filteredMoves);
          if(numFilteredEdges!= 0){
@@ -95,7 +95,7 @@ Edge getNextMove(Agent agent,Graph g){
 //This function needs to be updated to adjust the agent's stamina
 void makeNextMove(Agent agent,Edge move){
     agent->currentCycle++;
-    agent->currentLocation = move.w;    
+    agent->currentLocation = move.w;
 }
 
 
@@ -121,5 +121,5 @@ void destroyAgent(Agent agent){
     //YOU MAY NEED TO MODIFY THIS
     free(agent->name);
     free(agent);
-} 
+}
 
