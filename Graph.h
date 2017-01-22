@@ -7,7 +7,7 @@ typedef int Vertex;
 typedef struct {
     Vertex v;
     Vertex w;
-    int weight;
+    float weight;
 } Edge;
 
 Edge mkEdge(Vertex, Vertex, int);
