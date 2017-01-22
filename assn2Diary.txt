@@ -29,6 +29,14 @@ understand each representation pros and cons
 apply the optimised 2d array graph representation for assignment2
 go through the graph.c and implement graph init function
 
+Reasons for 2D array representation:
+The map of city is weighted graph, it is easy record the weight of each
+edge.
+Adapt the optimised 2D array because the graph is undirected graph, it
+can be stored only once in triangle matrix.
+
+
 Jan 22 2017
+Finish Graph.c prototype
 
 
