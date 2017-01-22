@@ -23,6 +23,12 @@ add more test cases to task0
 read spec and lecture slides to understand graph's implementation
 also research and design the graph representation struct
 
+Jan 21 2017
+consolidate Graph theory and implementation
+understand each representation pros and cons
+apply the optimised 2d array graph representation for assignment2
+go through the graph.c and implement graph init function
 
-Jan 15-21 2017
+Jan 22 2017
+
 
