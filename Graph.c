@@ -35,13 +35,19 @@ Graph newGraph(int nV) {
    }
    int i, j;
    Graph g = malloc(sizeof(struct GraphRep));
-   assert(g != NULL);
+   if (g == NULL) {
+      printf("Unable to create Graph.\n");
+      return NULL;
+   }
    g->edges = calloc(sizeof(int *), nV);
-   assert(g->edges != NULL);
+   if (g->edges != NULL) {
+      printf("Unable to make Graph edges.\n");
+      return NULL;
+   }
    for (i = 0; i < nV; i++)
-      g->edges[i] = calloc(sizeof(int), nV - i);
-   g->nV = nV;
-   g->nE = 0;
+      g->edges[i] = calloc(sizeof(int), i);
+   g->nv = nV;
+   g->ne = 0;
    return g;
 }
 
@@ -78,20 +84,33 @@ int incidentEdges(Graph g, Vertex v, Edge edges[]){
 }
 
 void destroyGraph(Graph g){
-   //COMPLETE THIS
-
+   if (g != NULL){
+      int i;
+      if(g -> edges != NULL) {
+         for (i = 0; i < g -> nv; i++)
+            free(g -> edges[i]);
+      }
+      free(g -> edges);
+   }
+   free(g);
 }
 
 //return the number of vertices in the graph
 int numV(Graph g){
-   //COMPLETE THIS
-   return -1;
+   if (g == NULL) {
+      printf("Invalid NULL Graph has no vertex.\n");
+      return -1;
+   }
+   return g -> nv;
 }
 
 //return the number of edges in the graph
 int numE(Graph g){
-   //COMPLETE THIS
-   return -1;
+   if (g == NULL) {
+      printf("Invalid NULL Graph has no edges.\n");
+      return -1;
+   }
+   return g -> ne;
 }
 
 // returns the number of edges and fills the array of edges.
