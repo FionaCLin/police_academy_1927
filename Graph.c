@@ -2,6 +2,7 @@
    Graph.c
 
 
+
 */
 
 #include <assert.h>
@@ -57,6 +58,7 @@ Graph newGraph(int nV) {
    g -> nv = nV;
    g -> ne = 0;
    return g;
+
 }
 
 //Insert an edge into a graph
