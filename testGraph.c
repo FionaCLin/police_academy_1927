@@ -23,9 +23,8 @@
 #define MAXE 10
 
 
-void testNumV();
 void testMkEdge();
-void testNewGraph();
+void testNewGraphNumV();
 void testInsertE();
 void testIsAdjacent();
 void testAdjacentVertices();
@@ -60,30 +59,33 @@ Graph makeGraph(int V, int E){
 int main(int argc, char * argv[]){
    srand(time(NULL));
 
-   testNumV();
-   //    testMkEdge();
-   //    testNewGraph();
-   //    testInsertEandIsAdjacent() ;
+   testMkEdge();
+   testNewGraphNumV();
+   testInsertE();
+   testIsAdjacent() ;
    //    testAdjacentVertices();
-   //    testIncidentEdges();
+   testIncidentEdges();
    //    testEdges();
-   //    testNumE();
+   //testNumE();
 
    return 0;
 }
 
-void testNumV() {
+void testNewGraphNumV() {
    int i;
    Graph g = NULL;
 
    printf("------------------------------");
-   printf("\n>>>Test int numv(graph g)<<<\n");
+   printf("\n>>>Test Graph newgraph(int)<<<\n");
+   printf("\n>>>Test int numV(graph g)<<<\n");
    printf("------------------------------");
    for (i = 1; i < 10; i++){
-      printf("\n## test %d: %d vertices graph\n", i, i);
+      printf("\n## test %d:\nCreate %d vertices graph:\n", i, i);
       g = newGraph(i);
+      show(g);
       assert(numV(g) == i);
       destroyGraph(g);
+      printf("\n ## passed newGraph & numV ##\n");
    }
    // test 0 vertex graph
 
@@ -95,18 +97,20 @@ void testNumE() {
 
    printf("------------------------------");
    printf("\n>>>Test int numE(Graph g)<<<\n");
-   printf("------------------------------");
+   printf("------------------------------\n");
    for (v = 1; v < 10; v++) {
       j = 0;
-      printf("\n## Test %d: %d vertices graph\n", i, i);
-      g = newGraph(i);
+      g = newGraph(v);
       for (v1 = 0; v1 < v; v1++) {
-         for(v2 = v1 + 1; v2 < v; v2++) {
+         for(v2 = v1; v2 < v; v2++) {
+            i++;
+            printf("##Test %d:%d vertices %d edges graph\n", i, v, j);
             printf("\n##insert Edge{%d, %d, %d}\n", v1, v2, j);
             insertE(g,mkEdge(v1, v2, j));
+            show(g);
             j++;
             assert(numE(g) == j);
-            printf("\n ## passed ##\n");
+            printf("\n ## passed numE ##\n");
          }
       }
       destroyGraph(g);
@@ -119,7 +123,7 @@ void testMkEdge() {
 
    printf("------------------------------------------------------");
    printf("\n>>>Test Edge mkEdge(Vertex, Vertex, int weight)<<<\n");
-   printf("------------------------------------------------------");
+   printf("------------------------------------------------------\n");
    //?problem: what is the valid weight range?
 
    //test invalid vertices
@@ -129,46 +133,47 @@ void testMkEdge() {
    //test valid vertices (for graph with 2 - 3 vertices)
    for (v = 1; v < 10; v++) {
       j = 0;
-      printf("\n## Test %d: %d vertices graph\n", i++, i);
-      g = newGraph(i);
+      g = newGraph(v);
       for (v1 = 0; v1 < v; v1++) {
-         for(v2 = v1 + 1; v2 < v; v2++) {
+         for(v2 = v1; v2 < v; v2++) {
+            i++;
+            printf("##Test %d:%d vertices %d edges graph\n", i, v, j);
             printf("\n##insert Edge{%d, %d, %d}\n", v1, v2, j);
             insertE(g,mkEdge(v1, v2, j));
+            show(g);
             j++;
             assert(numE(g) == j);
-            printf("\n ## passed ##\n");
+            printf("\n ## passed mkEdge ##\n");
          }
       }
       destroyGraph(g);
    }
 }
-
-void testNewGraph() {
-   int i;
-   Graph g = NULL;
-
-   printf("------------------------------");
-   printf("\n>>>Test Graph newgraph(int)<<<\n");
-   printf("------------------------------");
-   for (i = 1; i < 10; i++){
-      printf("\n## test %d: %d vertices graph\n", i, i);
-      g = newGraph(i);
-      assert(numV(g) == i);
-      destroyGraph(g);
-   }
-   // test 0 vertex graph
-
-
-}
+//
+//void testNewGraph() {
+//   int i;
+//   Graph g = NULL;
+//
+//   printf("------------------------------");
+//   printf("\n>>>Test Graph newgraph(int)<<<\n");
+//   printf("------------------------------");
+//   for (i = 1; i < 10; i++){
+//      printf("\n## test %d: %d vertices graph\n", i, i);
+//      g = newGraph(i);
+//      show(g);
+//      assert(numV(g) == i);
+//      destroyGraph(g);
+//      printf("\n ## passed ##\n");
+//   }
+//   // test 0 vertex graph
+//
+//
+//}
 
 void testInsertE() {
    int v1, v2, v, j, i = 0;
    Graph g = NULL;
    int adj;
-   int nAdjV;
-   Edge es[10];
-   Vertex vs[10];
    printf("--------------------------------------------");
    printf("\n>>>Test void insertE(Graph g, Edge e)<<<\n");
    printf("--------------------------------------------");
@@ -182,14 +187,16 @@ void testInsertE() {
    //test valid vertices (for graph with 2 - 3 vertices)
    for (v = 1; v < 10; v++) {
       j = 0;
-      printf("\n## Test %d: %d vertices graph\n", i, i);
-      g = newGraph(i);
+      g = newGraph(v);
       for (v1 = 0; v1 < v; v1++) {
          for(v2 = v1 + 1; v2 < v; v2++) {
+            i++;
+            printf("\n## test %d: %d vertices graph\n", i, i);
             printf("\n##insert Edge{%d, %d, %d}\n", v1, v2, j);
             adj = isAdjacent(g, v1, v2);
             assert(adj == 0);
             insertE(g,mkEdge(v1, v2, j));
+            show(g);
             j++;
             assert(numE(g) == j);
             adj = isAdjacent(g, v1, v2);
@@ -206,9 +213,6 @@ void testIsAdjacent() {
    int v1, v2, v, j, i = 0;
    Graph g = NULL;
    int adj;
-   int nAdjV;
-   Edge es[10];
-   Vertex vs[10];
    printf("------------------------------------------------------\n");
    printf(">>Test int isAdjacent(Graph g, Vertex v1, Vertex v2)<<\n");
    printf("------------------------------------------------------\n");
@@ -223,14 +227,17 @@ void testIsAdjacent() {
    for (v = 1; v < 10; v++) {
       j = 0;
       printf("\n## Test %d: %d vertices graph\n", i, i);
-      g = newGraph(i);
+      g = newGraph(v);
       for (v1 = 0; v1 < v; v1++) {
          for(v2 = v1 + 1; v2 < v; v2++) {
+            i++;
+            printf("\n## test %d: %d vertices graph\n", i, i);
             printf("\n##insert Edge{%d, %d, %d}\n", v1, v2, j);
             j++;
             adj = isAdjacent(g, v1, v2);
             assert(adj == 0);
             insertE(g,mkEdge(v1, v2, j));
+            show(g);
             adj = isAdjacent(g, v1, v2);
             assert(adj == 1);
             printf("\n ## passed isAdjacent##\n");
@@ -246,7 +253,6 @@ void testAdjacentVertices() {
    Graph g = NULL;
    int adj;
    int nAdjV;
-   Edge es[10];
    Vertex vs[10];
    printf("--------------------------------------------------------------------");
    printf("\n>>>Test int adjacentVertices(Graph g,Vertex v, Vertex vs [])<<<\n");
@@ -262,9 +268,11 @@ void testAdjacentVertices() {
    for (v = 1; v < 10; v++) {
       j = 0;
       printf("\n## Test %d: %d vertices graph\n", i, i);
-      g = newGraph(i);
+      g = newGraph(v);
       for (v1 = 0; v1 < v; v1++) {
          for(v2 = v1 + 1; v2 < v; v2++) {
+            i++;
+            printf("\n## test %d: %d vertices graph\n", i, i);
             printf("\n##insert Edge{%d, %d, %d}\n", v1, v2, j);
             j++;
             adj = isAdjacent(g, v1, v2);
@@ -273,7 +281,6 @@ void testAdjacentVertices() {
             nAdjV = adjacentVertices(g,v1, vs);
             assert(nAdjV == (v2 - v1));
             printf("\n ## passed adjacentVertices##\n");
-            v2++;
          }
       }
       destroyGraph(g);
@@ -285,12 +292,12 @@ void testIncidentEdges() {
    int v1, v2, v, j, i = 0;
    Graph g = NULL;
    int adj;
-   int nAdjV;
+   int nAdjE;
    Edge es[10];
-   Vertex vs[10];
-   printf("--------------------------------------------");
-   printf("\n>>>Test void insertE(Graph g, Edge e)<<<\n");
-   printf("--------------------------------------------");
+   Vertex * vertices;
+   printf("------------------------------------------------------\n");
+   printf(">Test void incidentEdges(Graph g, Vertex v, Edge e[])<\n");
+   printf("------------------------------------------------------\n");
    //?problem: what is the valid weight range?
    // how to check the weight?
 
@@ -302,17 +309,20 @@ void testIncidentEdges() {
    for (v = 1; v < 10; v++) {
       j = 0;
       printf("\n## Test %d: %d vertices graph\n", i, i);
-      g = newGraph(i);
+      g = newGraph(v);
       for (v1 = 0; v1 < v; v1++) {
-         for(v2 = v1 + 1; v2 < v; v2++) {
+         for(v2 = v1; v2 < v; v2++) {
+            i++;
+            printf("\n## test %d: %d vertices graph\n", i, i);
             printf("\n##insert Edge{%d, %d, %d}\n", v1, v2, j);
             j++;
             adj = isAdjacent(g, v1, v2);
             assert(adj == 0);
             insertE(g,mkEdge(v1, v2, j));
+            show(g);
             nAdjE = incidentEdges(g,v1, es);
-            assert(nAdjE == (v2 - v1));
-            printf("\n ## passed adjacentVertices##\n");
+            assert(nAdjE == adjacentVertices(g, v1, vertices));
+            printf("\n ## passed incidentEdges##\n");
          }
       }
       destroyGraph(g);
@@ -325,6 +335,7 @@ void testEdges() {
    Graph g = NULL;
    int adj;
    int nAdjV;
+   int nAdjE;
    Edge es[10];
    Vertex vs[10];
    printf("--------------------------------------------");
@@ -341,9 +352,11 @@ void testEdges() {
    for (v = 1; v < 10; v++) {
       j = 0;
       printf("\n## Test %d: %d vertices graph\n", i, i);
-      g = newGraph(i);
+      g = newGraph(v);
       for (v1 = 0; v1 < v; v1++) {
          for(v2 = v1 + 1; v2 < v; v2++) {
+            i++;
+            printf("\n## test %d: %d vertices graph\n", i, i);
             printf("\n##insert Edge{%d, %d, %d}\n", v1, v2, j);
             j++;
             adj = isAdjacent(g, v1, v2);
@@ -359,7 +372,7 @@ void testEdges() {
             printf("\n ## passed adjacentVertices##\n");
             nAdjE = incidentEdges(g,v1, es);
             assert(nAdjE == (v2 - v1));
-            printf("\n ## passed adjacentVertices##\n");
+            printf("\n ## passed incidentEdges##\n");
          }
       }
       destroyGraph(g);

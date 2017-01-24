@@ -45,8 +45,8 @@ Graph newGraph(int nV) {
       printf("Unable to create Graph.\n");
       return NULL;
    }
-   g -> edges = calloc(sizeof(float*), nV);
-   if (g -> edges != NULL) {
+   g -> edges = malloc(sizeof(float*) * nV);
+   if (g -> edges == NULL) {
       printf("Unable to make Graph edges.\n");
       return NULL;
    }
@@ -146,19 +146,19 @@ int incidentEdges(Graph g, Vertex v, Edge edges[]){
       printf("Invalid Vertex\n");
       return 0;
    }
-   edges = malloc(sizeof(struct Edge));
-   if (adj == NULL) {
+   edges = malloc(sizeof(Edge));
+   if (edges == NULL) {
       printf("System runs out memory\n");
       return -1;
    }
    for (i = 0; i < v; i++)
       if (g -> edges[v][i] != NO_EDGE) {
-         edges = realloc(edges, sizeof(struct Edge) * ne + 1);
+         edges = realloc(edges, sizeof(Edge) * ne + 1);
          edges[ne++] = mkEdge(v, i, g -> edges[v][i]);
       }
    for (i = v + 1; i < g -> nv; i++)
       if (g -> edges[i][v] != NO_EDGE) {
-         edges = realloc(edges, sizeof(struct Edge) * ne + 1);
+         edges = realloc(edges, sizeof(Edge) * ne + 1);
          edges[ne++] = mkEdge(v, i, g -> edges[i][v]);
       }
    return ne;
@@ -207,6 +207,16 @@ int edges(Edge es[], int nE, Graph g){
    return count;
 }
 
+static Edge getEdge(Graph g, Vertex v, Vertex w) {
+   int row = v;
+   int col = w;
+   if (v < w) {
+      row = w;
+      col = v;
+   }
+   Edge e = {v, w, g -> edges[row][col]};
+   return e;
+}
 //Display the graph
 void show(Graph g) {
    assert(g != NULL);
@@ -216,7 +226,8 @@ void show(Graph g) {
       int nshown = 0;
       for (j = 0; j < numV(g); j++) {
          if (isAdjacent(g,i,j)) {
-            printf("%d-%d : TODO ",i,j);
+            Edge e = getEdge(g, i, j);
+            printf("%d-%d : %.4f ", e.v, e.w, e.weight);
             nshown++;
          }
       }
