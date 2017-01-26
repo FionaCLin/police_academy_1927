@@ -34,11 +34,6 @@ void testNumE();
 
 
 
-int eqE(Edge a, Edge b) {
-   return ((a.v == b.v && a.w == b.w) || (a.v=b.w && a.w == b.v)) &&
-      (a.weight == b.weight);
-}
-
 int randV(Graph g){
    return numV(g) *(rand()/(RAND_MAX + 1.0));
 }
