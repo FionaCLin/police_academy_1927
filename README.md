@@ -11,7 +11,7 @@
 </p>
 </header>
 <p class="text-center lead">
-— <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#setting-up">setup</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#program-inputs">inputs</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#the-tasks">tasks</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#assessment">assessment</a> —
+— <a href="#setting-up">setup</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#program-inputs">inputs</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#the-tasks">tasks</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#assessment">assessment</a> —
 </p>
 
 <p>In this assignment, you are the police! You will control 4 detectives as they travel through a network of cities trying to catch a thief.</p>

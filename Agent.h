@@ -11,7 +11,7 @@
 typedef struct agentRep * Agent;
 
 //Initialise an agent
-Agent initAgent(Vertex start, int maxCycles,int stamina, 
+Agent initAgent(Vertex start, int maxCycles,int stamina,
                               int strategy,Graph g, char * name);
 
 //Calculate the next move
