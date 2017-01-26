@@ -9,33 +9,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <float.h>
 #include "Graph.h"
 
-#define NO_EDGE FLT_MAX
 
 struct graphRep {
    int nv;
    int ne;
-   float ** edges;
+   int ** edges;
 };
 
 static int validE(Graph g, Edge e) {
-   return (e.v >= 0 && e.v < g -> nv && e.w >= 0 && e.w < g -> nv);
+   return (e.v >= 0 && e.v < g -> nv && e.w >= 0 && e.w < g -> nv) &&
+      (e.v != e.w) && e.weight >= 0;
 }
 static int validV(Graph g, Vertex v) {
    return (v >= 0 && v < g -> nv);
 }
 // Create an edge from v to w
 Edge mkEdge(Vertex v, Vertex w, int weight) {
-   assert(v >= 0 && w >= 0);
-   Edge e = {v,w,weight};
+   Edge e = {-1, -1, -1};
+   if (v >= 0 && w >= 0 && weight >=0) {
+      e.v = v;
+      e.w = w;
+      e.weight = weight;
+   } else if (weight < 0) {
+      printf("Weight can't be nagtive.\n");
+   } else {
+      printf("Vertices can't be nagtive.\n");
+   }
    return e;
 }
 
 //Initialise a new graph
 Graph newGraph(int nV) {
-   if (nV < 0) {
+   if (nV <= 0) {
       printf("Number of Vertices must be positive integer.\n");
       return NULL;
    }
@@ -45,13 +52,13 @@ Graph newGraph(int nV) {
       printf("Unable to create Graph.\n");
       return NULL;
    }
-   g -> edges = malloc(sizeof(float*) * nV);
+   g -> edges = malloc(sizeof(int *) * nV);
    if (g -> edges == NULL) {
       printf("Unable to make Graph edges.\n");
       return NULL;
    }
    for (i = 0; i < nV; i++) {
-      g -> edges[i] = malloc(sizeof(float)* (i + 1));
+      g -> edges[i] = malloc(sizeof(int)* (i + 1));
       for(j = 0; j < i + 1; j++)
          g -> edges[i][j] = NO_EDGE;
    }
@@ -73,7 +80,7 @@ void insertE(Graph g, Edge e) {
       return ;
    }
    if (!validE(g, e)) {
-      printf("Invalid edge.\n");
+      printf("Invalid edge {%d, %d, %d}.\n", e.v, e.w, e.weight);
       return ;
    }
    row = e.v;
@@ -98,7 +105,7 @@ int isAdjacent(Graph g, Vertex v, Vertex w){
    }
    Edge e = {v, w};
    if (!validE(g, e)) {
-      printf("Invalid vertices %d - %d.\n", v, w);
+      printf("Invalid vertices %d => %d.\n", v, w);
       return 0;
    }
    row = e.v;
@@ -116,23 +123,24 @@ int isAdjacent(Graph g, Vertex v, Vertex w){
 //and fills the adj array with the adjacent vertices
 int adjacentVertices(Graph g, Vertex v, Vertex adj[]){
    int i, nv = 0;
-   if (!validV(g, v)) {
-      printf("Invalid Vertex\n");
+   if (g == NULL) {
+      printf("Invalid Graph.\n");
       return 0;
    }
-   adj = malloc(sizeof(int *));
+   if (!validV(g, v)) {
+      printf("Invalid Vertex %d.\n", v);
+      return 0;
+   }
    if (adj == NULL) {
       printf("System runs out memory\n");
       return -1;
    }
    for (i = 0; i < v; i++)
       if (g -> edges[v][i] != NO_EDGE) {
-         adj = realloc(adj, sizeof(int *) * nv + 1);
          adj[nv++]= i;
       }
    for (i = v + 1; i < g -> nv; i++)
       if (g -> edges[i][v] != NO_EDGE) {
-         adj = realloc(adj, sizeof(int *) * nv + 1);
          adj[nv++]= i;
       }
    return nv;
@@ -142,23 +150,24 @@ int adjacentVertices(Graph g, Vertex v, Vertex adj[]){
 //and fills the edges with incident edges
 int incidentEdges(Graph g, Vertex v, Edge edges[]){
    int i, ne = 0;
-   if (!validV(g, v)) {
-      printf("Invalid Vertex\n");
+   if (g == NULL) {
+      printf("Invalid Graph.\n");
       return 0;
    }
-   edges = malloc(sizeof(Edge));
+   if (!validV(g, v)) {
+      printf("Invalid Vertex %d.\n", v);
+      return 0;
+   }
    if (edges == NULL) {
       printf("System runs out memory\n");
       return -1;
    }
    for (i = 0; i < v; i++)
       if (g -> edges[v][i] != NO_EDGE) {
-         edges = realloc(edges, sizeof(Edge) * ne + 1);
          edges[ne++] = mkEdge(v, i, g -> edges[v][i]);
       }
    for (i = v + 1; i < g -> nv; i++)
       if (g -> edges[i][v] != NO_EDGE) {
-         edges = realloc(edges, sizeof(Edge) * ne + 1);
          edges[ne++] = mkEdge(v, i, g -> edges[i][v]);
       }
    return ne;
@@ -199,11 +208,21 @@ int numE(Graph g){
 // The edges in the edges function should be in ascending order and not
 // contain duplicates.
 int edges(Edge es[], int nE, Graph g){
+   if (g == NULL) {
+      printf("Invalid Graph.\n");
+      return 0;
+   }
    int v, w, count = 0;
-   for (v = 0; v < g -> nv; v++)
-      for(w = 0; w < v; w++)
-         if (g -> edges[v][w] && count < nE)
+   for (v = 1; v < g -> nv; v++)
+      for(w = 0; w < v; w++){
+         if (v < w) {
+            int tmp = v;
+            v = w;
+            w = tmp;
+         }
+         if (g -> edges[v][w] >= 0 && count < nE)
             es[count++] = mkEdge(v, w, g -> edges[v][w]);
+      }
    return count;
 }
 
@@ -225,9 +244,10 @@ void show(Graph g) {
    for (i = 0; i < numV(g); i++) {
       int nshown = 0;
       for (j = 0; j < numV(g); j++) {
+         if (i == j) continue;
          if (isAdjacent(g,i,j)) {
             Edge e = getEdge(g, i, j);
-            printf("%d-%d : %.4f ", e.v, e.w, e.weight);
+            printf("%d-%d : %d ", e.v, e.w, e.weight);
             nshown++;
          }
       }
