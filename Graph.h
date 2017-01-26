@@ -1,5 +1,6 @@
 // An graph ADT interface for weighted undirected graphs
 
+#define NO_EDGE -1
 // vertices denoted by integers 0..N-1
 typedef int Vertex;
 
@@ -7,7 +8,7 @@ typedef int Vertex;
 typedef struct {
     Vertex v;
     Vertex w;
-    float weight;
+    int weight;
 } Edge;
 
 Edge mkEdge(Vertex, Vertex, int);
