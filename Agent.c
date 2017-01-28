@@ -17,18 +17,13 @@ struct agentRep{
     int initialStamina; //max stamina
     int stamina;  //current stamina
     int strategy;
-    int * visited;
+    int * visit;
     Graph map;
     char * name;
 };
 
 
-static void swap(Edge *a, Edge* b) ;
-static int partitionByVisit(Edge moves[], int lo, int hi) ;
-static int partitionByWeight(Edge moves[], int lo, int hi) ;
-static void quicksort(Edge mvs[], int lo, int hi, char sortBy) ;
-static void sortByVisit(Agent a, Edge moves[], int lo, int hi) ;
-static void sortByWeight(Edge moves[], int lo, int hi) ;
+static Edge sortByVisit(Agent a, Edge moves[], int lo, int hi) ;
 //This creates one individual thief or detective
 //You may need to add more to this
 Agent initAgent(Vertex start, int maxCycles,int stamina,
@@ -49,9 +44,9 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     agent->strategy = strategy;
     agent->map = g;
     agent->name = strdup(name);
-    agent->visited = calloc(sizeof(int), numV(g));
-    if (strategy == C_L_VISITED)
-        agent -> visited[start]++;
+    agent->visit = calloc(sizeof(int), numV(g));
+    if (strategy == C_L_VISITED)//??
+        agent -> visit[start]++;//??
     return agent;
 }
 
@@ -116,15 +111,7 @@ Edge getNextMove(Agent agent,Graph g){
         int nValidEs = 0;
         Edge * legalMoves = getValidMoves(g, agent, &nValidEs);
         if(nValidEs!= 0){
-            sortByVisit(agent, legalMoves, 0, nValidEs - 1);
-            Vertex dest0 = legalMoves[0].w;
-            int j = 1;
-            int c = 0;
-            int * visited = agent -> visited;
-            while (j < nValidEs && visited[dest0] ==
-                    visited[legalMoves[j++].w]) c++;
-            sortByWeight(legalMoves, 0, c);
-            nextMove = legalMoves[0];
+            nextMove = sortByVisit(agent, legalMoves, 0, nValidEs - 1);
             agent -> stamina -= nextMove.weight;
         } else {
             //the agent must stay in the same location
@@ -133,126 +120,35 @@ Edge getNextMove(Agent agent,Graph g){
             agent -> stamina = agent -> initialStamina; //max stamina
         }
         free(legalMoves);
-        //    }else if(agent->strategy == DFS){
+        //    else if(agent->strategy == DFS)
 
-}else {
-    printf("Agent strategy not implemented yet\n");
-    abort();
-}
-return nextMove;
-}
-
-static void swap(Edge *a, Edge* b) {
-    Edge temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-static int partitionByVisit(Edge moves[], int lo, int hi) {
-    int i, j;
-    i = lo - 1;
-    j = hi;
-
-    int pivot = moves[hi].v;
-
-    // pivot element
-    while (1) {
-        // increment i until we approach the element that shouldnt be in pivot
-        while (moves[++i].v < pivot);
-        // get the element towards the hi
-        while (pivot < moves[--j].v && j != lo);
-
-        // if the lo hand counter is greater than the hi, we stop
-        if (i >= j) {
-            break;
-        }
-
-        // now we swap elements
-        swap(&(moves[i]), &(moves[j]));
+    }else {
+        printf("Agent strategy not implemented yet\n");
+        abort();
     }
-
-    // place the pivot
-    swap(&(moves[i]), &(moves[hi]));
-    // return the pivot index
-    return i;
+    return nextMove;
 }
 
-static int partitionByWeight(Edge moves[], int lo, int hi) {
-    int i, j;
-    i = lo - 1;
-    j = hi;
-
-    int pivot = moves[hi].weight;
-
-    // pivot element
-    while (1) {
-        // increment i until we approach the element that shouldnt be in pivot
-        while (moves[++i].weight < pivot);
-        // get the element towards the hi
-        while (pivot < moves[--j].weight && j != lo);
-
-        // if the lo hand counter is greater than the hi, we stop
-        if (i >= j) {
-            break;
-        }
-
-        // now we swap elements
-        swap(&(moves[i]), &(moves[j]));
-    }
-
-    // place the pivot
-    swap(&(moves[i]), &(moves[hi]));
-    // return the pivot index
-    return i;
-}
-
-static void quicksort(Edge mvs[], int lo, int hi, char sortBy) {
-    int i;
-    if (lo >= hi) return;
-    swap(&mvs[hi - 1], &mvs[(lo + hi) / 2]);
-    if (sortBy == 'w') {
-        if (mvs[lo].weight > mvs[hi - 1].weight)
-            swap(&mvs[lo], &mvs[hi - 1]);
-        if (mvs[hi - 1].weight > mvs[hi].weight)
-            swap(&mvs[hi - 1], &mvs[hi]);
-        if (mvs[lo].weight > mvs[hi - 1].weight)
-            swap(&mvs[lo], &mvs[hi - 1]);
-        i = partitionByWeight(mvs, lo, hi - 1);
-        quicksort(mvs, lo, i - 1, sortBy);
-        quicksort(mvs, i + 1, hi, sortBy);
-    } else if (sortBy == 'v') {
-        if (mvs[lo].v > mvs[hi - 1].v)
-            swap(&mvs[lo], &mvs[hi - 1]);
-        if (mvs[hi - 1].v > mvs[hi].v)
-            swap(&mvs[hi - 1], &mvs[hi]);
-        if (mvs[lo].v > mvs[hi - 1].v)
-            swap(&mvs[lo], &mvs[hi - 1]);
-
-        i = partitionByVisit(mvs, lo, hi - 1);
-        quicksort(mvs, lo, i - 1, sortBy);
-        quicksort(mvs, i + 1, hi, sortBy);
-    }
-
-}
-
-static void sortByVisit(Agent a, Edge moves[], int lo, int hi) {
-    int i = 0;
+static Edge sortByVisit(Agent a, Edge mvs[], int lo, int hi) {
     int size = hi - lo + 1;
-    int v = moves[i].v;
-    for (i = 0; i < size; i++)
-        moves[i].v = a -> visited[moves[i].w];
-    quicksort(moves, lo, hi, 'v');
-    for (i = 0; i < size; i++)
-        moves[i].v = moves[i].w;
-    quicksort(moves, lo, hi, 'v');
-    for (i = 0; i < size; i++)
-        moves[i].v = v;
+    if (size == 1) return mvs[lo];
+    int i;
+    int less = lo;
+    for (i = lo + 1; i <= hi; i++) {
+        if (a->visit[mvs[less].w] > a->visit[mvs[i].w]) {
+            less = i;
+        } else if (a->visit[mvs[less].w] == a->visit[mvs[i].w]) {
+            if(mvs[less].weight > mvs[i].weight) {
+                less = i;
+            } else if(mvs[less].weight == mvs[i].weight) {
+                if(mvs[less].w > mvs[i].w) {
+                    less = i;
+                }
+            }
+        }
+    }
+    return mvs[less];
 }
-
-static void sortByWeight(Edge moves[], int lo, int hi) {
-    quicksort(moves, lo, hi, 'w');
-}
-
 
 
 //Actually perform the move, by changing the agent's state
@@ -261,7 +157,8 @@ void makeNextMove(Agent agent,Edge move){
     agent->currentCycle++;
     agent->currentLocation = move.w;
     if (agent -> strategy == C_L_VISITED && move.v != move.w)
-        agent -> visited[move.w]++;
+       //??stay the same city count as 2 visits??
+        agent -> visit[move.w]++;
 }
 
 Vertex getDestination(Agent agent){

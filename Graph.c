@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Stack.h"
+#include "Queue.h"
 #include "Graph.h"
 
 
@@ -282,3 +284,43 @@ void show(Graph g) {
       }
    }
 }
+// dfSearch using Stack
+//The initialisation of variables etc before we call the dfs function
+void dfSearchIterative(Graph g) {
+   if (g == NULL) {
+      printf("The graph g can't be NULL\n");
+      return;
+   }
+   int i, j, count = 0;
+   Edge e = {};
+   VList t = NULL;
+   //make a pre and st(paret) arrary;
+   pre = calloc(sizeof(int), g -> nV);
+   st = calloc(sizeof(int), g -> nV);
+   //init both arrays value -1
+   for (i = 0; i < g -> nV; i ++) {
+      pre[i] = -1;
+      st[i] = -1;
+   }
+   //make a stack and push the 1st edge
+   st[e.v] = count;
+   Stack stk = newStack();
+   StackPush(stk, mkEdge(g, 0, 0));
+   while (!StackIsEmpty(stk)) {
+      e = StackPop(stk);
+      for (i = 0; i < g -> nv; i++) {
+         for (j = ; j <)
+         if (pre[t -> v] < 0) continue;
+            StackPush(stk, mkEdge(g, e.w, t -> v));
+      }
+      if (pre[e.w] != -1) continue;
+      st[e.w] = e.v;
+      pre[e.w] = count++;
+   }
+   printSearch(count);
+   dropStack(stk);
+   free(pre);
+   free(st);
+}
+
+
