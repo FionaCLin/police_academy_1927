@@ -13,6 +13,7 @@ typedef struct agentRep * Agent;
 //Initialise an agent
 Agent initAgent(Vertex start, int maxCycles,int stamina,
                               int strategy,Graph g, char * name);
+void setDestination(Agent a, int end);
 
 //Calculate the next move
 Edge getNextMove(Agent agent,Graph graph);

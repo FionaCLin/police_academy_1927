@@ -5,11 +5,13 @@
 #include "Graph.h"
 #include "Agent.h"
 
+#define NO_END -1
 //This struct stores information about an individual agent(detective or thief)
 //You might want to add to this struct to store more information
 struct agentRep{
     Vertex startLocation;
     Vertex currentLocation;
+    Vertex destination;
     int currentCycle;
     int maxCycles;
     int initialStamina; //max stamina
@@ -31,6 +33,7 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     Agent agent = malloc(sizeof(struct agentRep));
 
     agent->startLocation = start;
+    agent->destination = NO_END;
     agent->currentLocation = start;
     agent->currentCycle = 0;
     agent->maxCycles = maxCycles;
@@ -43,6 +46,9 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     return agent;
 }
 
+void setDestination(Agent a, int end) {
+   a->destination = end;
+}
 
 // Takes an array with all the possible edges and puts the ones the agent
 // has enough stamina for into the filteredMoves array
@@ -111,9 +117,13 @@ char * getName(Agent agent){
 //Needs to be updated to print out vertex name information
 //and * for cities with informants
 void printAgent(Agent agent){
-    printf("%s %d (%d)",agent->name,agent->stamina,
-                                      agent->currentLocation);
-    //MODIFY THIS
+   int city = agent->currentLocation;
+   printf("%s %d %s (%d%s)",agent->name,agent->stamina, getCityName(city), city, isInformant(city));
+    if (strcmp(agent -> name, "T") == 0) {
+       int end = agent -> destination;
+       printf(" %s(%d)", getCityName(end), end);
+    }
+    putchar('\n');
 }
 
 //You may need to update this to free any extra memory you use

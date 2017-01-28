@@ -16,6 +16,15 @@ Edge mkEdge(Vertex, Vertex, int);
 // graph representation is hidden
 typedef struct graphRep *Graph;
 
+// check if the city has informant
+char * isInformant(int city);
+
+// read std io for each city info
+void readCityInfo(int city, char info,char * name);
+
+// fetch city's name
+char * getCityName(int city);
+
 // operations on graphs
 Graph newGraph(int nV); // #vertices
 
