@@ -13,30 +13,89 @@ control system, like Git or Subversion. Make sure your commit messages
 are informative!
 
 
-Jan 14 2017
-set up assign2 git repository, set up assign2Diary.txt
-create branch 'task0' for Task0
-add testGraph.c to branch task0
+##Jan 14 2017
+Set up assign2 git repository, set up assign2Diary.txt
+Create branch 'task0' for Task0
+Add testGraph.c to branch task0
 
-Jan 15-20 2017
-add more test cases to task0
-read spec and lecture slides to understand graph's implementation
-also research and design the graph representation struct
+##Jan 15-20 2017
+Add more test cases to task0
+Read spec and lecture slides to understand graph's implementation
+Research and design the graph representation struct
 
-Jan 21 2017
-consolidate Graph theory and implementation
-understand each representation pros and cons
-apply the optimised 2d array graph representation for assignment2
-go through the graph.c and implement graph init function
+##Jan 21 2017
+Consolidate Graph theory and implementation
+Understand each representation pros and cons
 
-Reasons for 2D array representation:
+Apply the optimised 2d array graph representation for assignment2
+Go through the graph.c and implement graph init function
+
+>>Reasons for 2D array representation:
 The map of city is weighted graph, it is easy record the weight of each
 edge.
 Adapt the optimised 2D array because the graph is undirected graph, it
 can be stored only once in triangle matrix.
 
 
-Jan 22 2017
-Finish Graph.c prototype
+##Jan 22 2017
+Finish Graph.c basic function prototype
 
+##Jan 25 2017
+More understanding for dfs and bfs and find shortest path from lab6
+Study lab6 test data so as to understand different search strategies
 
+##Jan 26 2017
+Complete testGraph.c
+add invalid test cases
+Refactor Graph.c prototype to handle invalid params
+
+##Jan 27 2017
+Start to implement Agent.c and Agent.h
+Complete stage0
+Start stage0 for task2
+>> Tasks to complete:
+ 1) Each vertex(city) has a name, which is scanned in by the program.
+amend the graph struct to contain this informantion so as to retain when
+user check the status of the game.
+ 2) Each vertex(city) might has an informant, which is scanned in by the program.
+amend the graph struct to contain this informantion so as to retain when
+user check the status of the game or step the game.
+ 3) Make sure all the information shown in stats and map have all the
+correct details.
+ 4) Stamina limitations and move weight reduction and stamina reset
+implementation
+ 5) Comply Winning and Losing Rules:
+* The detectives win the game if at the end of the turn, they are
+located in the same city as the thief.
+* The thief wins the game if at the end of a turn they is located in the
+goal city and there are no detectives there.
+* If the thief reaches the goal location at the same time as one of the
+detectives, the detective catches the thief and wins.
+
+##Jan 28 2017
+Finish stage 0 of task2
+ 1) Refactor graphRep(informants, names), agent(destination) struct to
+contain extra information
+ 2) Add methods to these header file:
+Agent.h
+  void setDestination(Agent a, int end);
+  Vertex getDestination(Agent agent);
+Graph.h
+  char * isInformant(int city); // check if the city has informant
+  void readCityInfo(int city, char info,char * name); // read std io for each city info
+  char * getCityName(int city); // fetch city's name
+ 3) Implement those methods in the each c files.
+ 4) Amend main.c to achieve below:
+ * Amend readGraph methods to set informant and name
+ * Amend initialiseAgents function to set THIEF destination
+ * Amend display method to display informant if detective encounters
+ * Refactor checkGameState function to implement winning and losing the
+   game.
+ 5) Amend Agent.c to achieve below:
+ * Add print destination logic in printAgent method to print thief
+   goal city
+
+TO-DD :
+1) add logic for set detective destination once they encounter informant
+2) amend print destination to print out agent's goal city
+3) Stage 1: CHEAPEST_LEAST_VISITED strategy
