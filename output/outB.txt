@@ -1,0 +1,987 @@
+
+POLICE ACADEMY 1927
+
+Red alert! A thief is on the run.
+Agents, to your cars. You have 100 hours.
+
+Hour 0
+  T  D1  D2  D3  D4
+  4   1   1   1   2 
+
+Enter command: Hour 1
+  T  D1  D2  D3  D4
+ 17   8   8  11   7 
+
+Hour 2
+  T  D1  D2  D3  D4
+  7  19   9   8   0 
+
+Hour 3
+  T  D1  D2  D3  D4
+ 17   8   0   8   9 
+
+Hour 4
+  T  D1  D2  D3  D4
+ 17   8   7  19   9 
+
+Hour 5
+  T  D1  D2  D3  D4
+  4   1   7  19   8 
+
+Hour 6
+  T  D1  D2  D3  D4
+ 12  11   2   8   1 
+
+Hour 7
+  T  D1  D2  D3  D4
+ 12   1   2   1  11 
+
+Hour 8
+  T  D1  D2  D3  D4
+  5   8  17   1   1 
+
+Hour 9
+  T  D1  D2  D3  D4
+ 16   8   3  11   8 
+
+Hour 10
+  T  D1  D2  D3  D4
+ 13  11   3   1   8 
+
+Hour 11
+  T  D1  D2  D3  D4
+ 16   1  10   1  19 
+
+Hour 12
+  T  D1  D2  D3  D4
+  5   8   3  11   8 
+
+Hour 13
+  T  D1  D2  D3  D4
+  5   8   3   8   9 
+
+Hour 14
+  T  D1  D2  D3  D4
+ 16   1  18   8   9 
+
+Hour 15
+  T  D1  D2  D3  D4
+  5  11   3   9   0 
+
+Hour 16
+  T  D1  D2  D3  D4
+ 12   1  17   9   7 
+
+Hour 17
+  T  D1  D2  D3  D4
+ 14  11  17   0  17 
+
+Hour 18
+  T  D1  D2  D3  D4
+ 12  11  17   7   3 
+
+Hour 19
+  T  D1  D2  D3  D4
+ 12   8  17   7   3 
+
+Hour 20
+  T  D1  D2  D3  D4
+ 14  11  17  17  10 
+
+Hour 21
+  T  D1  D2  D3  D4
+  4   1  17   3   3 
+
+Hour 22
+  T  D1  D2  D3  D4
+ 15   1  17   3   3 
+
+Hour 23
+  T  D1  D2  D3  D4
+  4  11  17  18  18 
+
+Hour 24
+  T  D1  D2  D3  D4
+ 14   8  17   3   3 
+
+Hour 25
+  T  D1  D2  D3  D4
+  4   9  17  18  17 
+
+Hour 26
+  T  D1  D2  D3  D4
+  4   9  17  18  17 
+
+Hour 27
+  T  D1  D2  D3  D4
+ 14   8  17   7  17 
+
+Hour 28
+  T  D1  D2  D3  D4
+ 12   1  17   7  17 
+
+Hour 29
+  T  D1  D2  D3  D4
+  5   8  17  17  17 
+
+Hour 30
+  T  D1  D2  D3  D4
+ 12   8  17   3  17 
+
+Hour 31
+  T  D1  D2  D3  D4
+ 12  19  17   3  17 
+
+Hour 32
+  T  D1  D2  D3  D4
+  4   8  17  17  17 
+
+Hour 33
+  T  D1  D2  D3  D4
+ 15   1  17   7  17 
+
+Hour 34
+  T  D1  D2  D3  D4
+  4   1  17   7  17 
+
+Hour 35
+  T  D1  D2  D3  D4
+ 15  11  17   0  17 
+
+Hour 36
+  T  D1  D2  D3  D4
+  4   1  17   9  17 
+
+Hour 37
+  T  D1  D2  D3  D4
+ 14  11  17   9  17 
+
+Hour 38
+  T  D1  D2  D3  D4
+ 14   1  17   0  17 
+
+Hour 39
+  T  D1  D2  D3  D4
+ 12   1  17   9  17 
+
+Hour 40
+  T  D1  D2  D3  D4
+ 14  11  17   9  17 
+
+Hour 41
+  T  D1  D2  D3  D4
+  4   8  17   0  17 
+
+Hour 42
+  T  D1  D2  D3  D4
+ 14   9  17   7  17 
+
+Hour 43
+  T  D1  D2  D3  D4
+ 12   9  17   7  17 
+
+Hour 44
+  T  D1  D2  D3  D4
+ 12   8  17  17  17 
+
+Hour 45
+  T  D1  D2  D3  D4
+  4  19  17   3  17 
+
+Hour 46
+  T  D1  D2  D3  D4
+ 15  19  17   3  17 
+
+Hour 47
+  T  D1  D2  D3  D4
+  4   8  17  18  17 
+
+Hour 48
+  T  D1  D2  D3  D4
+ 12  11  17   3  17 
+
+Hour 49
+  T  D1  D2  D3  D4
+ 14   1  17  18  17 
+
+Hour 50
+  T  D1  D2  D3  D4
+ 14   1  17  18  17 
+
+Hour 51
+  T  D1  D2  D3  D4
+  4  11  17   3  17 
+
+Hour 52
+  T  D1  D2  D3  D4
+ 12   1  17  17  17 
+
+Hour 53
+  T  D1  D2  D3  D4
+ 14   8  17  17  17 
+
+Hour 54
+  T  D1  D2  D3  D4
+  4   1  17   2  17 
+
+Hour 55
+  T  D1  D2  D3  D4
+ 15   1  17   2  17 
+
+Hour 56
+  T  D1  D2  D3  D4
+  4  11  17  17  17 
+
+Hour 57
+  T  D1  D2  D3  D4
+  4   1  17  17  17 
+
+Hour 58
+  T  D1  D2  D3  D4
+ 12   8  17   2  17 
+
+Hour 59
+  T  D1  D2  D3  D4
+  4   1  17   2  17 
+
+Hour 60
+  T  D1  D2  D3  D4
+ 14   1  17  17  17 
+
+Hour 61
+  T  D1  D2  D3  D4
+  4   8  17  17  17 
+
+Hour 62
+  T  D1  D2  D3  D4
+ 12  19  17   2  17 
+
+Hour 63
+  T  D1  D2  D3  D4
+ 12   8  17   2  17 
+
+Hour 64
+  T  D1  D2  D3  D4
+  5   8  17  17  17 
+
+Hour 65
+  T  D1  D2  D3  D4
+ 12  11  17  17  17 
+
+Hour 66
+  T  D1  D2  D3  D4
+ 14   8  17   2  17 
+
+Hour 67
+  T  D1  D2  D3  D4
+ 12   1  17   2  17 
+
+Hour 68
+  T  D1  D2  D3  D4
+ 12   1  17  17  17 
+
+Hour 69
+  T  D1  D2  D3  D4
+  4   8  17  17  17 
+
+Hour 70
+  T  D1  D2  D3  D4
+ 12   1  17   7  17 
+
+Hour 71
+  T  D1  D2  D3  D4
+  5   8  17   0  17 
+
+Hour 72
+  T  D1  D2  D3  D4
+ 12   1  17   0  17 
+
+Hour 73
+  T  D1  D2  D3  D4
+ 12   1  17   9  17 
+
+Hour 74
+  T  D1  D2  D3  D4
+  4  11  17   0  17 
+
+Hour 75
+  T  D1  D2  D3  D4
+ 12   8  17   0  17 
+
+Hour 76
+  T  D1  D2  D3  D4
+  5   9  17   9  17 
+
+Hour 77
+  T  D1  D2  D3  D4
+ 16   9  17   0  17 
+
+Hour 78
+  T  D1  D2  D3  D4
+  5   8  17   0  17 
+
+Hour 79
+  T  D1  D2  D3  D4
+  5  19  17   9  17 
+
+Hour 80
+  T  D1  D2  D3  D4
+ 16  19  17   0  17 
+
+Hour 81
+  T  D1  D2  D3  D4
+ 13   8  17   0  17 
+
+Hour 82
+  T  D1  D2  D3  D4
+ 16  19  17   7  17 
+
+Hour 83
+  T  D1  D2  D3  D4
+  5  19  17   0  17 
+
+Hour 84
+  T  D1  D2  D3  D4
+ 16   8  17   0  17 
+
+Hour 85
+  T  D1  D2  D3  D4
+  5   9  17   9  17 
+
+Hour 86
+  T  D1  D2  D3  D4
+  5   0  17   0  17 
+
+Hour 87
+  T  D1  D2  D3  D4
+ 16   0  17   0  17 
+
+Hour 88
+  T  D1  D2  D3  D4
+ 13   7  17   7  17 
+
+Hour 89
+  T  D1  D2  D3  D4
+ 16   0  17  17  17 
+
+Hour 90
+  T  D1  D2  D3  D4
+  5   9  17  17  17 
+
+Hour 91
+  T  D1  D2  D3  D4
+ 16   0  17   2  17 
+
+Hour 92
+  T  D1  D2  D3  D4
+  5   0  17   2  17 
+
+Hour 93
+  T  D1  D2  D3  D4
+  5   7  17  17  17 
+
+Hour 94
+  T  D1  D2  D3  D4
+ 12  18  17  17  17 
+
+Hour 95
+  T  D1  D2  D3  D4
+  5   3  17   3  17 
+
+Hour 96
+  T  D1  D2  D3  D4
+ 12   3  17  18  17 
+
+Hour 97
+  T  D1  D2  D3  D4
+ 14  18  17  18  17 
+
+Hour 98
+  T  D1  D2  D3  D4
+ 14   7  17   3  17 
+
+Hour 99
+  T  D1  D2  D3  D4
+  4  17  17  18  17 
+
+Hour 100
+  T  D1  D2  D3  D4
+ 14  17  17   3  17 
+
+GAME OVER: YOU LOSE - TIME IS UP
+
+POLICE ACADEMY 1927
+
+Red alert! A thief is on the run.
+Agents, to your cars. You have 1000 hours.
+
+Hour 0
+  T  D1  D2  D3  D4
+  4   1   1   1   2 
+
+Enter command: Hour 1
+  T  D1  D2  D3  D4
+ 17   8   8  11   7 
+
+Hour 2
+  T  D1  D2  D3  D4
+  7  19   9   8   0 
+
+Hour 3
+  T  D1  D2  D3  D4
+ 17   8   0   8   9 
+
+Hour 4
+  T  D1  D2  D3  D4
+ 17   8   7  19   9 
+
+Hour 5
+  T  D1  D2  D3  D4
+  4   1   7  19   8 
+
+Hour 6
+  T  D1  D2  D3  D4
+ 12  11   2   8   1 
+
+Hour 7
+  T  D1  D2  D3  D4
+ 12   1   2   1  11 
+
+Hour 8
+  T  D1  D2  D3  D4
+  5   8  17   1   1 
+
+Hour 9
+  T  D1  D2  D3  D4
+ 16   8   3  11   8 
+
+Hour 10
+  T  D1  D2  D3  D4
+ 13  11   3   1   8 
+
+Hour 11
+  T  D1  D2  D3  D4
+ 16   1  10   1  19 
+
+Hour 12
+  T  D1  D2  D3  D4
+  5   8   3  11   8 
+
+Hour 13
+  T  D1  D2  D3  D4
+  5   8   3   8   9 
+
+Hour 14
+  T  D1  D2  D3  D4
+ 16   1  18   8   9 
+
+Hour 15
+  T  D1  D2  D3  D4
+  5  11   3   9   0 
+
+Hour 16
+  T  D1  D2  D3  D4
+ 12   1  17   9   7 
+
+Hour 17
+  T  D1  D2  D3  D4
+ 14  11  17   0  17 
+
+Hour 18
+  T  D1  D2  D3  D4
+ 12  11  17   7   3 
+
+Hour 19
+  T  D1  D2  D3  D4
+ 12   8  17   7   3 
+
+Hour 20
+  T  D1  D2  D3  D4
+ 14  11  17  17  10 
+
+Hour 21
+  T  D1  D2  D3  D4
+  4   1  17   3   3 
+
+Hour 22
+  T  D1  D2  D3  D4
+ 15   1  17   3   3 
+
+Hour 23
+  T  D1  D2  D3  D4
+  4  11  17  18  18 
+
+Hour 24
+  T  D1  D2  D3  D4
+ 14   8  17   3   3 
+
+Hour 25
+  T  D1  D2  D3  D4
+  4   9  17  18  17 
+
+Hour 26
+  T  D1  D2  D3  D4
+  4   9  17  18  17 
+
+Hour 27
+  T  D1  D2  D3  D4
+ 14   8  17   7  17 
+
+Hour 28
+  T  D1  D2  D3  D4
+ 12   1  17   7  17 
+
+Hour 29
+  T  D1  D2  D3  D4
+  5   8  17  17  17 
+
+Hour 30
+  T  D1  D2  D3  D4
+ 12   8  17   3  17 
+
+Hour 31
+  T  D1  D2  D3  D4
+ 12  19  17   3  17 
+
+Hour 32
+  T  D1  D2  D3  D4
+  4   8  17  17  17 
+
+Hour 33
+  T  D1  D2  D3  D4
+ 15   1  17   7  17 
+
+Hour 34
+  T  D1  D2  D3  D4
+  4   1  17   7  17 
+
+Hour 35
+  T  D1  D2  D3  D4
+ 15  11  17   0  17 
+
+Hour 36
+  T  D1  D2  D3  D4
+  4   1  17   9  17 
+
+Hour 37
+  T  D1  D2  D3  D4
+ 14  11  17   9  17 
+
+Hour 38
+  T  D1  D2  D3  D4
+ 14   1  17   0  17 
+
+Hour 39
+  T  D1  D2  D3  D4
+ 12   1  17   9  17 
+
+Hour 40
+  T  D1  D2  D3  D4
+ 14  11  17   9  17 
+
+Hour 41
+  T  D1  D2  D3  D4
+  4   8  17   0  17 
+
+Hour 42
+  T  D1  D2  D3  D4
+ 14   9  17   7  17 
+
+Hour 43
+  T  D1  D2  D3  D4
+ 12   9  17   7  17 
+
+Hour 44
+  T  D1  D2  D3  D4
+ 12   8  17  17  17 
+
+Hour 45
+  T  D1  D2  D3  D4
+  4  19  17   3  17 
+
+Hour 46
+  T  D1  D2  D3  D4
+ 15  19  17   3  17 
+
+Hour 47
+  T  D1  D2  D3  D4
+  4   8  17  18  17 
+
+Hour 48
+  T  D1  D2  D3  D4
+ 12  11  17   3  17 
+
+Hour 49
+  T  D1  D2  D3  D4
+ 14   1  17  18  17 
+
+Hour 50
+  T  D1  D2  D3  D4
+ 14   1  17  18  17 
+
+Hour 51
+  T  D1  D2  D3  D4
+  4  11  17   3  17 
+
+Hour 52
+  T  D1  D2  D3  D4
+ 12   1  17  17  17 
+
+Hour 53
+  T  D1  D2  D3  D4
+ 14   8  17  17  17 
+
+Hour 54
+  T  D1  D2  D3  D4
+  4   1  17   2  17 
+
+Hour 55
+  T  D1  D2  D3  D4
+ 15   1  17   2  17 
+
+Hour 56
+  T  D1  D2  D3  D4
+  4  11  17  17  17 
+
+Hour 57
+  T  D1  D2  D3  D4
+  4   1  17  17  17 
+
+Hour 58
+  T  D1  D2  D3  D4
+ 12   8  17   2  17 
+
+Hour 59
+  T  D1  D2  D3  D4
+  4   1  17   2  17 
+
+Hour 60
+  T  D1  D2  D3  D4
+ 14   1  17  17  17 
+
+Hour 61
+  T  D1  D2  D3  D4
+  4   8  17  17  17 
+
+Hour 62
+  T  D1  D2  D3  D4
+ 12  19  17   2  17 
+
+Hour 63
+  T  D1  D2  D3  D4
+ 12   8  17   2  17 
+
+Hour 64
+  T  D1  D2  D3  D4
+  5   8  17  17  17 
+
+Hour 65
+  T  D1  D2  D3  D4
+ 12  11  17  17  17 
+
+Hour 66
+  T  D1  D2  D3  D4
+ 14   8  17   2  17 
+
+Hour 67
+  T  D1  D2  D3  D4
+ 12   1  17   2  17 
+
+Hour 68
+  T  D1  D2  D3  D4
+ 12   1  17  17  17 
+
+Hour 69
+  T  D1  D2  D3  D4
+  4   8  17  17  17 
+
+Hour 70
+  T  D1  D2  D3  D4
+ 12   1  17   7  17 
+
+Hour 71
+  T  D1  D2  D3  D4
+  5   8  17   0  17 
+
+Hour 72
+  T  D1  D2  D3  D4
+ 12   1  17   0  17 
+
+Hour 73
+  T  D1  D2  D3  D4
+ 12   1  17   9  17 
+
+Hour 74
+  T  D1  D2  D3  D4
+  4  11  17   0  17 
+
+Hour 75
+  T  D1  D2  D3  D4
+ 12   8  17   0  17 
+
+Hour 76
+  T  D1  D2  D3  D4
+  5   9  17   9  17 
+
+Hour 77
+  T  D1  D2  D3  D4
+ 16   9  17   0  17 
+
+Hour 78
+  T  D1  D2  D3  D4
+  5   8  17   0  17 
+
+Hour 79
+  T  D1  D2  D3  D4
+  5  19  17   9  17 
+
+Hour 80
+  T  D1  D2  D3  D4
+ 16  19  17   0  17 
+
+Hour 81
+  T  D1  D2  D3  D4
+ 13   8  17   0  17 
+
+Hour 82
+  T  D1  D2  D3  D4
+ 16  19  17   7  17 
+
+Hour 83
+  T  D1  D2  D3  D4
+  5  19  17   0  17 
+
+Hour 84
+  T  D1  D2  D3  D4
+ 16   8  17   0  17 
+
+Hour 85
+  T  D1  D2  D3  D4
+  5   9  17   9  17 
+
+Hour 86
+  T  D1  D2  D3  D4
+  5   0  17   0  17 
+
+Hour 87
+  T  D1  D2  D3  D4
+ 16   0  17   0  17 
+
+Hour 88
+  T  D1  D2  D3  D4
+ 13   7  17   7  17 
+
+Hour 89
+  T  D1  D2  D3  D4
+ 16   0  17  17  17 
+
+Hour 90
+  T  D1  D2  D3  D4
+  5   9  17  17  17 
+
+Hour 91
+  T  D1  D2  D3  D4
+ 16   0  17   2  17 
+
+Hour 92
+  T  D1  D2  D3  D4
+  5   0  17   2  17 
+
+Hour 93
+  T  D1  D2  D3  D4
+  5   7  17  17  17 
+
+Hour 94
+  T  D1  D2  D3  D4
+ 12  18  17  17  17 
+
+Hour 95
+  T  D1  D2  D3  D4
+  5   3  17   3  17 
+
+Hour 96
+  T  D1  D2  D3  D4
+ 12   3  17  18  17 
+
+Hour 97
+  T  D1  D2  D3  D4
+ 14  18  17  18  17 
+
+Hour 98
+  T  D1  D2  D3  D4
+ 14   7  17   3  17 
+
+Hour 99
+  T  D1  D2  D3  D4
+  4  17  17  18  17 
+
+Hour 100
+  T  D1  D2  D3  D4
+ 14  17  17   3  17 
+
+Hour 101
+  T  D1  D2  D3  D4
+ 12   7  17   3  17 
+
+Hour 102
+  T  D1  D2  D3  D4
+  5  18  17  18  17 
+
+Hour 103
+  T  D1  D2  D3  D4
+ 16   3  17   3  17 
+
+Hour 104
+  T  D1  D2  D3  D4
+ 16   3  17  18  17 
+
+Hour 105
+  T  D1  D2  D3  D4
+ 13  17  17  18  17 
+
+Hour 106
+  T  D1  D2  D3  D4
+ 16   7  17   7  17 
+
+Hour 107
+  T  D1  D2  D3  D4
+  5   0  17   7  17 
+
+Hour 108
+  T  D1  D2  D3  D4
+ 12   9  17  18  17 
+
+Hour 109
+  T  D1  D2  D3  D4
+ 12   9  17  18  17 
+
+Hour 110
+  T  D1  D2  D3  D4
+ 14   8  17   7  17 
+
+Hour 111
+  T  D1  D2  D3  D4
+ 12  19  17   7  17 
+
+Hour 112
+  T  D1  D2  D3  D4
+  5  19  17  18  17 
+
+Hour 113
+  T  D1  D2  D3  D4
+ 16   8  17  18  17 
+
+Hour 114
+  T  D1  D2  D3  D4
+  5  19  17   3  17 
+
+Hour 115
+  T  D1  D2  D3  D4
+ 16  19  17  18  17 
+
+Hour 116
+  T  D1  D2  D3  D4
+ 16   8  17   3  17 
+
+Hour 117
+  T  D1  D2  D3  D4
+ 13  19  17   3  17 
+
+Hour 118
+  T  D1  D2  D3  D4
+ 16  19  17  18  17 
+
+Hour 119
+  T  D1  D2  D3  D4
+ 13   8  17   3  17 
+
+Hour 120
+  T  D1  D2  D3  D4
+ 16   9  17  18  17 
+
+Hour 121
+  T  D1  D2  D3  D4
+ 16   0  17  18  17 
+
+Hour 122
+  T  D1  D2  D3  D4
+  5   0  17   7  17 
+
+Hour 123
+  T  D1  D2  D3  D4
+ 16   7  17   7  17 
+
+Hour 124
+  T  D1  D2  D3  D4
+  5   0  17   0  17 
+
+Hour 125
+  T  D1  D2  D3  D4
+ 16   7  17   9  17 
+
+Hour 126
+  T  D1  D2  D3  D4
+ 13   0  17   9  17 
+
+Hour 127
+  T  D1  D2  D3  D4
+ 16   0  17   8  17 
+
+Hour 128
+  T  D1  D2  D3  D4
+ 16   9  17   8  17 
+
+Hour 129
+  T  D1  D2  D3  D4
+  6   8  17  19  17 
+
+Hour 130
+  T  D1  D2  D3  D4
+  6  19  17  19  17 
+
+Hour 131
+  T  D1  D2  D3  D4
+ 16  19  17   8  17 
+
+Hour 132
+  T  D1  D2  D3  D4
+  5   8  17   1  17 
+
+Hour 133
+  T  D1  D2  D3  D4
+  5  11  17   1  17 
+
+Hour 134
+  T  D1  D2  D3  D4
+ 12   1  17  11  17 
+
+Hour 135
+  T  D1  D2  D3  D4
+  4   1  17   1  17 
+
+Hour 136
+  T  D1  D2  D3  D4
+ 12  11  17   1  17 
+
+Hour 137
+  T  D1  D2  D3  D4
+  4   1  17  11  17 
+
+Hour 138
+  T  D1  D2  D3  D4
+  4  11  17   8  17 
+
+Hour 139
+  T  D1  D2  D3  D4
+ 15   1  17   8  17 
+
+Hour 140
+  T  D1  D2  D3  D4
+  4   1  17  19  17 
+
+Hour 141
+  T  D1  D2  D3  D4
+ 17   8  17  19  17 
+
+D2 caught the thief in Redania (17)
+YOU WIN - THIEF CAUGHT!

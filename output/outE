@@ -1,0 +1,44 @@
+weill % ~cs1927/bin/assn2Model citiesMedium.data agentsS0.data 100 2342342
+
+POLICE ACADEMY 1927
+
+Red alert! A thief is on the run.
+Agents, to your cars. You have 100 hours.
+
+Hour 0
+  T  D1  D2  D3  D4
+  3   1   1   1   1 
+
+Enter command: run
+Hour 1
+  T  D1  D2  D3  D4
+  4   2   0   0   2 
+
+Hour 2
+  T  D1  D2  D3  D4
+  3   1   1   0   1 
+
+Hour 3
+  T  D1  D2  D3  D4
+  5   5   2   8   2 
+
+D1 caught the thief in hobart (5)
+YOU WIN - THIEF CAUGHT!
+weill % vim agentsS
+agentsS0.data  agentsS1.data  agentsS2.data  agentsS3.data  
+weill % vim agentsS0.data 
+weill % ~cs1927/bin/assn2Model citiesMedium.data agentsS0.data 100 2342342
+
+POLICE ACADEMY 1927
+
+Red alert! A thief is on the run.
+Agents, to your cars. You have 100 hours.
+
+Hour 0
+  T  D1  D2  D3  D4
+  3   1   1   1   1 
+
+T got away to perth (3)
+GAME OVER: YOU LOSE - THIEF GOT TO GETAWAY
+
+

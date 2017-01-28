@@ -1,0 +1,373 @@
+ ~cs1927/bin/assn2Model citiesLarge.data agentsB.data 100 5242342
+
+POLICE ACADEMY 1927
+
+Red alert! A thief is on the run.
+Agents, to your cars. You have 100 hours.
+
+Hour 0
+  T  D1  D2  D3  D4
+  4   1   1   1   2 
+
+Enter command: step
+*** No such path from 15 to 11 - return to normal strategy - we are not testing this
+Hour 1
+  T  D1  D2  D3  D4
+ 15   8   8  11*  7 
+
+Enter command: map
+V=20, E=23
+0-7 : 17 0-9 : 19 
+1-8 : 18 1-11 : 17 
+2-7 : 63 2-17 : 41 
+3-10 : 47 3-17 : 18 3-18 : 15 
+4-12 : 31 4-14 : 25 4-15 : 20 4-17 : 110 
+5-12 : 40 5-16 : 18 
+6-16 : 130 
+7-0 : 17 7-2 : 63 7-17 : 16 7-18 : 32 
+8-1 : 18 8-9 : 30 8-11 : 26 8-19 : 26 
+9-0 : 19 9-8 : 30 
+10-3 : 47 
+11-1 : 17 11-8 : 26 
+12-4 : 31 12-5 : 40 12-14 : 27 
+13-16 : 35 
+14-4 : 25 14-12 : 27 
+15-4 : 20 
+16-5 : 18 16-6 : 130 16-13 : 35 
+17-2 : 41 17-3 : 18 17-4 : 110 17-7 : 16 
+18-3 : 15 18-7 : 32 
+19-8 : 26 
+
+Enter command: stats
+Hour 1
+T 130 Pallettown (15) Camelot (2)
+D1 57 Inniston (8)
+D2 82 Inniston (8)
+D3 28 Lannisport (11*)
+D4 37 Haven (7)
+
+Enter command: display
+Hour 1
+  T  D1  D2  D3  D4
+ 15   8   8  11*  7 
+
+Enter command: step
+Hour 2
+  T  D1  D2  D3  D4
+  4   1   9   8   0 
+
+Enter command: stats 
+Hour 2
+T 110 Endor (4) Camelot (2)
+D1 39 Baldursgate (1)
+D2 52 Jaynistown (9)
+D3 2 Inniston (8)
+D4 20 Atlantis (0)
+
+Enter command: Hour 2
+T 110 Endor (4) Camelot (2)
+D1 39 Baldursgate (1)
+D2 52 Jaynistown (9)
+D3 2 Inniston (8)
+D4 20 Atlantis (0)
+
+Enter command: run
+*** No such path from 15 to 11 - return to normal strategy - we are not testing this
+Hour 3
+  T  D1  D2  D3  D4
+ 15  11*  0   8   9 
+
+Hour 4
+  T  D1  D2  D3  D4
+  4   1   7  19   9 
+
+Hour 5
+  T  D1  D2  D3  D4
+ 14   1   7  19   8 
+
+Hour 6
+  T  D1  D2  D3  D4
+  4   8   2   8   1 
+
+*** No such path from 15 to 11 - return to normal strategy - we are not testing this
+Hour 7
+  T  D1  D2  D3  D4
+ 15   1   2   1  11*
+
+*** No such path from 15 to 11 - return to normal strategy - we are not testing this
+Hour 8
+  T  D1  D2  D3  D4
+ 15  11* 17   1   1 
+
+*** No such path from 4 to 11 - return to normal strategy - we are not testing this
+Hour 9
+  T  D1  D2  D3  D4
+  4   1   3  11*  8 
+
+Hour 10
+  T  D1  D2  D3  D4
+ 15   1   3   1   8 
+
+Hour 11
+  T  D1  D2  D3  D4
+  4   8  10   1   9 
+
+*** No such path from 12 to 11 - return to normal strategy - we are not testing this
+*** No such path from 12 to 11 - return to normal strategy - we are not testing this
+Hour 12
+  T  D1  D2  D3  D4
+ 12  11*  3  11*  0 
+
+Hour 13
+  T  D1  D2  D3  D4
+  4   8   3   8   7 
+
+Hour 14
+  T  D1  D2  D3  D4
+ 14   8  18   8   7 
+
+Hour 15
+  T  D1  D2  D3  D4
+ 14   9   3   9   2 
+
+Hour 16
+  T  D1  D2  D3  D4
+  4   8  17   9   2 
+
+Hour 17
+  T  D1  D2  D3  D4
+ 15   8  17   0  17 
+
+Hour 18
+  T  D1  D2  D3  D4
+  4   1  17   7   3 
+
+Hour 19
+  T  D1  D2  D3  D4
+ 12   8  17   7   3 
+
+*** No such path from 5 to 11 - return to normal strategy - we are not testing this
+Hour 20
+  T  D1  D2  D3  D4
+  5  11* 17  17  10 
+
+*** No such path from 5 to 11 - return to normal strategy - we are not testing this
+Hour 21
+  T  D1  D2  D3  D4
+  5  11* 17   3   3 
+
+Hour 22
+  T  D1  D2  D3  D4
+ 16   8  17   3   3 
+
+Hour 23
+  T  D1  D2  D3  D4
+  6   1  17  18  18 
+
+Hour 24
+  T  D1  D2  D3  D4
+  6   8  17   3   3 
+
+Hour 25
+  T  D1  D2  D3  D4
+ 16   8  17  18  17 
+
+Hour 26
+  T  D1  D2  D3  D4
+  5  19  17  18  17 
+
+Hour 27
+  T  D1  D2  D3  D4
+  5   8  17   7  17 
+
+Hour 28
+  T  D1  D2  D3  D4
+ 16   1  17   7  17 
+
+Hour 29
+  T  D1  D2  D3  D4
+  5   1  17  17  17 
+
+Hour 30
+  T  D1  D2  D3  D4
+ 16   8  17   3  17 
+
+Hour 31
+  T  D1  D2  D3  D4
+ 13  19  17   3  17 
+
+Hour 32
+  T  D1  D2  D3  D4
+ 16   8  17  17  17 
+
+Hour 33
+  T  D1  D2  D3  D4
+  5   8  17   7  17 
+
+Hour 34
+  T  D1  D2  D3  D4
+  5   9  17   7  17 
+
+Hour 35
+  T  D1  D2  D3  D4
+ 12   8  17   0  17 
+
+Hour 36
+  T  D1  D2  D3  D4
+  5   8  17   9  17 
+
+Hour 37
+  T  D1  D2  D3  D4
+ 16  19  17   9  17 
+
+Hour 38
+  T  D1  D2  D3  D4
+ 13   8  17   0  17 
+
+Hour 39
+  T  D1  D2  D3  D4
+ 13   1  17   9  17 
+
+Hour 40
+  T  D1  D2  D3  D4
+ 16   1  17   9  17 
+
+*** No such path from 5 to 11 - return to normal strategy - we are not testing this
+Hour 41
+  T  D1  D2  D3  D4
+  5  11* 17   0  17 
+
+Hour 42
+  T  D1  D2  D3  D4
+ 16   8  17   7  17 
+
+Hour 43
+  T  D1  D2  D3  D4
+ 13   9  17   7  17 
+
+Hour 44
+  T  D1  D2  D3  D4
+ 16   9  17  17  17 
+
+Hour 45
+  T  D1  D2  D3  D4
+ 16   0  17   3  17 
+
+Hour 46
+  T  D1  D2  D3  D4
+  5   7  17   3  17 
+
+Hour 47
+  T  D1  D2  D3  D4
+ 12  18  17  18  17 
+
+Hour 48
+  T  D1  D2  D3  D4
+ 14  18  17   3  17 
+
+Hour 49
+  T  D1  D2  D3  D4
+ 12   3  17  18  17 
+
+Hour 50
+  T  D1  D2  D3  D4
+ 14  18  17  18  17 
+
+Hour 51
+  T  D1  D2  D3  D4
+ 14   7  17   3  17 
+
+Hour 52
+  T  D1  D2  D3  D4
+  4   7  17  17  17 
+
+Hour 53
+  T  D1  D2  D3  D4
+ 12   2  17  17  17 
+
+Hour 54
+  T  D1  D2  D3  D4
+ 14   2  17   2  17 
+
+Hour 55
+  T  D1  D2  D3  D4
+  4   7  17   2  17 
+
+Hour 56
+  T  D1  D2  D3  D4
+ 15   7  17  17  17 
+
+Hour 57
+  T  D1  D2  D3  D4
+  4   2  17  17  17 
+
+Hour 58
+  T  D1  D2  D3  D4
+  4   2  17   2  17 
+
+Hour 59
+  T  D1  D2  D3  D4
+ 15  17  17   2  17 
+
+Hour 60
+  T  D1  D2  D3  D4
+  4   3  17  17  17 
+
+Hour 61
+  T  D1  D2  D3  D4
+ 14  18  17  17  17 
+
+Hour 62
+  T  D1  D2  D3  D4
+ 12  18  17   2  17 
+
+Hour 63
+  T  D1  D2  D3  D4
+ 14   3  17   2  17 
+
+Hour 64
+  T  D1  D2  D3  D4
+  4  10  17  17  17 
+
+Hour 65
+  T  D1  D2  D3  D4
+  4  10  17  17  17 
+
+Hour 66
+  T  D1  D2  D3  D4
+ 12   3  17   2  17 
+
+Hour 67
+  T  D1  D2  D3  D4
+ 14  17  17   2  17 
+
+Hour 68
+  T  D1  D2  D3  D4
+  4  17  17  17  17 
+
+Hour 69
+  T  D1  D2  D3  D4
+ 15   2  17  17  17 
+
+Hour 70
+  T  D1  D2  D3  D4
+  4   2  17   7  17 
+
+Hour 71
+  T  D1  D2  D3  D4
+ 15  17  17   0  17 
+
+Hour 72
+  T  D1  D2  D3  D4
+ 15   3  17   0  17 
+
+Hour 73
+  T  D1  D2  D3  D4
+  4  18  17   9  17 
+
+Hour 74
+  T  D1  D2  D3  D4
+ 17  18  17   0  17 
+
+D2 caught the thief in Redania (17)
+YOU WIN - THIEF CAUGHT!

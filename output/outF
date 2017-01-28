@@ -1,0 +1,99 @@
+wagner % ~cs1927/bin/assn2Model citiesSmall.data agentsS0.data 100 5242342
+
+POLICE ACADEMY 1927
+
+Red alert! A thief is on the run.
+Agents, to your cars. You have 100 hours.
+
+Hour 0
+  T  D1  D2  D3  D4
+  3   1   1   1   1 
+
+Enter command: run
+Hour 1
+  T  D1  D2  D3  D4
+  2   0   0   0   0 
+
+Hour 2
+  T  D1  D2  D3  D4
+  3   2   2   0   1 
+
+Hour 3
+  T  D1  D2  D3  D4
+  2   0   3   1   0 
+
+Hour 4
+  T  D1  D2  D3  D4
+  3   1   2   1   1 
+
+Hour 5
+  T  D1  D2  D3  D4
+  2   0   0   0   0 
+
+Hour 6
+  T  D1  D2  D3  D4
+  3   2   1   0   1 
+
+Hour 7
+  T  D1  D2  D3  D4
+  2   0   0   1   0 
+
+Hour 8
+  T  D1  D2  D3  D4
+  3   1   2   1   1 
+
+Hour 9
+  T  D1  D2  D3  D4
+  2   0   0   0   0 
+
+Hour 10
+  T  D1  D2  D3  D4
+  3   1   2   0   1 
+
+Hour 11
+  T  D1  D2  D3  D4
+  2   0   3   1   0 
+
+Hour 12
+  T  D1  D2  D3  D4
+  3   1   2   1   1 
+
+Hour 13
+  T  D1  D2  D3  D4
+  2   0   3   0   1 
+
+Hour 14
+  T  D1  D2  D3  D4
+  3   2   2   0   0 
+
+Hour 15
+  T  D1  D2  D3  D4
+  2   0   3   1   1 
+
+Hour 16
+  T  D1  D2  D3  D4
+  3   2   2   1   0 
+
+Hour 17
+  T  D1  D2  D3  D4
+  2   0   3   0   1 
+
+Hour 18
+  T  D1  D2  D3  D4
+  3   1   2   0   0 
+
+Hour 19
+  T  D1  D2  D3  D4
+  2   0   3   1   1 
+
+Hour 20
+  T  D1  D2  D3  D4
+  3   1   2   1   0 
+
+Hour 21
+  T  D1  D2  D3  D4
+  2   0   2   0   1 
+
+D2 caught the thief in darwin (2)
+YOU WIN - THIEF CAUGHT!
+
