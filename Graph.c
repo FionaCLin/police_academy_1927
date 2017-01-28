@@ -15,8 +15,12 @@
 struct graphRep {
    int nv;
    int ne;
+   char *informants;
+   char ** names;
    int ** edges;
 };
+
+Graph map = NULL;
 
 static int validE(Graph g, Edge e) {
    return (e.v >= 0 && e.v < g -> nv && e.w >= 0 && e.w < g -> nv) &&
@@ -25,6 +29,17 @@ static int validE(Graph g, Edge e) {
 static int validV(Graph g, Vertex v) {
    return (v >= 0 && v < g -> nv);
 }
+
+char * isInformant(int city) {
+   if (map == NULL) return 0;
+   return (map -> informants[city] == 'i')? "*" : "";
+}
+
+char * getCityName(int city) {
+   if (map == NULL) return NULL;
+   return map -> names[city];
+}
+
 // Create an edge from v to w
 Edge mkEdge(Vertex v, Vertex w, int weight) {
    Edge e = {-1, -1, -1};
@@ -62,12 +77,23 @@ Graph newGraph(int nV) {
       for(j = 0; j < i + 1; j++)
          g -> edges[i][j] = NO_EDGE;
    }
+   g -> informants = malloc(sizeof(char) * nV);
+   g -> names = malloc(sizeof(char *) * nV);
    g -> nv = nV;
    g -> ne = 0;
+   map = g;
    return g;
 
 }
 
+void readCityInfo(int index, char info,char * name) {
+   if (map == NULL) {
+      printf("Map is undefined yet\n");
+      return;
+   }
+   map -> informants[index] = info;
+   map -> names[index] = strdup(name);
+}
 //Insert an edge into a graph
 //the edge must not be inserted if
 //     the vertices are not valid

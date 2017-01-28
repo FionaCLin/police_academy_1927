@@ -1,0 +1,211 @@
+
+POLICE ACADEMY 1927
+
+Red alert! A thief is on the run.
+Agents, to your cars. You have 50 hours.
+
+Hour 0
+  T  D1  D2  D3  D4
+ 16   2   3   1  12 
+
+Enter command: Hour 1
+  T  D1  D2  D3  D4
+ 13   7  18   8   4 
+
+Hour 2
+  T  D1  D2  D3  D4
+ 16  17   7   9  14 
+
+Hour 3
+  T  D1  D2  D3  D4
+ 13   7  17   9   4 
+
+Hour 4
+  T  D1  D2  D3  D4
+ 13   7  17   0  15 
+
+Hour 5
+  T  D1  D2  D3  D4
+ 16   0   2   7   4 
+
+Hour 6
+  T  D1  D2  D3  D4
+ 13   9   2   7   4 
+
+Hour 7
+  T  D1  D2  D3  D4
+ 16   8   7   7  17 
+
+Hour 8
+  T  D1  D2  D3  D4
+ 16  11   7   7  17 
+
+Hour 9
+  T  D1  D2  D3  D4
+ 13  11   0   7   2 
+
+Hour 10
+  T  D1  D2  D3  D4
+ 16   1   9   7   7 
+
+Hour 11
+  T  D1  D2  D3  D4
+  5   8   8   7   0 
+
+Hour 12
+  T  D1  D2  D3  D4
+ 16   1   8   7   9 
+
+Hour 13
+  T  D1  D2  D3  D4
+ 16  11   1   7   9 
+
+Hour 14
+  T  D1  D2  D3  D4
+  5   8  11   7   8 
+
+Hour 15
+  T  D1  D2  D3  D4
+ 16   8   1   7   1 
+
+Hour 16
+  T  D1  D2  D3  D4
+  5  11  11   7  11 
+
+Hour 17
+  T  D1  D2  D3  D4
+ 12   8  11   7   1 
+
+Hour 18
+  T  D1  D2  D3  D4
+ 12  19   1   7   8 
+
+Hour 19
+  T  D1  D2  D3  D4
+  5  19   8   7  19 
+
+Hour 20
+  T  D1  D2  D3  D4
+ 16   8  19   7  19 
+
+Hour 21
+  T  D1  D2  D3  D4
+  5  11  19   7   8 
+
+Hour 22
+  T  D1  D2  D3  D4
+ 16   8   8   7   9 
+
+Hour 23
+  T  D1  D2  D3  D4
+  5   1   9   7   0 
+
+Hour 24
+  T  D1  D2  D3  D4
+  5   1   0   7   7 
+
+Hour 25
+  T  D1  D2  D3  D4
+ 16   8   0   7  18 
+
+Hour 26
+  T  D1  D2  D3  D4
+ 13   9   9   7   3 
+
+Hour 27
+  T  D1  D2  D3  D4
+ 16   8   0   7   3 
+
+Hour 28
+  T  D1  D2  D3  D4
+  5   1   7   7  10 
+
+Hour 29
+  T  D1  D2  D3  D4
+  5   1  17   7   3 
+
+Hour 30
+  T  D1  D2  D3  D4
+ 12   8  17   7  18 
+
+Hour 31
+  T  D1  D2  D3  D4
+ 14  11   3   7   7 
+
+Hour 32
+  T  D1  D2  D3  D4
+ 12   1  10   7   7 
+
+Hour 33
+  T  D1  D2  D3  D4
+ 12  11  10   7   2 
+
+Hour 34
+  T  D1  D2  D3  D4
+ 14   1   3   7  17 
+
+Hour 35
+  T  D1  D2  D3  D4
+ 12   1  18   7  17 
+
+Hour 36
+  T  D1  D2  D3  D4
+ 14   8  18   7   4 
+
+Hour 37
+  T  D1  D2  D3  D4
+  4   9   3   7  12 
+
+Hour 38
+  T  D1  D2  D3  D4
+  4   8  10   7  12 
+
+Hour 39
+  T  D1  D2  D3  D4
+ 14   1  10   7   5 
+
+Hour 40
+  T  D1  D2  D3  D4
+ 12   1   3   7  16 
+
+Hour 41
+  T  D1  D2  D3  D4
+ 14  11  18   7  16 
+
+Hour 42
+  T  D1  D2  D3  D4
+  4   8  18   7   6 
+
+Hour 43
+  T  D1  D2  D3  D4
+  4   9   7   7   6 
+
+Hour 44
+  T  D1  D2  D3  D4
+ 14   0  17   7  16 
+
+Hour 45
+  T  D1  D2  D3  D4
+ 12   0   7   7  16 
+
+Hour 46
+  T  D1  D2  D3  D4
+  4   9   7   7  13 
+
+Hour 47
+  T  D1  D2  D3  D4
+ 15   8   2   7  16 
+
+Hour 48
+  T  D1  D2  D3  D4
+ 15  11   2   7   5 
+
+Hour 49
+  T  D1  D2  D3  D4
+  4   1  17   7  12 
+
+Hour 50
+  T  D1  D2  D3  D4
+ 15   1   3   7  12 
+
+GAME OVER: YOU LOSE - TIME IS UP
