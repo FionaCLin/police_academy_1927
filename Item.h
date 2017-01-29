@@ -5,9 +5,9 @@
 
 #include "Graph.h"
 
-typedef Edge Item;
+typedef int Item;
 
 #define ItemCopy(i)     (i)
-#define ItemShow(i)     printf("%d %d",((i).v),((i).w))
+#define ItemShow(i)     printf("%d ",i)
 #endif
 

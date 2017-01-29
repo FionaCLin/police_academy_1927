@@ -1,5 +1,6 @@
 // An graph ADT interface for weighted undirected graphs
-
+#ifndef GRAPH_H
+#define GRAPH_H
 #define NO_EDGE -1
 // vertices denoted by integers 0..N-1
 typedef int Vertex;
@@ -62,3 +63,10 @@ void show(Graph g);
 //DO NOT SUBMIT UNIT TESTS FOR THESE FUNCTIONS - OF COURSE
 //YOU SHOULD TEST THEM ANYWAY BUT COMMENT OUT OR REMOVE TESTS FOR
 //SUBMISSION OTHERWISE
+
+// dfSearch using Stack
+//The initialisation of variables etc before we call the dfs function
+void dfSearch(Graph g, Vertex src, int * order, int * visited) ;
+Edge getEdge(Graph g, Vertex v, Vertex w);
+
+#endif
