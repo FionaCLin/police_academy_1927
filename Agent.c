@@ -127,13 +127,18 @@ Edge getNextMove(Agent agent,Graph g){
     } else if (agent->strategy == DFS) {
         int curGPS = agent -> currentLocation;
         int order = agent -> visit[curGPS];
-        printf("%s:\n",agent -> name);
+        //printf("%s:\n",agent -> name);
         if (order == 10) {
             agent -> visit[curGPS] = 0;
             dfSearch(g, curGPS, agent -> travel, agent -> visit);
         }
-        order = agent -> visit[curGPS] - 1;
-        int next = agent -> travel[order + 1];
+        order = agent -> visit[curGPS];
+        int next = agent -> travel[order];
+        if (!isAdjacent(g, curGPS, next)) {
+            agent -> travel[order] = agent -> travel[order - 1];
+            agent -> travel[order - 1] = next;
+            next = agent -> travel[order - 2];
+        }
         nextMove = getEdge(g, curGPS, next);
         if(nextMove.weight <= agent -> stamina)
              agent -> stamina -= nextMove.weight;
@@ -142,6 +147,7 @@ Edge getNextMove(Agent agent,Graph g){
             nextMove = mkEdge(curGPS, curGPS, 0);
             agent -> stamina = agent -> initialStamina; //max stamina
         }
+  //  } else if (agent->strategy == L_T_P)
     } else {
         printf("Agent strategy not implemented yet\n");
         abort();

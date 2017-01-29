@@ -6,6 +6,7 @@
 #define RANDOM 0
 #define C_L_VISITED 1 //Cheapest Least Visisted
 #define DFS 2
+#define L_T_P 2
 
 
 typedef struct agentRep * Agent;

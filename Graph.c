@@ -301,24 +301,18 @@ void dfSearch(Graph g, Vertex src, int * order, int * visited) {
     //make a stack and push the 1st edge
     Stack stk = newStack();
     StackPush(stk, src);
-    while (count < g -> nv) {
-        while (!StackIsEmpty(stk)) {
-            Vertex w = StackPop(stk);
-            if (visited[w]) continue;
-            order[count - 1] = w;
-            visited[w] = count++;
-            for (i = numV(g) - 1; i > w; i--)
-                if (g -> edges[i][w] != NO_EDGE)
-                    StackPush(stk, i);
-            for (i = w; i >= 0; i--)
-                if (g -> edges[w][i] != NO_EDGE)
-                    StackPush(stk, i);
+    while (!StackIsEmpty(stk)) {
+        Vertex w = StackPop(stk);
+        if (visited[w]) continue;
+        order[count - 1] = w;
+        visited[w] = count++;
+        for (i = numV(g) - 1; i > w; i--)
+            if (g -> edges[i][w] != NO_EDGE)
+                StackPush(stk, i);
+        for (; i >= 0; i--)
+            if (g -> edges[w][i] != NO_EDGE)
+                StackPush(stk, i);
 
-        }
-        Vertex j;
-        for (j = 0; j < g -> nv; j++)
-            if (!visited[j])
-                StackPush(stk, j);
     }
     printf("i: \t");
     for (i = 0; i < g -> nv; i++)
