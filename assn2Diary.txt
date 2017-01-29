@@ -81,7 +81,7 @@ Agent.h
   void setDestination(Agent a, int end);
   Vertex getDestination(Agent agent);
 Graph.h
-  char * isInformant(int city); // check if the city has informant
+  char * hasInformant(int city); // check if the city has informant
   void readCityInfo(int city, char info,char * name); // read std io for each city info
   char * getCityName(int city); // fetch city's name
  3) Implement those methods in the each c files.
@@ -96,6 +96,63 @@ Graph.h
    goal city
 
 TO-DD :
-1) add logic for set detective destination once they encounter informant
+1) Stage 1: CHEAPEST_LEAST_VISITED strategy
+2) Stage 2: DFS strategy
+
+
+##Jan 29 2017
+* Finish stage 1 & stage 2 of task2
+Problem encounting:
+1. for stage 1, first attemp is to quick sort and merge sort those
+filtered moves based on less visited times, however quicksort is not a
+stable sort plus each move are sorted based on weight and end vertex if
+the visited times are tied. However all we need is 1 move from the
+filtered moves.
+Hence my solution:
+Visited times is recorded by int visit[], and all the filteredMoves is
+an array too therefore I mark the least index then compare the visited
+times and weight also the id of those filteredMoves update the least
+index along the comparisons.
+
+2. for stage 2, I give the path array to agent struct. Thus DFS has
+implementation will work out those vertices visit order in agent->visit
+array(use this same field for different strategy). So detective have the
+plan(order) to visit all the vertices. Also the vertices in the path
+array to form the next move.
+However I miss the point that those ordered visit vertices might be not
+adjacent, therefore it can't form a path to next vertex.
+
+>>problems I got to solve for this situation:
+1 . firstly I need to check the next vertex and the current location is
+adjacent. that means if there is move to form.
+2. if it is not adjacent, we need to remember this next move as well as
+go back to the last location.
+3. how can backtrack also find the vertex has a path to
+next unvisited vertex.
+
+Hence my solution:
+1. get next visit vertex and check if it is adjacent to the current
+location.
+2. if not, swap the unvisit with the current spot in the path array; and
+update next visit vertex to the last visited vertex;
+(this swap will update the next proper move in the paths array;
+therefore it can stop it go forward again and only go back till it check
+that is adjacent next unvisited vertex also because for this strategy
+agent will use the visit array to recode the visit order so it will move
+to the updated next move in the path array, once it find the adjacent
+Vertex to the next unvisited vertex.
+3. form the path with the proper vertex.
+
+TO-DD : Stage 3: Least Turns Path Strategy
+1) understand the implement logic and research one Dijkstra algorithms.
 2) amend print destination to print out agent's goal city
-3) Stage 1: CHEAPEST_LEAST_VISITED strategy
+3) add logic for set detective destination once they encounter informant
+
+
+
+
+- track what your current stamina is
+- for every outgoing edge:
+- if not enough stamina, add the cost of resting to the weight
+done
+

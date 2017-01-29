@@ -32,7 +32,7 @@ static int validV(Graph g, Vertex v) {
     return (v >= 0 && v < g -> nv);
 }
 
-char * isInformant(int city) {
+char * hasInformant(int city) {
     if (map == NULL) return 0;
     return (map -> informants[city] == 'i')? "*" : "";
 }
@@ -298,6 +298,10 @@ void dfSearch(Graph g, Vertex src, int * order, int * visited) {
         return;
     }
     int i, count = 1;
+    for (i = 0; i < numV(g); i++) {
+        order[i] = 0;
+        visited[i] = 0;
+    }
     //make a stack and push the 1st edge
     Stack stk = newStack();
     StackPush(stk, src);

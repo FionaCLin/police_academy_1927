@@ -18,7 +18,7 @@ Edge mkEdge(Vertex, Vertex, int);
 typedef struct graphRep *Graph;
 
 // check if the city has informant
-char * isInformant(int city);
+char * hasInformant(int city);
 
 // read std io for each city info
 void readCityInfo(int city, char info,char * name);

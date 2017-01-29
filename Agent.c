@@ -18,7 +18,7 @@ struct agentRep{
     int stamina;  //current stamina
     int strategy;
     int * visit;
-    int * travel;
+    int * paths;
     Graph map;
     char * name;
 };
@@ -46,7 +46,7 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     agent->map = g;
     agent->name = strdup(name);
     agent->visit = calloc(sizeof(int), numV(g));
-    agent->travel = calloc(sizeof(int), numV(g));
+    agent->paths = calloc(sizeof(int), numV(g));
     if (strategy == C_L_VISITED)//??
         agent -> visit[start]++;//??
     if (strategy == DFS)//??
@@ -130,14 +130,14 @@ Edge getNextMove(Agent agent,Graph g){
         //printf("%s:\n",agent -> name);
         if (order == 10) {
             agent -> visit[curGPS] = 0;
-            dfSearch(g, curGPS, agent -> travel, agent -> visit);
+            dfSearch(g, curGPS, agent -> paths, agent -> visit);
         }
         order = agent -> visit[curGPS];
-        int next = agent -> travel[order];
+        int next = agent -> paths[order];
         if (!isAdjacent(g, curGPS, next)) {
-            agent -> travel[order] = agent -> travel[order - 1];
-            agent -> travel[order - 1] = next;
-            next = agent -> travel[order - 2];
+            agent -> paths[order] = agent -> paths[order - 1];
+            agent -> paths[order - 1] = next;
+            next = agent -> paths[order - 2];
         }
         nextMove = getEdge(g, curGPS, next);
         if(nextMove.weight <= agent -> stamina)
@@ -159,21 +159,21 @@ static Edge sortByVisit(Agent a, Edge mvs[], int lo, int hi) {
     int size = hi - lo + 1;
     if (size == 1) return mvs[lo];
     int i;
-    int less = lo;
+    int least = lo;
     for (i = lo + 1; i <= hi; i++) {
-        if (a->visit[mvs[less].w] > a->visit[mvs[i].w]) {
-            less = i;
-        } else if (a->visit[mvs[less].w] == a->visit[mvs[i].w]) {
-            if(mvs[less].weight > mvs[i].weight) {
-                less = i;
-            } else if(mvs[less].weight == mvs[i].weight) {
-                if(mvs[less].w > mvs[i].w) {
-                    less = i;
+        if (a->visit[mvs[least].w] > a->visit[mvs[i].w]) {
+            least = i;
+        } else if (a->visit[mvs[least].w] == a->visit[mvs[i].w]) {
+            if(mvs[least].weight > mvs[i].weight) {
+                least = i;
+            } else if(mvs[least].weight == mvs[i].weight) {
+                if(mvs[least].w > mvs[i].w) {
+                    least = i;
                 }
             }
         }
     }
-    return mvs[less];
+    return mvs[least];
 }
 
 
@@ -204,7 +204,7 @@ char * getName(Agent agent){
 //and * for cities with informants
 void printAgent(Agent agent){
     int city = agent->currentLocation;
-    printf("%s %d %s (%d%s)",agent->name,agent->stamina, getCityName(city), city, isInformant(city));
+    printf("%s %d %s (%d%s)",agent->name,agent->stamina, getCityName(city), city, hasInformant(city));
     if (strcmp(agent -> name, "T") == 0) {
         int end = agent -> destination;
         printf(" %s(%d)", getCityName(end), end);
@@ -217,7 +217,7 @@ void destroyAgent(Agent agent){
     //YOU MAY NEED TO MODIFY THIS
     free(agent->name);
     free(agent->visit);
-    free(agent->travel);
+    free(agent->paths);
     free(agent);
 }
 

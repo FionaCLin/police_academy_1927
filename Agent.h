@@ -21,6 +21,9 @@ Edge getNextMove(Agent agent,Graph graph);
 //Execute a given move
 void makeNextMove(Agent agent,Edge move);
 
+//TO-DO
+void setStrategy(Agent a, int strategy);
+
 
 //Get information from the agent
 Vertex getCurrentLocation(Agent agent);
