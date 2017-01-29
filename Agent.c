@@ -18,6 +18,7 @@ struct agentRep{
     int stamina;  //current stamina
     int strategy;
     int * visit;
+    int * travel;
     Graph map;
     char * name;
 };
@@ -45,8 +46,11 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     agent->map = g;
     agent->name = strdup(name);
     agent->visit = calloc(sizeof(int), numV(g));
+    agent->travel = calloc(sizeof(int), numV(g));
     if (strategy == C_L_VISITED)//??
         agent -> visit[start]++;//??
+    if (strategy == DFS)//??
+        agent -> visit[start] = numV(g);//??
     return agent;
 }
 
@@ -87,7 +91,7 @@ Edge getNextMove(Agent agent,Graph g){
     //Stationary strategy useful for debugging
     if(agent->strategy == STATIONARY){
         nextMove = mkEdge(agent->currentLocation,agent->currentLocation,0);
-    }else if(agent->strategy == RANDOM){
+    } else if(agent->strategy == RANDOM){
         Edge * possibleMoves = malloc(numV(g) * sizeof(Edge));
         Edge * filteredMoves = malloc(numV(g) * sizeof(Edge));
 
@@ -107,7 +111,7 @@ Edge getNextMove(Agent agent,Graph g){
         }
         free(filteredMoves);
         free(possibleMoves);
-    }else if(agent->strategy == C_L_VISITED){
+    } else if(agent->strategy == C_L_VISITED){
         int nValidEs = 0;
         Edge * legalMoves = getValidMoves(g, agent, &nValidEs);
         if(nValidEs!= 0){
@@ -120,9 +124,25 @@ Edge getNextMove(Agent agent,Graph g){
             agent -> stamina = agent -> initialStamina; //max stamina
         }
         free(legalMoves);
-        //    else if(agent->strategy == DFS)
-
-    }else {
+    } else if (agent->strategy == DFS) {
+        int curGPS = agent -> currentLocation;
+        int order = agent -> visit[curGPS];
+        printf("%s:\n",agent -> name);
+        if (order == 10) {
+            agent -> visit[curGPS] = 0;
+            dfSearch(g, curGPS, agent -> travel, agent -> visit);
+        }
+        order = agent -> visit[curGPS] - 1;
+        int next = agent -> travel[order + 1];
+        nextMove = getEdge(g, curGPS, next);
+        if(nextMove.weight <= agent -> stamina)
+             agent -> stamina -= nextMove.weight;
+        else {
+            //the agent must stay in the same location
+            nextMove = mkEdge(curGPS, curGPS, 0);
+            agent -> stamina = agent -> initialStamina; //max stamina
+        }
+    } else {
         printf("Agent strategy not implemented yet\n");
         abort();
     }
@@ -190,6 +210,8 @@ void printAgent(Agent agent){
 void destroyAgent(Agent agent){
     //YOU MAY NEED TO MODIFY THIS
     free(agent->name);
+    free(agent->visit);
+    free(agent->travel);
     free(agent);
 }
 
