@@ -1,7 +1,10 @@
 // An graph ADT interface for weighted undirected graphs
+
+#include <limits.h>
+
 #ifndef GRAPH_H
 #define GRAPH_H
-#define NO_EDGE -1
+#define NO_EDGE INT_MAX
 // vertices denoted by integers 0..N-1
 typedef int Vertex;
 
