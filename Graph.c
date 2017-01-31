@@ -267,7 +267,10 @@ Edge getEdge(Graph g, Vertex v, Vertex w) {
         row = w;
         col = v;
     }
-    Edge e = {v, w, g -> edges[row][col]};
+    e = {v, w, NO_EDGE};
+    if (g != NULL) {
+        e = {v, w, g -> edges[row][col]};
+    }
     return e;
 }
 //Display the graph
@@ -331,4 +334,36 @@ void dfSearch(Graph g, Vertex src, int * order, int * visited) {
     putchar('\n');
     dropStack(stk);
 }
+
+
+int * dijkstra(Graph g,Vertex s,int st[]){
+    int v,t;
+    int * dist[] = malloc(sizeof(int*) * g -> nv);
+    MinHeap heap = newMinHeap(g->nV);
+    //insert each vertex into the pq
+    for(v=0;v< g->nV;v++){
+        st[v] = -1;
+        dist[v] = NO_EDGE; //represents infinity
+        Item i = newItem(dist[v],v);
+        insert(heap,i);
+    }
+    dist[s] = 0; //set start veretex dist to 0
+    decreaseWeight(heap, s, dist[s]); // update pq
+    while(!isEmpty(heap)){
+         v = value(delMin(heap));
+         if(dist[v] != NO_EDGE)
+             for(t = 0;t < g->nV;t++){
+                 Edge e = getEdge(g, v, t);
+	         if(e.weight != NO_EDGE){
+	             if(dist[v] + e.weight < dist[t]){
+	                 dist[t] = dist[v] + e.weight;
+                         decreaseWeight(heap, t, dist[t]);
+                         st[t] = v;
+	             }
+             }
+         }
+    }
+    return dist;
+}
+
 
