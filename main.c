@@ -155,8 +155,11 @@ int step(int cycle,Agent agents[],Graph g,int maxCycles){
    cycle++;
    for(i=0;i<=NUM_DETECTIVES;i++){
       Edge  nextMove = getNextMove(agents[i],g);
+      if(i != 0 && hasInformant(nextMove.w)) {
+         Vertex target = getCurrentLocation(agent[THIEF]);
+         setDestination(agant[i], target);
+      }
       makeNextMove(agents[i],nextMove);
-
    }
    display(cycle,agents,g);
    int gameState = checkGameState(agents,g,cycle,maxCycles);
