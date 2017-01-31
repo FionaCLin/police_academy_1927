@@ -335,7 +335,6 @@ void dfSearch(Graph g, Vertex src, int * order, int * visited) {
     dropStack(stk);
 }
 
-
 int * dijkstra(Graph g,Vertex s,int st[]){
     int v,t;
     int * dist[] = malloc(sizeof(int*) * g -> nv);
@@ -353,10 +352,10 @@ int * dijkstra(Graph g,Vertex s,int st[]){
          v = value(delMin(heap));
          if(dist[v] != NO_EDGE)
              for(t = 0;t < g->nV;t++){
-                 Edge e = getEdge(g, v, t);
+                 Edge eT = getEdge(g, v, t);
 	         if(e.weight != NO_EDGE){
-	             if(dist[v] + e.weight < dist[t]){
-	                 dist[t] = dist[v] + e.weight;
+	             if(dist[v] + eT.weight < dist[t]){
+	                 dist[t] = dist[v] + eT.weight;
                          decreaseWeight(heap, t, dist[t]);
                          st[t] = v;
 	             }
