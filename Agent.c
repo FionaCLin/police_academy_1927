@@ -60,6 +60,8 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
 
 void setDestination(Agent a, int end) {
     a->destination = end;
+    if (strcmp(agent->name, "T") != 0)
+        a -> strategy = L_T_P;
 }
 
 // Takes an array with all the possible edges and puts the ones the agent
@@ -145,13 +147,12 @@ Edge getNextMove(Agent agent,Graph g){
         }
         nextMove = getEdge(g, curGPS, next);
         if(nextMove.weight <= agent -> stamina)
-             agent -> stamina -= nextMove.weight;
+            agent -> stamina -= nextMove.weight;
         else {
             //the agent must stay in the same location
             nextMove = mkEdge(curGPS, curGPS, 0);
             agent -> stamina = agent -> initialStamina; //max stamina
         }
-  //  } else if (agent->strategy == L_T_P)
     } else {
         printf("Agent strategy not implemented yet\n");
         abort();
@@ -187,9 +188,16 @@ void makeNextMove(Agent agent,Edge move){
     agent->currentCycle++;
     agent->currentLocation = move.w;
     if (agent -> strategy == C_L_VISITED && move.v != move.w)
-       //??stay the same city count as 2 visits??
+        //??stay the same city count as 2 visits??
         agent -> visit[move.w]++;
 }
+//work out all posible paths (call dijkstra)
+//compute all paths' cost
+//compute how many rest each paths
+//compute the final hops for each path
+//pick the less hop
+//pick the less cost
+//arbitary pick[0]
 
 Vertex getDestination(Agent agent){
     return agent->destination;
@@ -198,7 +206,6 @@ Vertex getDestination(Agent agent){
 Vertex getCurrentLocation(Agent agent){
     return agent->currentLocation;
 }
-
 
 char * getName(Agent agent){
     return agent->name;
