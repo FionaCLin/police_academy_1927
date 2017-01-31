@@ -68,5 +68,5 @@ void show(Graph g);
 //The initialisation of variables etc before we call the dfs function
 void dfSearch(Graph g, Vertex src, int * order, int * visited) ;
 Edge getEdge(Graph g, Vertex v, Vertex w);
-
+int * dijkstra(Graph g,Vertex s,int st[]);
 #endif

@@ -1,6 +1,8 @@
 //An ADT interface to represent an agent
 
 //Constants to represent search strategies used by the agents
+#ifndef AGENT_H
+#define AGENT_H
 
 #define STATIONARY -1 //useful for debugging
 #define RANDOM 0
@@ -34,3 +36,4 @@ char * getName(Agent agent);
 void printAgent(Agent agent);
 
 void destroyAgent(Agent agent);
+#endif
