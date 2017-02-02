@@ -1,11 +1,12 @@
 // A min heap based implementation of a priority queue
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
-
-#include "HItem.h"
+#include "MinHeap.h"
 
 #define DEFAULT_MAX 100
+
 #define PARENT(x) (x-1)/2
 #define L_NODE(x) (2*x + 1)
 #define R_NODE(x) (2*x + 2)
@@ -17,11 +18,9 @@ struct pqRep {
     int size;     // maximum size of array
 } ;
 
-
 MinHeap newHeap(int size) {
     if(size < 0) {
-        printf("Size is negative number, MinHeap set to default size
-                %d", DEFAULT_MAX);
+        printf("Size is negative number, MinHeap set to default size %d", DEFAULT_MAX);
         size = DEFAULT_MAX;
     }
     MinHeap q = malloc(sizeof(struct pqRep));
@@ -85,29 +84,18 @@ HItem delMin(MinHeap q) {
 
 // Useful operations
 int isEmpty(MinHeap q) {
-    return (pq->nHItems == 0);
-}
-
-void delete(MinHeap q, Key k) {
-  HItem ret = NULL;
-    if (q != NULL) {
-        q -> nItems --;
-        swap(q -> items, 0, q -> nHItems);
-        fixDown(q -> items, 0, q -> nHItems);
-        ret = q -> items[q -> nNItems];
-    }
-    return ret;
+    return (q->nHItems == 0);
 }
 
 void decreaseWeight(MinHeap q, int v, Key weight) {
     int i;
-    for(i = 0; i < pq->nHItems;i++){
-        if(pq->items[i]->vertex == v){
-            pq->items[i]->weight = weight;
+    for(i = 0; i < q->nHItems;i++){
+        if(q->items[i]->vertex == v){
+            q->items[i]->weight = weight;
             break;
         }
     }
-    if(i <= pq->nHItems)
-        fixUp(pq->items,i);
+    if(i <= q->nHItems)
+        fixUp(q->items,i);
 }
 
