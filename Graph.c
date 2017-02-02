@@ -268,7 +268,7 @@ static int edgeWeight(Vertex v, Vertex w) {
         row = w;
         col = v;
     }
-    return g -> edges[row][col];
+    return map -> edges[row][col];
 }
 Edge getEdge(Graph g, Vertex v, Vertex w) {
     int row = v;
@@ -393,13 +393,13 @@ void pathSearch(Graph g, Vertex src, Vertex dest, int * path, int * visit) {
 int * dijkstra(Graph g,Vertex s,int st[]){
     int v,t;
     int * dist = malloc(sizeof(int*) * g -> nv);
-    MinHeap heap = newMinHeap(g -> nv);
+    MinHeap heap = newHeap(g -> nv);
     //insert each vertex into the pq
     for(v=0;v< g->nv;v++){
         st[v] = -1;
         dist[v] = NO_EDGE; //represents infinity
         HItem i = newHItem(dist[v],v);
-        insert(heap, i);
+        insertHeap(heap, i);
     }
     dist[s] = 0;
     decreaseWeight(heap, s, dist[s]);
