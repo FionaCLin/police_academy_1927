@@ -10,7 +10,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Stack.h"
+#include "MinHeap.h"
 #include "Queue.h"
+#include "HItem.h"
 #include "Graph.h"
 
 
@@ -259,7 +261,15 @@ int edges(Edge es[], int nE, Graph g){
         }
     return count;
 }
-
+static int edgeWeight(Vertex v, Vertex w) {
+    int row = v;
+    int col = w;
+    if (v < w) {
+        row = w;
+        col = v;
+    }
+    return g -> edges[row][col];
+}
 Edge getEdge(Graph g, Vertex v, Vertex w) {
     int row = v;
     int col = w;
@@ -267,9 +277,9 @@ Edge getEdge(Graph g, Vertex v, Vertex w) {
         row = w;
         col = v;
     }
-    e = {v, w, NO_EDGE};
+    Edge e = {v, w, NO_EDGE};
     if (g != NULL) {
-        e = {v, w, g -> edges[row][col]};
+        e.weight =  g -> edges[row][col];
     }
     return e;
 }
@@ -295,29 +305,26 @@ void show(Graph g) {
 }
 // dfSearch using Stack
 //The initialisation of variables etc before we call the dfs function
-void dfSearch(Graph g, Vertex src, int * order, int * visited) {
+void dfSearch(Graph g, Vertex src, int * path, int * visit) {
     if (g == NULL) {
         printf("The graph g can't be NULL\n");
         return;
     }
     int i, count = 1;
     for (i = 0; i < numV(g); i++) {
-        order[i] = 0;
-        visited[i] = 0;
+        path[i] = 0;
+        visit[i] = 0;
     }
     //make a stack and push the 1st edge
     Stack stk = newStack();
     StackPush(stk, src);
     while (!StackIsEmpty(stk)) {
         Vertex w = StackPop(stk);
-        if (visited[w]) continue;
-        order[count - 1] = w;
-        visited[w] = count++;
-        for (i = numV(g) - 1; i > w; i--)
-            if (g -> edges[i][w] != NO_EDGE)
-                StackPush(stk, i);
-        for (; i >= 0; i--)
-            if (g -> edges[w][i] != NO_EDGE)
+        if (visit[w]) continue;
+        path[count - 1] = w;
+        visit[w] = count++;
+        for (i = numV(g) - 1; i >= 0; i--)
+            if (edgeWeight(w, i) != NO_EDGE)
                 StackPush(stk, i);
 
     }
@@ -326,41 +333,89 @@ void dfSearch(Graph g, Vertex src, int * order, int * visited) {
         printf(" %d", i);
     printf("\ncount: \t");
     for (i = 0; i < g -> nv; i++)
-        printf(" %d", visited[i]);
+        printf(" %d", visit[i]);
     putchar('\n');
-    printf("\norder: \t");
+    printf("\npath: \t");
     for (i = 0; i < g -> nv; i++)
-        printf(" %d", order[i]);
+        printf(" %d", path[i]);
     putchar('\n');
     dropStack(stk);
 }
 
+// bfSearch using Queue
+//The initialisation of variables etc before we call the dfs function
+void pathSearch(Graph g, Vertex src, Vertex dest, int * path, int * visit) {
+    if (g == NULL) {
+        printf("The graph g can't be NULL\n");
+        return;
+    }
+    int i, j = 1, found = 0;
+    for (i = 0; i < numV(g); i++) {
+        path[i] = 0;
+        visit[i] = 0;
+    }
+    //make a stack and push the 1st edge
+    Queue q = newQueue();
+    QueueJoin(q, src);
+    while (!QueueIsEmpty(q)) {
+        Vertex w = QueueLeave(q);
+        for (i = 0; i < numV(g); i++) {
+            if (edgeWeight(w, i) == NO_EDGE || visit[w]) continue;
+            QueueJoin(q, i);
+            path[i] = w;
+        }
+    }
+    Vertex last = path[path[dest]];
+    for (i = 0; i < numV(g); i++) {
+        if (path[i] == last) {
+            if (isAdjacent(g, dest, i)) {
+                found++;
+                visit[j++] = i;
+            }
+        }
+    }
+    visit[0] = found;
+    printf("i: \t");
+    for (i = 0; i < g -> nv; i++)
+        printf(" %d", i);
+    printf("\ncount: \t");
+    for (i = 0; i < g -> nv; i++)
+        printf(" %d", visit[i]);
+    putchar('\n');
+    printf("\npath: \t");
+    for (i = 0; i < g -> nv; i++)
+        printf(" %d", path[i]);
+    putchar('\n');
+    dropQueue(q);
+}
+
+
 int * dijkstra(Graph g,Vertex s,int st[]){
     int v,t;
-    int * dist[] = malloc(sizeof(int*) * g -> nv);
-    MinHeap heap = newMinHeap(g->nV);
+    int * dist = malloc(sizeof(int*) * g -> nv);
+    MinHeap heap = newMinHeap(g -> nv);
     //insert each vertex into the pq
-    for(v=0;v< g->nV;v++){
+    for(v=0;v< g->nv;v++){
         st[v] = -1;
         dist[v] = NO_EDGE; //represents infinity
-        Item i = newItem(dist[v],v);
-        insert(heap,i);
+        HItem i = newHItem(dist[v],v);
+        insert(heap, i);
     }
-    dist[s] = 0; //set start veretex dist to 0
-    decreaseWeight(heap, s, dist[s]); // update pq
+    dist[s] = 0;
+    decreaseWeight(heap, s, dist[s]);
     while(!isEmpty(heap)){
-         v = value(delMin(heap));
-         if(dist[v] != NO_EDGE)
-             for(t = 0;t < g->nV;t++){
-                 Edge eT = getEdge(g, v, t);
-	         if(e.weight != NO_EDGE){
-	             if(dist[v] + eT.weight < dist[t]){
-	                 dist[t] = dist[v] + eT.weight;
-                         decreaseWeight(heap, t, dist[t]);
-                         st[t] = v;
-	             }
-             }
-         }
+        v = value(delMin(heap));
+        if(dist[v] != NO_EDGE)
+            for(t = 0;t < g->nv;t++){
+                Edge eT = getEdge(g, v, t);
+                if(eT.weight != NO_EDGE){
+                    if(dist[v] + eT.weight < dist[t]){
+                        dist[t] = dist[v] + eT.weight;
+                        decreaseWeight(heap, t, dist[t]);
+                        st[t] = v;
+                    }
+                }
+            }
     }
     return dist;
 }
