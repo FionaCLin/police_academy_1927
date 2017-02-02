@@ -13,9 +13,9 @@ typedef struct record * HItem;
 #define NULLitem NULL  //This indicates no item
 #define key(A) ((A)->weight)
 #define value(A) ((A)->vertex)
-#define less(A,B) (((A)->keyVal) < ((B)->keyVal))
-#define greater(A,B) (((A)->keyVal) > ((B)->keyVal))
-#define lessEq(A,B) (((A)->keyVal) <= ((B)->keyVal))
+#define less(A,B) (((A)->weight) < ((B)->weight))
+#define greater(A,B) (((A)->weight) > ((B)->weight))
+#define lessEq(A,B) (((A)->weight) <= ((B)->weight))
 
 HItem newHItem(int w,int v);
 

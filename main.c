@@ -155,9 +155,10 @@ int step(int cycle,Agent agents[],Graph g,int maxCycles){
     cycle++;
     for(i=0;i<=NUM_DETECTIVES;i++){
         Edge  nextMove = getNextMove(agents[i],g);
-        if(i != 0 && hasInformant(nextMove.w)) {
-            Vertex target = getCurrentLocation(agent[THIEF]);
-            setDestination(agant[i], target);
+        if(i != THIEF && hasInformant(nextMove.w)) {
+            Vertex target = getCurrentLocation(agents[THIEF]);
+            setDestination(agents[i], target);
+            setStrategy(agents[i], L_T_P);
         }
         makeNextMove(agents[i],nextMove);
     }
