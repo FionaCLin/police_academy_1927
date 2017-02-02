@@ -17,6 +17,7 @@ struct agentRep{
     int initialStamina; //max stamina
     int stamina;  //current stamina
     int strategy;
+    int originStrategy;
     int * visit;
     int * paths;
     Graph map;
@@ -24,10 +25,10 @@ struct agentRep{
 };
 
 
-static void swap(Edge *a, Edge* b) ;
-static int partitionByWeight(Edge moves[], int lo, int hi) ;
-static void quicksort(Edge mvs[], int lo, int hi, char sortBy) ;
-static void sortByWeight(Edge moves[], int lo, int hi) ;
+// static void swap(Edge *a, Edge* b) ;
+// static int partitionByWeight(Edge moves[], int lo, int hi) ;
+// static void quicksort(Edge mvs[], int lo, int hi, char sortBy) ;
+// static void sortByWeight(Edge moves[], int lo, int hi) ;
 static Edge sortByVisit(Agent a, Edge moves[], int lo, int hi) ;
 //This creates one individual thief or detective
 //You may need to add more to this
@@ -61,8 +62,18 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
 
 void setDestination(Agent a, int end) {
     a->destination = end;
+    //when detective meet informant, this will call,
+    //therefore we update their strategy by the way.
     if (strcmp(a->name, "T") != 0)
         a -> strategy = L_T_P;
+}
+
+void setStrategy(Agent a, int newStrategy) {
+    a->strategy = newStrategy;
+    //when detective finish L_T_P, it re-assigned the
+    //original strategy, destination should remove
+    if (strcmp(a->name, "T") != 0)
+        a -> destination = NO_END;
 }
 
 // Takes an array with all the possible edges and puts the ones the agent
@@ -131,7 +142,7 @@ Edge getNextMove(Agent agent,Graph g){
             agent -> stamina = agent -> initialStamina; //max stamina
         }
         free(legalMoves);
-    } else if (agent->strategy == DFS) {
+    } else {//if (agent->strategy == DFS) {
         int curGPS = agent -> currentLocation;
         int order = agent -> visit[curGPS];
         //printf("%s:\n",agent -> name);
@@ -154,16 +165,17 @@ Edge getNextMove(Agent agent,Graph g){
             nextMove = mkEdge(curGPS, curGPS, 0);
             agent -> stamina = agent -> initialStamina; //max stamina
         }
-    } else if (agent->strategy == L_T_P) {
-//work out all posible paths (call dijkstra && pathSearch() )
-//compute all paths' cost
-//compute how many rest each paths
-//compute the final hops for each path
-//pick the less hop
-//pick the less cost
-//arbitary pick[0]
-
     }
+//      else if (agent->strategy == L_T_P) {
+// //work out all posible paths (call dijkstra && pathSearch() )
+// //compute all paths' cost
+// //compute how many rest each paths
+// //compute the final hops for each path
+// //pick the less hop
+// //pick the less cost
+// //arbitary pick[0]
+
+//     }
     return nextMove;
 }
 
@@ -199,7 +211,7 @@ void makeNextMove(Agent agent,Edge move){
         agent -> visit[move.w]++;
     if (agent -> strategy == L_T_P) {
         if (agent -> currentLocation == agent -> destination)
-            agent -> strategy = agent -> originStrategy;
+           setStrategy(agent, agent -> originStrategy);
     }
 }
 
@@ -219,8 +231,9 @@ char * getName(Agent agent){
 //and * for cities with informants
 void printAgent(Agent agent){
     int city = agent->currentLocation;
+    int end = agent -> destination;
     printf("%s %d %s (%d%s)",agent->name,agent->stamina, getCityName(city), city, hasInformant(city));
-    if(agent -> destination != NO_END)
+    if(end != NO_END)
         printf(" %s(%d)", getCityName(end), end);
     putchar('\n');
 }
@@ -234,100 +247,100 @@ void destroyAgent(Agent agent){
     free(agent);
 }
 
-static void swap(Edge *a, Edge* b) {
-    Edge temp = *a;
-    *a = *b;
-    *b = temp;
-}
+// static void swap(Edge *a, Edge* b) {
+//     Edge temp = *a;
+//     *a = *b;
+//     *b = temp;
+// }
 
-static int partitionByVisit(Edge moves[], int lo, int hi) {
-    int i, j;
-    i = lo - 1;
-    j = hi;
+// static int partitionByVisit(Edge moves[], int lo, int hi) {
+//     int i, j;
+//     i = lo - 1;
+//     j = hi;
 
-    int pivot = moves[hi].v;
+//     int pivot = moves[hi].v;
 
-    // pivot element
-    while (1) {
-        // increment i until we approach the element that shouldnt be in pivot
-        while (moves[++i].v < pivot);
-        // get the element towards the hi
-        while (pivot < moves[--j].v && j != lo);
+//     // pivot element
+//     while (1) {
+//         // increment i until we approach the element that shouldnt be in pivot
+//         while (moves[++i].v < pivot);
+//         // get the element towards the hi
+//         while (pivot < moves[--j].v && j != lo);
 
-        // if the lo hand counter is greater than the hi, we stop
-        if (i >= j) {
-            break;
-        }
+//         // if the lo hand counter is greater than the hi, we stop
+//         if (i >= j) {
+//             break;
+//         }
 
-        // now we swap elements
-        swap(&(moves[i]), &(moves[j]));
-    }
+//         // now we swap elements
+//         swap(&(moves[i]), &(moves[j]));
+//     }
 
-    // place the pivot
-    swap(&(moves[i]), &(moves[hi]));
-    // return the pivot index
-    return i;
-}
+//     // place the pivot
+//     swap(&(moves[i]), &(moves[hi]));
+//     // return the pivot index
+//     return i;
+// }
 
-static int partitionByWeight(Edge moves[], int lo, int hi) {
-    int i, j;
-    i = lo - 1;
-    j = hi;
+// static int partitionByWeight(Edge moves[], int lo, int hi) {
+//     int i, j;
+//     i = lo - 1;
+//     j = hi;
 
-    int pivot = moves[hi].weight;
+//     int pivot = moves[hi].weight;
 
-    // pivot element
-    while (1) {
-        // increment i until we approach the element that shouldnt be in pivot
-        while (moves[++i].weight < pivot);
-        // get the element towards the hi
-        while (pivot < moves[--j].weight && j != lo);
+//     // pivot element
+//     while (1) {
+//         // increment i until we approach the element that shouldnt be in pivot
+//         while (moves[++i].weight < pivot);
+//         // get the element towards the hi
+//         while (pivot < moves[--j].weight && j != lo);
 
-        // if the lo hand counter is greater than the hi, we stop
-        if (i >= j) {
-            break;
-        }
+//         // if the lo hand counter is greater than the hi, we stop
+//         if (i >= j) {
+//             break;
+//         }
 
-        // now we swap elements
-        swap(&(moves[i]), &(moves[j]));
-    }
+//         // now we swap elements
+//         swap(&(moves[i]), &(moves[j]));
+//     }
 
-    // place the pivot
-    swap(&(moves[i]), &(moves[hi]));
-    // return the pivot index
-    return i;
-}
+//     // place the pivot
+//     swap(&(moves[i]), &(moves[hi]));
+//     // return the pivot index
+//     return i;
+// }
 
-static void quicksort(Edge mvs[], int lo, int hi, char sortBy) {
-    int i;
-    if (lo >= hi) return;
-    swap(&mvs[hi - 1], &mvs[(lo + hi) / 2]);
-    if (sortBy == 'w') {
-        if (mvs[lo].weight > mvs[hi - 1].weight)
-            swap(&mvs[lo], &mvs[hi - 1]);
-        if (mvs[hi - 1].weight > mvs[hi].weight)
-            swap(&mvs[hi - 1], &mvs[hi]);
-        if (mvs[lo].weight > mvs[hi - 1].weight)
-            swap(&mvs[lo], &mvs[hi - 1]);
-        i = partitionByWeight(mvs, lo, hi - 1);
-        quicksort(mvs, lo, i - 1, sortBy);
-        quicksort(mvs, i + 1, hi, sortBy);
-    } else if (sortBy == 'v') {
-        if (mvs[lo].v > mvs[hi - 1].v)
-            swap(&mvs[lo], &mvs[hi - 1]);
-        if (mvs[hi - 1].v > mvs[hi].v)
-            swap(&mvs[hi - 1], &mvs[hi]);
-        if (mvs[lo].v > mvs[hi - 1].v)
-            swap(&mvs[lo], &mvs[hi - 1]);
+// static void quicksort(Edge mvs[], int lo, int hi, char sortBy) {
+//     int i;
+//     if (lo >= hi) return;
+//     swap(&mvs[hi - 1], &mvs[(lo + hi) / 2]);
+//     if (sortBy == 'w') {
+//         if (mvs[lo].weight > mvs[hi - 1].weight)
+//             swap(&mvs[lo], &mvs[hi - 1]);
+//         if (mvs[hi - 1].weight > mvs[hi].weight)
+//             swap(&mvs[hi - 1], &mvs[hi]);
+//         if (mvs[lo].weight > mvs[hi - 1].weight)
+//             swap(&mvs[lo], &mvs[hi - 1]);
+//         i = partitionByWeight(mvs, lo, hi - 1);
+//         quicksort(mvs, lo, i - 1, sortBy);
+//         quicksort(mvs, i + 1, hi, sortBy);
+//     } else if (sortBy == 'v') {
+//         if (mvs[lo].v > mvs[hi - 1].v)
+//             swap(&mvs[lo], &mvs[hi - 1]);
+//         if (mvs[hi - 1].v > mvs[hi].v)
+//             swap(&mvs[hi - 1], &mvs[hi]);
+//         if (mvs[lo].v > mvs[hi - 1].v)
+//             swap(&mvs[lo], &mvs[hi - 1]);
 
-        i = partitionByVisit(mvs, lo, hi - 1);
-        quicksort(mvs, lo, i - 1, sortBy);
-        quicksort(mvs, i + 1, hi, sortBy);
-    }
+//         i = partitionByVisit(mvs, lo, hi - 1);
+//         quicksort(mvs, lo, i - 1, sortBy);
+//         quicksort(mvs, i + 1, hi, sortBy);
+//     }
 
-}
+// }
 
-static void sortByWeight(Edge moves[], int lo, int hi) {
-    quicksort(moves, lo, hi, 'w');
-}
+// static void sortByWeight(Edge moves[], int lo, int hi) {
+//     quicksort(moves, lo, hi, 'w');
+// }
 
