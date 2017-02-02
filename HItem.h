@@ -11,8 +11,8 @@ struct record{
 typedef struct record * HItem;
 
 #define NULLitem NULL  //This indicates no item
-#define key(A) ((A)->keyVal)
-#define value(A) ((A)->value)
+#define key(A) ((A)->weight)
+#define value(A) ((A)->vertex)
 #define less(A,B) (((A)->keyVal) < ((B)->keyVal))
 #define greater(A,B) (((A)->keyVal) > ((B)->keyVal))
 #define lessEq(A,B) (((A)->keyVal) <= ((B)->keyVal))

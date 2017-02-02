@@ -3,14 +3,17 @@
 #define MIN_HEAP_H
 typedef struct pqRep * MinHeap;
 
+#include "HItem.h"
+
 // Core operations
 MinHeap newMinHeap(int size);
+
 void insert(MinHeap q, HItem it);
+void decreaseWeight(MinHeap q, int v, Key k);
 HItem delMin(MinHeap q);
 
 // Useful operations
 int isEmpty(MinHeap q);
-void delete(MinHeap q, Key k);
 
-void decreaseWeight(MinHeap q, int v, Key k);
+
 #endif
