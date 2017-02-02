@@ -8,8 +8,8 @@ all: assn2
 %o:%c
 	$(CC) $(CFLAGS) -c $<
 
-assn2: main.o Graph.o Agent.o Stack.o Queue.o
-	$(CC) -o assn2 main.o Graph.o Agent.o Stack.o Queue.o
+assn2: main.o Graph.o Agent.o Stack.o Queue.o MinHeap.o HItem.o
+	$(CC) -o assn2 main.o Graph.o Agent.o Stack.o Queue.o MinHeap.o HItem.o
 
 clean:
 	rm -f *.o core
