@@ -47,6 +47,7 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     agent->initialStamina = stamina;
     agent->stamina = stamina;
     agent->strategy = strategy;
+    agent->originStrategy = strategy;
     agent->map = g;
     agent->name = strdup(name);
     agent->visit = calloc(sizeof(int), numV(g));
@@ -60,7 +61,7 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
 
 void setDestination(Agent a, int end) {
     a->destination = end;
-    if (strcmp(agent->name, "T") != 0)
+    if (strcmp(a->name, "T") != 0)
         a -> strategy = L_T_P;
 }
 
@@ -153,9 +154,15 @@ Edge getNextMove(Agent agent,Graph g){
             nextMove = mkEdge(curGPS, curGPS, 0);
             agent -> stamina = agent -> initialStamina; //max stamina
         }
-    } else {
-        printf("Agent strategy not implemented yet\n");
-        abort();
+    } else if (agent->strategy == L_T_P) {
+//work out all posible paths (call dijkstra && pathSearch() )
+//compute all paths' cost
+//compute how many rest each paths
+//compute the final hops for each path
+//pick the less hop
+//pick the less cost
+//arbitary pick[0]
+
     }
     return nextMove;
 }
@@ -190,14 +197,11 @@ void makeNextMove(Agent agent,Edge move){
     if (agent -> strategy == C_L_VISITED && move.v != move.w)
         //??stay the same city count as 2 visits??
         agent -> visit[move.w]++;
+    if (agent -> strategy == L_T_P) {
+        if (agent -> currentLocation == agent -> destination)
+            agent -> strategy = agent -> originStrategy;
+    }
 }
-//work out all posible paths (call dijkstra)
-//compute all paths' cost
-//compute how many rest each paths
-//compute the final hops for each path
-//pick the less hop
-//pick the less cost
-//arbitary pick[0]
 
 Vertex getDestination(Agent agent){
     return agent->destination;
@@ -216,10 +220,8 @@ char * getName(Agent agent){
 void printAgent(Agent agent){
     int city = agent->currentLocation;
     printf("%s %d %s (%d%s)",agent->name,agent->stamina, getCityName(city), city, hasInformant(city));
-    if (strcmp(agent -> name, "T") == 0) {
-        int end = agent -> destination;
+    if(agent -> destination != NO_END)
         printf(" %s(%d)", getCityName(end), end);
-    }
     putchar('\n');
 }
 
