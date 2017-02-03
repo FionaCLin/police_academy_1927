@@ -19,6 +19,7 @@
 struct graphRep {
     int nv;
     int ne;
+    int thief;
     char *informants;
     char ** names;
     int ** edges;
@@ -27,23 +28,28 @@ struct graphRep {
 Graph map = NULL;
 
 static int validE(Graph g, Edge e) {
-    return (e.v >= 0 && e.v < g -> nv && e.w >= 0 && e.w < g -> nv) &&
+    return (e.v >= 0 && e.v < g->nv && e.w >= 0 && e.w < g->nv) &&
         (e.v != e.w) && e.weight >= 0;
 }
 static int validV(Graph g, Vertex v) {
-    return (v >= 0 && v < g -> nv);
+    return (v >= 0 && v < g->nv);
 }
 
 char * hasInformant(int city) {
     if (map == NULL) return 0;
-    return (map -> informants[city] == 'i')? "*" : "";
+    return (map->informants[city] == 'i')? "*" : "";
 }
 
 char * getCityName(int city) {
     if (map == NULL) return NULL;
-    return map -> names[city];
+    return map->names[city];
 }
-
+void setThief(Vertex city) {
+    map -> thief = city;
+}
+Vertex getThief() {
+    return map -> thief;
+}
 // Create an edge from v to w
 Edge mkEdge(Vertex v, Vertex w, int weight) {
     Edge e = {-1, -1, -1};
@@ -71,20 +77,20 @@ Graph newGraph(int nV) {
         printf("Unable to create Graph.\n");
         return NULL;
     }
-    g -> edges = malloc(sizeof(int *) * nV);
-    if (g -> edges == NULL) {
+    g->edges = malloc(sizeof(int *) * nV);
+    if (g->edges == NULL) {
         printf("Unable to make Graph edges.\n");
         return NULL;
     }
     for (i = 0; i < nV; i++) {
-        g -> edges[i] = malloc(sizeof(int)* (i + 1));
+        g->edges[i] = malloc(sizeof(int)* (i + 1));
         for(j = 0; j < i + 1; j++)
-            g -> edges[i][j] = NO_EDGE;
+            g->edges[i][j] = NO_EDGE;
     }
-    g -> informants = malloc(sizeof(char) * nV);
-    g -> names = malloc(sizeof(char *) * nV);
-    g -> nv = nV;
-    g -> ne = 0;
+    g->informants = malloc(sizeof(char) * nV);
+    g->names = malloc(sizeof(char *) * nV);
+    g->nv = nV;
+    g->ne = 0;
     map = g;
     return g;
 
@@ -95,8 +101,8 @@ void readCityInfo(int index, char info,char * name) {
         printf("Map is undefined yet\n");
         return;
     }
-    map -> informants[index] = info;
-    map -> names[index] = strdup(name);
+    map->informants[index] = info;
+    map->names[index] = strdup(name);
 }
 //Insert an edge into a graph
 //the edge must not be inserted if
@@ -119,15 +125,15 @@ void insertE(Graph g, Edge e) {
         row = e.w;
         col = e.v;
     }
-    if (g -> edges[row][col] == NO_EDGE) {
-        g -> edges[row][col] = e.weight;
-        g -> ne++;
+    if (g->edges[row][col] == NO_EDGE) {
+        g->edges[row][col] = e.weight;
+        g->ne++;
     }
 }
 
 //returns 1 if there is an edge from v to w
 //returns 0 otherwise
-int isAdjacent(Graph g, Vertex v, Vertex w){
+int isAdjacent(Graph g, Vertex v, Vertex w) {
     int col, row;
     if (g == NULL) {
         printf("Invalid Graph.\n");
@@ -144,14 +150,14 @@ int isAdjacent(Graph g, Vertex v, Vertex w){
         row = e.w;
         col = e.v;
     }
-    if (g -> edges[row][col] == NO_EDGE)
+    if (g->edges[row][col] == NO_EDGE)
         return 0;
     return 1;
 }
 
 //returns the number of adjacent vertices
 //and fills the adj array with the adjacent vertices
-int adjacentVertices(Graph g, Vertex v, Vertex adj[]){
+int adjacentVertices(Graph g, Vertex v, Vertex adj[]) {
     int i, nv = 0;
     if (g == NULL) {
         printf("Invalid Graph.\n");
@@ -166,11 +172,11 @@ int adjacentVertices(Graph g, Vertex v, Vertex adj[]){
         return -1;
     }
     for (i = 0; i < v; i++)
-        if (g -> edges[v][i] != NO_EDGE) {
+        if (g->edges[v][i] != NO_EDGE) {
             adj[nv++]= i;
         }
-    for (i = v + 1; i < g -> nv; i++)
-        if (g -> edges[i][v] != NO_EDGE) {
+    for (i = v + 1; i < g->nv; i++)
+        if (g->edges[i][v] != NO_EDGE) {
             adj[nv++]= i;
         }
     return nv;
@@ -178,7 +184,7 @@ int adjacentVertices(Graph g, Vertex v, Vertex adj[]){
 
 //returns the number of incident edges
 //and fills the edges with incident edges
-int incidentEdges(Graph g, Vertex v, Edge edges[]){
+int incidentEdges(Graph g, Vertex v, Edge edges[]) {
     int i, ne = 0;
     if (g == NULL) {
         printf("Invalid Graph.\n");
@@ -193,71 +199,71 @@ int incidentEdges(Graph g, Vertex v, Edge edges[]){
         return -1;
     }
     for (i = 0; i < v; i++)
-        if (g -> edges[v][i] != NO_EDGE) {
-            edges[ne++] = mkEdge(v, i, g -> edges[v][i]);
+        if (g->edges[v][i] != NO_EDGE) {
+            edges[ne++] = mkEdge(v, i, g->edges[v][i]);
         }
-    for (i = v + 1; i < g -> nv; i++)
-        if (g -> edges[i][v] != NO_EDGE) {
-            edges[ne++] = mkEdge(v, i, g -> edges[i][v]);
+    for (i = v + 1; i < g->nv; i++)
+        if (g->edges[i][v] != NO_EDGE) {
+            edges[ne++] = mkEdge(v, i, g->edges[i][v]);
         }
     return ne;
 }
 
-void destroyGraph(Graph g){
-    if (g != NULL){
+void destroyGraph(Graph g) {
+    if (g != NULL) {
         int i;
-        if(g -> edges != NULL) {
-            for (i = 0; i < g -> nv; i++)
-                free(g -> edges[i]);
+        if(g->edges != NULL) {
+            for (i = 0; i < g->nv; i++)
+                free(g->edges[i]);
         }
-        free(g -> edges);
-        if(g -> names != NULL) {
-            for (i = 0; i < g -> nv; i++)
-                free(g -> names[i]);
+        free(g->edges);
+        if(g->names != NULL) {
+            for (i = 0; i < g->nv; i++)
+                free(g->names[i]);
         }
-        free(g -> names);
-        free(g -> informants);
+        free(g->names);
+        free(g->informants);
     }
     free(g);
 }
 
 //return the number of vertices in the graph
-int numV(Graph g){
+int numV(Graph g) {
     if (g == NULL) {
         printf("Invalid NULL Graph has no vertex.\n");
         return -1;
     }
-    return g -> nv;
+    return g->nv;
 }
 
 //return the number of edges in the graph
-int numE(Graph g){
+int numE(Graph g) {
     if (g == NULL) {
         printf("Invalid NULL Graph has no edges.\n");
         return -1;
     }
-    return g -> ne;
+    return g->ne;
 }
 
 // returns the number of edges and fills the array of edges.
 // nE is the max size of the es array
 // The edges in the edges function should be in ascending order and not
 // contain duplicates.
-int edges(Edge es[], int nE, Graph g){
+int edges(Edge es[], int nE, Graph g) {
     if (g == NULL) {
         printf("Invalid Graph.\n");
         return 0;
     }
     int v, w, count = 0;
-    for (v = 1; v < g -> nv; v++)
-        for(w = 0; w < v; w++){
+    for (v = 1; v < g->nv; v++)
+        for(w = 0; w < v; w++) {
             if (v < w) {
                 int tmp = v;
                 v = w;
                 w = tmp;
             }
-            if (g -> edges[v][w] >= 0 && count < nE)
-                es[count++] = mkEdge(v, w, g -> edges[v][w]);
+            if (g->edges[v][w] >= 0 && count < nE)
+                es[count++] = mkEdge(v, w, g->edges[v][w]);
         }
     return count;
 }
@@ -268,7 +274,7 @@ static int edgeWeight(Vertex v, Vertex w) {
         row = w;
         col = v;
     }
-    return map -> edges[row][col];
+    return map->edges[row][col];
 }
 Edge getEdge(Graph g, Vertex v, Vertex w) {
     int row = v;
@@ -279,7 +285,7 @@ Edge getEdge(Graph g, Vertex v, Vertex w) {
     }
     Edge e = {v, w, NO_EDGE};
     if (g != NULL) {
-        e.weight =  g -> edges[row][col];
+        e.weight =  g->edges[row][col];
     }
     return e;
 }
@@ -298,7 +304,7 @@ void show(Graph g) {
                 nshown++;
             }
         }
-        if (nshown > 0){
+        if (nshown > 0) {
             printf("\n");
         }
     }
@@ -329,14 +335,14 @@ void dfSearch(Graph g, Vertex src, int * path, int * visit) {
 
     }
     printf("i: \t");
-    for (i = 0; i < g -> nv; i++)
+    for (i = 0; i < g->nv; i++)
         printf(" %d", i);
     printf("\ncount: \t");
-    for (i = 0; i < g -> nv; i++)
+    for (i = 0; i < g->nv; i++)
         printf(" %d", visit[i]);
     putchar('\n');
     printf("\npath: \t");
-    for (i = 0; i < g -> nv; i++)
+    for (i = 0; i < g->nv; i++)
         printf(" %d", path[i]);
     putchar('\n');
     dropStack(stk);
@@ -344,23 +350,25 @@ void dfSearch(Graph g, Vertex src, int * path, int * visit) {
 
 // bfSearch using Queue
 //The initialisation of variables etc before we call the dfs function
-void pathSearch(Graph g, Vertex src, Vertex dest, int * path, int * visit) {
+void bfSearch(Graph g, Vertex src, Vertex dest, int * path, int * visit) {
     if (g == NULL) {
         printf("The graph g can't be NULL\n");
         return;
     }
-    int i, j = 1, found = 0;
+    int i, count = 0, found = 0;
     for (i = 0; i < numV(g); i++) {
         path[i] = 0;
-        visit[i] = 0;
+        visit[i] = -1;
     }
     //make a stack and push the 1st edge
     Queue q = newQueue();
     QueueJoin(q, src);
     while (!QueueIsEmpty(q)) {
         Vertex w = QueueLeave(q);
+        if(visit[w] != -1) continue;
+        visit[w] = ++count;
         for (i = 0; i < numV(g); i++) {
-            if (edgeWeight(w, i) == NO_EDGE || visit[w]) continue;
+            if (edgeWeight(w, i) == NO_EDGE) continue;
             QueueJoin(q, i);
             path[i] = w;
         }
@@ -370,46 +378,46 @@ void pathSearch(Graph g, Vertex src, Vertex dest, int * path, int * visit) {
         if (path[i] == last) {
             if (isAdjacent(g, dest, i)) {
                 found++;
-                visit[j++] = i;
+//                visit[j++] = i;
             }
         }
     }
     visit[0] = found;
     printf("i: \t");
-    for (i = 0; i < g -> nv; i++)
+    for (i = 0; i < g->nv; i++)
         printf(" %d", i);
-    printf("\ncount: \t");
-    for (i = 0; i < g -> nv; i++)
+    printf("\nvisit: \t");
+    for (i = 0; i < g->nv; i++)
         printf(" %d", visit[i]);
     putchar('\n');
     printf("\npath: \t");
-    for (i = 0; i < g -> nv; i++)
+    for (i = 0; i < g->nv; i++)
         printf(" %d", path[i]);
     putchar('\n');
     dropQueue(q);
 }
 
 
-int * dijkstra(Graph g,Vertex s,int st[]){
-    int v,t;
-    int * dist = malloc(sizeof(int*) * g -> nv);
-    MinHeap heap = newHeap(g -> nv);
+int * dijkstra(Graph g,Vertex s,int st[]) {
+    int i, v,t;
+    int * dist = malloc(sizeof(int*) * g->nv);
+    MinHeap heap = newHeap(g->nv);
     //insert each vertex into the pq
-    for(v=0;v< g->nv;v++){
+    for(v=0;v< g->nv;v++) {
         st[v] = -1;
         dist[v] = NO_EDGE; //represents infinity
-        HItem i = newHItem(dist[v],v);
-        insertHeap(heap, i);
+        HItem record = newHItem(dist[v],v);
+        insertHeap(heap, record);
     }
     dist[s] = 0;
     decreaseWeight(heap, s, dist[s]);
-    while(!isEmpty(heap)){
+    while(!isEmpty(heap)) {
         v = value(delMin(heap));
         if(dist[v] != NO_EDGE)
-            for(t = 0;t < g->nv;t++){
+            for(t = 0;t < g->nv;t++) {
                 Edge eT = getEdge(g, v, t);
-                if(eT.weight != NO_EDGE){
-                    if(dist[v] + eT.weight < dist[t]){
+                if(eT.weight != NO_EDGE) {
+                    if(dist[v] + eT.weight < dist[t]) {
                         dist[t] = dist[v] + eT.weight;
                         decreaseWeight(heap, t, dist[t]);
                         st[t] = v;
@@ -417,6 +425,17 @@ int * dijkstra(Graph g,Vertex s,int st[]){
                 }
             }
     }
+    printf("\ni: \t");
+    for (i = 0; i < g->nv; i++)
+        printf(" %d", i);
+    printf("\nst: \t");
+    for (i = 0; i < g->nv; i++)
+        printf(" %d", st[i]);
+    putchar('\n');
+    printf("\ndist: \t");
+    for (i = 0; i < g->nv; i++)
+        printf(" %d", dist[i]);
+    putchar('\n');
     return dist;
 }
 

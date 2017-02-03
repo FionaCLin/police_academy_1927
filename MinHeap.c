@@ -6,7 +6,7 @@
 #include "MinHeap.h"
 
 #define DEFAULT_MAX 100
-
+#define NO_Item -1
 #define PARENT(x) (x-1)/2
 #define L_NODE(x) (2*x + 1)
 #define R_NODE(x) (2*x + 2)
@@ -27,7 +27,7 @@ MinHeap newHeap(int size) {
     assert(q != NULL);
     q->items = malloc(sizeof(HItem) * size);
     assert(q->items != NULL);
-    q->nHItems = 0;
+    q->nHItems = NO_Item;
     q->size = size;
     return q;
 }
@@ -59,9 +59,10 @@ void fixDown(HItem a[], int k, int N) {
         int child = L_NODE(k);
         if (2*k < N && less(a[L_NODE(k)], a[R_NODE(k)]))
             child = R_NODE(k);
-        if (less(a[k], a[child])) break;
-        swap(a, k, child);
-        k = 2 * k;
+        if (!less(a[k], a[child]))
+            swap(a, k, child);
+        if(k != 0) k = 2 * k;
+        else k = 1;
     }
 }
 

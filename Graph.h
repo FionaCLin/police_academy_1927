@@ -23,6 +23,12 @@ typedef struct graphRep *Graph;
 // check if the city has informant
 char * hasInformant(int city);
 
+//set thief location
+void setThief(Vertex city) ;
+//get thief location
+Vertex getThief() ;
+
+// Create an edge from v to w
 // read std io for each city info
 void readCityInfo(int city, char info,char * name);
 
@@ -71,7 +77,7 @@ void show(Graph g);
 //The initialisation of variables etc before we call the dfs function
 void dfSearch(Graph g, Vertex src, int * order, int * visited) ;
 Edge getEdge(Graph g, Vertex v, Vertex w);
-void pathSearch(Graph g, Vertex src, Vertex dest, int * path, int *
+void bfSearch(Graph g, Vertex src, Vertex dest, int * path, int *
     visit) ;
 int * dijkstra(Graph g,Vertex s,int st[]);
 #endif
