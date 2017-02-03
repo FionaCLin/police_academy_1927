@@ -1,6 +1,6 @@
 // Stack.c
 // array implementation of Stack ADT
-// Written by John Shpherd, March 2013
+// Written by  Fiona Lin
 
 #include <stdlib.h>
 #include <stdio.h>

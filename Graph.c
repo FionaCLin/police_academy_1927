@@ -10,9 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Stack.h"
-#include "MinHeap.h"
 #include "Queue.h"
-#include "HItem.h"
+#include "Path.h"
 #include "Graph.h"
 
 
@@ -348,95 +347,85 @@ void dfSearch(Graph g, Vertex src, int * path, int * visit) {
     dropStack(stk);
 }
 
-// bfSearch using Queue
-//The initialisation of variables etc before we call the dfs function
-void bfSearch(Graph g, Vertex src, Vertex dest, int * path, int * visit) {
-    if (g == NULL) {
-        printf("The graph g can't be NULL\n");
-        return;
-    }
-    int i, count = 0, found = 0;
-    for (i = 0; i < numV(g); i++) {
-        path[i] = 0;
-        visit[i] = -1;
-    }
-    //make a stack and push the 1st edge
-    Queue q = newQueue();
-    QueueJoin(q, src);
-    while (!QueueIsEmpty(q)) {
-        Vertex w = QueueLeave(q);
-        if(visit[w] != -1) continue;
-        visit[w] = ++count;
-        for (i = 0; i < numV(g); i++) {
-            if (edgeWeight(w, i) == NO_EDGE) continue;
-            QueueJoin(q, i);
-            path[i] = w;
-        }
-    }
-    Vertex last = path[path[dest]];
-    for (i = 0; i < numV(g); i++) {
-        if (path[i] == last) {
-            if (isAdjacent(g, dest, i)) {
-                found++;
-//                visit[j++] = i;
-            }
-        }
-    }
-    visit[0] = found;
-    printf("i: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", i);
-    printf("\nvisit: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", visit[i]);
-    putchar('\n');
-    printf("\npath: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", path[i]);
-    putchar('\n');
-    dropQueue(q);
-}
-
-
-int * dijkstra(Graph g,Vertex s,int st[]) {
-    int i, v,t;
-    int * dist = malloc(sizeof(int*) * g->nv);
-    MinHeap heap = newHeap(g->nv);
-    //insert each vertex into the pq
-    for(v=0;v< g->nv;v++) {
-        st[v] = -1;
-        dist[v] = NO_EDGE; //represents infinity
-        HItem record = newHItem(dist[v],v);
-        insertHeap(heap, record);
-    }
-    dist[s] = 0;
-    decreaseWeight(heap, s, dist[s]);
-    while(!isEmpty(heap)) {
-        v = value(delMin(heap));
-        if(dist[v] != NO_EDGE)
-            for(t = 0;t < g->nv;t++) {
-                Edge eT = getEdge(g, v, t);
-                if(eT.weight != NO_EDGE) {
-                    if(dist[v] + eT.weight < dist[t]) {
-                        dist[t] = dist[v] + eT.weight;
-                        decreaseWeight(heap, t, dist[t]);
-                        st[t] = v;
-                    }
+Path lessTurnsPaths(Queue possiblePaths) {
+    Queue checked = newQueue();
+    Path res = QueueLeave(possiblePaths);
+    Path tem = NULL;
+    while (QueueIsEmpty(possiblePaths)) {
+        Path cur = QueueLeave(possiblePaths);
+        if(greater(res, cur)) {
+            tem = res;
+            res = cur;
+            cur = tem;
+        } else {
+            if(equal(res, cur)) {
+                if(stamina(res) > stamina(cur)) {
+                    tem = res;
+                    res = cur;
+                    cur = tem;
                 }
             }
+        }
+        QueueJoin(checked, cur);
     }
-    printf("\ni: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", i);
-    printf("\nst: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", st[i]);
-    putchar('\n');
-    printf("\ndist: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", dist[i]);
-    putchar('\n');
-    return dist;
+    dropQueue(possiblePaths);
+    possiblePaths = checked;
+    return res;
 }
 
+
+// bfSearch using Queue
+//The initialisation of variables etc before we call the dfs function
+int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest) {
+    if (g == NULL) {
+        printf("The graph g can't be NULL\n");
+        return NULL;
+    }
+    int i, count = 0;
+    int visit[g->nv];
+    for (i = 0; i < numV(g); i++) {
+        visit[i] = -1;
+    }
+    //make a queue and join the 1st edge
+    Queue q = newQueue();
+    Queue possiblePaths = newQueue();
+    QueueJoin(q, newPath(0, src, curStamina, NULL));
+    while (!QueueIsEmpty(q)) {
+        Path p = QueueLeave(q);
+        if(dest(p) == dest)
+            QueueJoin(possiblePaths, p);
+        if(visit[dest(p)] != -1) continue;
+        visit[dest(p)] = count++;
+        for (i = 0; i < numV(g); i++) {
+            int cost = edgeWeight(dest(p), i);
+            //when the edge weight greater than agent max stamina,it means no
+            //possible path/edge in the map.
+            if (cost > maxStamina && cost == NO_EDGE) continue;
+            int turn = hops(p);
+            int stamina = stamina(p);
+            if (stamina(p) - cost < 0) {
+                turn++;
+                stamina = maxStamina;
+            }
+            QueueJoin(q, newPath(++turn, i, stamina - cost, p));
+        }
+    }
+
+    Path routine = lessTurnsPaths(possiblePaths);
+    while (!QueueIsEmpty(possiblePaths)) {
+        Path pathToFree = QueueLeave(possiblePaths);
+        freePath(pathToFree);
+    }
+
+    int nPath = numPaths(routine);
+    int *paths = malloc(sizeof(int) * nPath);
+    Path cur = routine;
+    while (cur != NULL) {
+        paths[--nPath] = dest(cur);
+        cur = cur -> prev;
+    }
+    dropQueue(q);
+    dropQueue(possiblePaths);
+    return paths;
+}
 

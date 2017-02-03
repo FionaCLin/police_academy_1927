@@ -1,6 +1,7 @@
 // An graph ADT interface for weighted undirected graphs
 
 #include <limits.h>
+#include "Path.h"
 
 #ifndef GRAPH_H
 #define GRAPH_H
@@ -77,7 +78,5 @@ void show(Graph g);
 //The initialisation of variables etc before we call the dfs function
 void dfSearch(Graph g, Vertex src, int * order, int * visited) ;
 Edge getEdge(Graph g, Vertex v, Vertex w);
-void bfSearch(Graph g, Vertex src, Vertex dest, int * path, int *
-    visit) ;
-int * dijkstra(Graph g,Vertex s,int st[]);
+int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest) ;
 #endif

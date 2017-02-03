@@ -1,5 +1,5 @@
 // Stack.h ... interface to Stack ADT
-// Written by John Shepherd, March 2013
+// Written by  Fiona Lin
 
 #ifndef STACK_H
 #define STACK_H

@@ -189,10 +189,9 @@ Edge getNextMove(Agent agent,Graph g) {
          * next cycle. This would increment the number of hops).
          */
         Vertex * cheapestPath = malloc(sizeof(int*) * numV(g));
-        int * dist = dijkstra(g, curGPS, cheapestPath);
-        bfSearch(g, curGPS, dest, agent->paths, agent->visit);
+        bfSearch(g, agent->stamina, agent->initialStamina, curGPS,
+                dest);
         free(cheapestPath);
-        free(dist);
         nextMove = getEdge(g, curGPS, next);
         if(nextMove.weight <= agent->stamina)
             agent->stamina -= nextMove.weight;

@@ -1,14 +1,14 @@
 // Queue.c ... implementation of Queue ADT
-// Written by John Shepherd, March 2013
+// Written by  Fiona Lin
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-#include "Item.h"
+#include "Path.h"
 #include "Queue.h"
 
 typedef struct QueueNode {
-	Item value;
+	Path value;
 	struct QueueNode *next;
 } QueueNode;
 
@@ -17,9 +17,9 @@ typedef struct QueueRep {
 	QueueNode *tail;  // ptr to last node
 } QueueRep;
 
+
 // create new empty Queue
-Queue newQueue()
-{
+Queue newQueue() {
 	Queue q;
 	q = malloc(sizeof(QueueRep));
 	assert(q != NULL);
@@ -29,8 +29,7 @@ Queue newQueue()
 }
 
 // free memory used by Queue
-void dropQueue(Queue Q)
-{
+void dropQueue(Queue Q) {
 	QueueNode *curr, *next;
 	assert(Q != NULL);
 	// free list nodes
@@ -43,30 +42,26 @@ void dropQueue(Queue Q)
 	// free queue rep
 	free(Q);
 }
-
-// display as 3 > 5 > 4 > ...
-void showQueue(Queue Q)
-{
-	QueueNode *curr;
-	assert(Q != NULL);
-	// free list nodes
-	curr = Q->head;
-	while (curr != NULL) {
-		ItemShow(curr->value);
-		if (curr->next != NULL)
-			printf(">");
-		curr = curr->next;
-	}
-	printf("\n");
-}
-
+//
+//void showQueue(Queue Q) {
+//	QueueNode *curr;
+//	assert(Q != NULL);
+//	// free list nodes
+//	curr = Q->head;
+//	while (curr != NULL) {
+//		PathShow(curr->value);
+//		if (curr->next != NULL)
+//		curr = curr->next;
+//	}
+//	printf("\n");
+//}
+//
 // add item at end of Queue
-void QueueJoin(Queue Q, Item it)
-{
+void QueueJoin(Queue Q, Path it) {
 	assert(Q != NULL);
 	QueueNode *new = malloc(sizeof(QueueNode));
 	assert(new != NULL);
-	new->value = ItemCopy(it);
+	new->value = PathCopy(it);
 	new->next = NULL;
 	if (Q->head == NULL)
 		Q->head = new;
@@ -76,11 +71,10 @@ void QueueJoin(Queue Q, Item it)
 }
 
 // remove item from front of Queue
-Item QueueLeave(Queue Q)
-{
+Path QueueLeave(Queue Q) {
 	assert(Q != NULL);
 	assert(Q->head != NULL);
-	Item it = ItemCopy(Q->head->value);
+	Path it = PathCopy(Q->head->value);
 	QueueNode *old = Q->head;
 	Q->head = old->next;
 	if (Q->head == NULL)
@@ -90,8 +84,7 @@ Item QueueLeave(Queue Q)
 }
 
 // check for no items
-int QueueIsEmpty(Queue Q)
-{
+int QueueIsEmpty(Queue Q) {
 	return (Q->head == NULL);
 }
 
