@@ -116,8 +116,10 @@ void display(int cycle,Agent agents[],Graph g){
     printf ("  T  D1  D2  D3  D4\n");
     for (i = 0; i <= NUM_DETECTIVES; i++) {
         Vertex city = getCurrentLocation(agents[i]);
-        printf ("%3d%s", city, hasInformant(city));
-        printf (" ");
+        printf ("%3d", city);
+        if (strcmp(hasInformant(city),"") == 0)
+            printf(" ");
+        else printf("*");
     }
     printf ("\n\n");
 }

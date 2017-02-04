@@ -79,7 +79,7 @@ void show(Graph g);
 
 // dfSearch using Stack
 //The initialisation of variables etc before we call the dfs function
-int * dfSearch(Graph g, Vertex src, int * visit) ;
+int * dfSearch(Graph g, int maxStamina, Vertex src, int * visit) ;
 Edge getEdge(Graph g, Vertex v, Vertex w);
 int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest) ;
 #endif

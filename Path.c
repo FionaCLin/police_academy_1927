@@ -8,8 +8,8 @@
 
 Path PathCopy(Path it) {
     Path copy = NULL;
-    if (it -> prev == NULL) {
-        copy = newPath(it->vertex, it->turn, it->stamina, copy);
+    if (it != NULL && it->prev == NULL) {
+        copy = newPath(it->vertex, it->turn, it->stamina, NULL);
     } else {
         copy = PathCopy(it->prev);
         copy = newPath(it->vertex, it->turn, it->stamina, copy);
@@ -48,6 +48,3 @@ void freePath(Path p) {
         free(tem);
     }
 }
-
-
-

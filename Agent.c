@@ -6,6 +6,7 @@
 #include "Agent.h"
 
 #define NO_END -1
+#define YET -1
 //This struct stores information about an individual agent(detective or
 //thief) You might want to add to this struct to store more information
 struct agentRep{
@@ -17,6 +18,7 @@ struct agentRep{
     int initialStamina; //max stamina
     int stamina; //current stamina
     int strategy;
+    int nextOrder;
     int originStrategy;
     int * visit;
     int * paths;
@@ -24,6 +26,10 @@ struct agentRep{
     char * name;
 };
 
+
+int filterEdges(Agent a, int numEdges, Edge *possibleMoves, Edge * filteredMoves) ;
+// static Edge * filterVisistedEdges(Agent a, int * path, int lo, int hi, int * numEdges) ;
+static Edge * getValidMoves(Graph g, Agent a, int * nValidEdges) ;
 
 // static void swap(Edge *a, Edge* b) ; static int
 // partitionByWeight(Edge moves[], int lo, int hi) ; static void
@@ -49,8 +55,8 @@ Agent initAgent(Vertex start, int maxCycles, int stamina, int strategy,
     agent->strategy = strategy;
     agent->originStrategy = strategy;
     agent->map = g;
-    agent->name =
-        strdup(name);
+    agent->nextOrder = NOT_YET;
+    agent->name = strdup(name);
     agent->visit = calloc(sizeof(int), numV(g));
     //agent->paths = calloc(sizeof(int), numV(g));
     agent->paths = NULL;
@@ -111,7 +117,7 @@ void printAgent(Agent agent) {
     int end = agent->destination;
     printf("%s %d %s (%d%s)", agent->name, agent->stamina, getCityName(city), city, hasInformant(city));
     if (end != NO_END)
-        printf(" %s (%d)", getCityName(end), end);
+        printf(" %s (%d%s)", getCityName(end), end, hasInformant(end));
     putchar('\n');
 }
 
@@ -135,7 +141,6 @@ static Edge sortByVisit(Agent a, Edge mvs[], int lo, int hi) {
     }
     return mvs[least];
 }
-
 
 // Takes an array with all the possible edges and puts the ones the agent
 // has enough stamina for into the filteredMoves array
@@ -163,6 +168,22 @@ static Edge * getValidMoves(Graph g, Agent a, int * nValidEdges) {
     free(possibleMoves);
     return legalMoves;
 }
+
+// static Edge * filterVisistedEdges(Agent a, int * path, int lo, int hi, int * numEdges) {
+//     int numFiltered = 0;
+//     *numEdges = 0;
+//     int i, j;
+//     Edge * possibleMoves = getValidMoves(a->map, a, numEdges);
+//     Edge * filteredMoves = malloc((*numEdges) * sizeof(Edge));
+//     for (i=0;i < *numEdges;i++) {
+//         for (j = lo; j < hi; j++) {
+//             if (possibleMoves[i].w == path[j]) {
+//                 filteredMoves[numFiltered++] = possibleMoves[i];
+//             }
+//         }
+//     }
+//     return filteredMoves;
+// }
 // Get a legal move. This should be a move that the agent has enough
 // stamina to make and is a valid edge from the graph.
 // You need to implement all other strategies.
@@ -209,6 +230,7 @@ Edge getNextMove(Agent agent, Graph g) {
     } else if (agent->strategy == DFS) {
         int curGPS = agent->currentLocation;
         int order = agent->visit[curGPS];
+
         if (agent->paths == NULL) {
             order = numV(g);
         }
@@ -219,7 +241,7 @@ Edge getNextMove(Agent agent, Graph g) {
         if (order == numV(g)) {
             agent->visit[curGPS] = 0;
             free(agent->paths);
-            agent->paths = dfSearch(g, curGPS, agent->visit);
+            agent->paths = dfSearch(g, agent->initialStamina, curGPS, agent->visit);
         }
         // update the order of current location in order to get the next
         // city to visit
@@ -228,9 +250,7 @@ Edge getNextMove(Agent agent, Graph g) {
         // check if there is path to nextCity city
         if (!isAdjacent(g, curGPS, nextCity)) {
             // if not, then move backward and update the nextCity city to visit
-            agent->paths[order] = agent->paths[order - 1];
-            agent->paths[order - 1] = nextCity;
-            nextCity = agent->paths[order - 2];
+            nextCity = agent->paths[order - 1];
         }
         //get the nextCity move
         nextMove = getEdge(g, curGPS, nextCity);
@@ -244,6 +264,41 @@ Edge getNextMove(Agent agent, Graph g) {
             //max stamina
             agent->stamina = agent->initialStamina;
         }
+        // if (agent->nextOrder != YET) order = agent->nextOrder;
+        // Vertex nextCity = agent->paths[order];
+        // if(!isAdjacent(g, nextCity, curGPS)) {
+        //     agent->nextOrder = order;
+        //     //get all possible incident edges
+        //     int nValidEs = 0;
+        //     //remove all edge that hasn't been visit
+        //     Edge * legalMoves = filterVisistedEdges(agent, agent->paths, 0, order, &nValidEs);
+        //     //random choose one of edges
+        //     if (nValidEs!= 0) {
+        //         nextMove = legalMoves[rand()%nValidEs];
+        //         //reduce stamina
+        //         agent->stamina -= nextMove.weight;
+        //     } else {
+        //         //the agent must stay in the same location
+        //         nextMove = mkEdge(curGPS, curGPS, 0);
+        //         //max stamina
+        //         agent->stamina = agent->initialStamina;
+        //     }
+        //     return nextMove;
+        // } else {
+        //     if (agent->nextOrder != YET) agent->nextOrder = YET;
+        //     //get the nextCity move
+        //     nextMove = getEdge(g, curGPS, nextCity);
+        // }
+        // //check if the nextCity move is affordable
+        // if (nextMove.weight <= agent->stamina)
+        //     //reduce stamina
+        //     agent->stamina -= nextMove.weight;
+        // else {
+        //     //the agent must stay in the same location
+        //     nextMove = mkEdge(curGPS, curGPS, 0);
+        //     //max stamina
+        //     agent->stamina = agent->initialStamina;
+        // }
     } else if (agent->strategy == L_T_P) {
         //get current location and the destination
         int curGPS = agent->currentLocation;
@@ -256,6 +311,7 @@ Edge getNextMove(Agent agent, Graph g) {
             // get current stamina to compute the end stamina along the paths
             int cur = agent->stamina;
             //work out the less turn path
+            free(agent->paths);
             agent->paths = bfSearch(g, max, cur, curGPS, dest);
         }
         //first element of the paths record my current spot in the paths
@@ -290,7 +346,6 @@ void makeNextMove(Agent agent, Edge move) {
     agent->currentCycle++;
     agent->currentLocation = move.w;
     if (agent->strategy == C_L_VISITED)
-        //??stay the same city count as 2 visits??
         agent->visit[move.w]++;
     if (agent->strategy == L_T_P) {
         // update the visit array if the agent original strategy is
