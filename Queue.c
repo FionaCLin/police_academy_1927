@@ -61,7 +61,7 @@ void QueueJoin(Queue Q, Path it) {
 	assert(Q != NULL);
 	QueueNode *new = malloc(sizeof(QueueNode));
 	assert(new != NULL);
-	new->value = PathCopy(it);
+	new->value = it;
 	new->next = NULL;
 	if (Q->head == NULL)
 		Q->head = new;
@@ -74,7 +74,7 @@ void QueueJoin(Queue Q, Path it) {
 Path QueueLeave(Queue Q) {
 	assert(Q != NULL);
 	assert(Q->head != NULL);
-	Path it = PathCopy(Q->head->value);
+	Path it = Q->head->value;
 	QueueNode *old = Q->head;
 	Q->head = old->next;
 	if (Q->head == NULL)

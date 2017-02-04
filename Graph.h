@@ -5,7 +5,10 @@
 
 #ifndef GRAPH_H
 #define GRAPH_H
+
+#define NOT_YET (-1)
 #define NO_EDGE INT_MAX
+
 // vertices denoted by integers 0..N-1
 typedef int Vertex;
 
@@ -76,7 +79,7 @@ void show(Graph g);
 
 // dfSearch using Stack
 //The initialisation of variables etc before we call the dfs function
-void dfSearch(Graph g, Vertex src, int * order, int * visited) ;
+int * dfSearch(Graph g, Vertex src, int * visit) ;
 Edge getEdge(Graph g, Vertex v, Vertex w);
 int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest) ;
 #endif

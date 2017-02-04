@@ -6,9 +6,9 @@
 typedef struct record * Path;
 typedef int Key;    //non-negative key
 struct record{
+    int vertex;    //vertex id
     Key turn;       //turns
     int stamina;   //stamina end of the path
-    int vertex;    //vertex id
     Path prev;
 };
 

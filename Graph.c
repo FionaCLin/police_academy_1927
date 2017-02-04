@@ -310,12 +310,13 @@ void show(Graph g) {
 }
 // dfSearch using Stack
 //The initialisation of variables etc before we call the dfs function
-void dfSearch(Graph g, Vertex src, int * path, int * visit) {
+int * dfSearch(Graph g, Vertex src, int * visit) {
     if (g == NULL) {
         printf("The graph g can't be NULL\n");
-        return;
+        return NULL;
     }
     int i, count = 1;
+    int * path = calloc(sizeof(int), numV(g));
     for (i = 0; i < numV(g); i++) {
         path[i] = 0;
         visit[i] = 0;
@@ -333,25 +334,29 @@ void dfSearch(Graph g, Vertex src, int * path, int * visit) {
                 StackPush(stk, i);
 
     }
-    printf("i: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", i);
-    printf("\ncount: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", visit[i]);
-    putchar('\n');
-    printf("\npath: \t");
-    for (i = 0; i < g->nv; i++)
-        printf(" %d", path[i]);
-    putchar('\n');
+    //    printf("i: \t");
+    //    for (i = 0; i < g->nv; i++)
+    //        printf(" %d", i);
+    //    printf("\ncount: \t");
+    //    for (i = 0; i < g->nv; i++)
+    //        printf(" %d", visit[i]);
+    //    putchar('\n');
+    //    printf("\npath: \t");
+    //    for (i = 0; i < g->nv; i++)
+    //        printf(" %d", path[i]);
+    //    putchar('\n');
     dropStack(stk);
+    return path;
 }
 
 Path lessTurnsPaths(Queue possiblePaths) {
-    Queue checked = newQueue();
+    if (QueueIsEmpty(possiblePaths)) {
+        return NULL;
+    }
     Path res = QueueLeave(possiblePaths);
+    Queue checked = newQueue();
     Path tem = NULL;
-    while (QueueIsEmpty(possiblePaths)) {
+    while (!QueueIsEmpty(possiblePaths)) {
         Path cur = QueueLeave(possiblePaths);
         if(greater(res, cur)) {
             tem = res;
@@ -368,8 +373,11 @@ Path lessTurnsPaths(Queue possiblePaths) {
         }
         QueueJoin(checked, cur);
     }
-    dropQueue(possiblePaths);
-    possiblePaths = checked;
+    while (!QueueIsEmpty(checked)) {
+        Path cur = QueueLeave(checked);
+        QueueJoin(possiblePaths, cur);
+    }
+    dropQueue(checked);
     return res;
 }
 
@@ -384,48 +392,50 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
     int i, count = 0;
     int visit[g->nv];
     for (i = 0; i < numV(g); i++) {
-        visit[i] = -1;
+        visit[i] = NOT_YET;
     }
     //make a queue and join the 1st edge
     Queue q = newQueue();
     Queue possiblePaths = newQueue();
-    QueueJoin(q, newPath(0, src, curStamina, NULL));
+    QueueJoin(q, newPath(src, 0, curStamina, NULL));
     while (!QueueIsEmpty(q)) {
         Path p = QueueLeave(q);
-        if(dest(p) == dest)
-            QueueJoin(possiblePaths, p);
-        if(visit[dest(p)] != -1) continue;
+        if(dest(p) == dest) QueueJoin(possiblePaths, p);
+        if(visit[dest(p)] != NOT_YET) continue;
         visit[dest(p)] = count++;
         for (i = 0; i < numV(g); i++) {
+            if (dest(p) == i || visit[i] != NOT_YET) continue;
             int cost = edgeWeight(dest(p), i);
             //when the edge weight greater than agent max stamina,it means no
             //possible path/edge in the map.
-            if (cost > maxStamina && cost == NO_EDGE) continue;
+            if (cost > maxStamina || cost == NO_EDGE) continue;
             int turn = hops(p);
             int stamina = stamina(p);
             if (stamina(p) - cost < 0) {
                 turn++;
                 stamina = maxStamina;
             }
-            QueueJoin(q, newPath(++turn, i, stamina - cost, p));
+            QueueJoin(q, newPath(i, ++turn, stamina-cost,p));
         }
     }
-
     Path routine = lessTurnsPaths(possiblePaths);
     while (!QueueIsEmpty(possiblePaths)) {
         Path pathToFree = QueueLeave(possiblePaths);
         freePath(pathToFree);
     }
-
     int nPath = numPaths(routine);
-    int *paths = malloc(sizeof(int) * nPath);
-    Path cur = routine;
-    while (cur != NULL) {
-        paths[--nPath] = dest(cur);
-        cur = cur -> prev;
+    int *paths = NULL;
+    if (routine != NULL) {
+        paths =  malloc(sizeof(int) * ++nPath);
+        Path cur = routine;
+        while (cur != NULL) {
+            paths[--nPath] = dest(cur);
+            cur = cur -> prev;
+        }
+        paths[--nPath] = 1;
     }
-    dropQueue(q);
     dropQueue(possiblePaths);
+    dropQueue(q);
     return paths;
 }
 

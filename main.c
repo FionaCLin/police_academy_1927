@@ -155,11 +155,13 @@ int step(int cycle,Agent agents[],Graph g,int maxCycles){
     cycle++;
     for(i=0;i<=NUM_DETECTIVES;i++){
         Edge  nextMove = getNextMove(agents[i],g);
-        if(i != THIEF) {
+        if(i == THIEF) {
             setThief(nextMove.w);
         } else {
             if (strcmp(hasInformant(nextMove.w),"*") == 0) {
                 Vertex target = getThief();
+                //when I set the destintion; if it isn't thief, then it
+                //will update the strategy to L_T_P;
                 setDestination(agents[i], target);
             }
         }

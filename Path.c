@@ -7,11 +7,18 @@
 #include "Path.h"
 
 Path PathCopy(Path it) {
-    Path copy = newPath(it->turn, it->vertex, it->stamina, it->prev);
+    Path copy = NULL;
+    if (it -> prev == NULL) {
+        copy = newPath(it->vertex, it->turn, it->stamina, copy);
+    } else {
+        copy = PathCopy(it->prev);
+        copy = newPath(it->vertex, it->turn, it->stamina, copy);
+    }
+
     return copy;
 }
 
-Path newPath(Key turns, int v, int stamina, Path prev){
+Path newPath(int v, Key turns, int stamina, Path prev){
     Path i = malloc(sizeof(struct record));
     assert(i != NULL);
     i->turn = turns;
@@ -34,10 +41,10 @@ int numPaths(Path p) {
 void freePath(Path p) {
     Path tem = NULL;
     Path cur = NULL;
-    while (p != NULL) {
-        for (cur = p; cur -> prev != NULL; cur = cur -> prev);
+    cur = p;
+    while (cur != NULL) {
         tem = cur;
-        cur = NULL;
+        cur = cur -> prev;
         free(tem);
     }
 }

@@ -6,8 +6,8 @@
 #include "Agent.h"
 
 #define NO_END -1
-//This struct stores information about an individual agent(detective or thief)
-//You might want to add to this struct to store more information
+//This struct stores information about an individual agent(detective or
+//thief) You might want to add to this struct to store more information
 struct agentRep{
     Vertex startLocation;
     Vertex currentLocation;
@@ -15,7 +15,7 @@ struct agentRep{
     int currentCycle;
     int maxCycles;
     int initialStamina; //max stamina
-    int stamina;  //current stamina
+    int stamina; //current stamina
     int strategy;
     int originStrategy;
     int * visit;
@@ -25,21 +25,20 @@ struct agentRep{
 };
 
 
-// static void swap(Edge *a, Edge* b) ;
-// static int partitionByWeight(Edge moves[], int lo, int hi) ;
-// static void quicksort(Edge mvs[], int lo, int hi, char sortBy) ;
-// static void sortByWeight(Edge moves[], int lo, int hi) ;
+// static void swap(Edge *a, Edge* b) ; static int
+// partitionByWeight(Edge moves[], int lo, int hi) ; static void
+// quicksort(Edge mvs[], int lo, int hi, char sortBy) ; static void
+// sortByWeight(Edge moves[], int lo, int hi) ;
 static Edge sortByVisit(Agent a, Edge moves[], int lo, int hi) ;
-//This creates one individual thief or detective
-//You may need to add more to this
-Agent initAgent(Vertex start, int maxCycles,int stamina,
-        int strategy, Graph g, char * name) {
-    if(start >= numV(g)) {
-        printf("Error starting vertex %d not valid\n",start);
+//This creates one individual thief or detective You may need to add
+//more to this
+Agent initAgent(Vertex start, int maxCycles, int stamina, int strategy,
+        Graph g, char * name) {
+    if (start >= numV(g)) {
+        printf("Error starting vertex %d not valid\n", start);
         abort();
     }
     Agent agent = malloc(sizeof(struct agentRep));
-
     agent->startLocation = start;
     agent->destination = NO_END;
     agent->currentLocation = start;
@@ -50,209 +49,46 @@ Agent initAgent(Vertex start, int maxCycles,int stamina,
     agent->strategy = strategy;
     agent->originStrategy = strategy;
     agent->map = g;
-    agent->name = strdup(name);
+    agent->name =
+        strdup(name);
     agent->visit = calloc(sizeof(int), numV(g));
-    agent->paths = calloc(sizeof(int), numV(g));
+    //agent->paths = calloc(sizeof(int), numV(g));
+    agent->paths = NULL;
     if (strategy == C_L_VISITED)
         agent->visit[start]++;
-    if (strategy == DFS)//??
-        agent->visit[start] = numV(g);//??
+    //set the start vertex of the visit array as the end of the visit so
+    //in the getNextMove, it will start new dfs since it mark as the end
+    //of the visit;
+    if (strategy == DFS) agent->visit[start] = numV(g);
     if (strcmp(name, "T") == 0 ) {
         setThief(start);
     } else {
-        if(strcmp(hasInformant(start),"*") == 0) {
-            Vertex target = getThief();
+        if (strcmp(hasInformant(start), "*") == 0) { Vertex target =
+            getThief();
             setDestination(agent, target);
-        }
-    }
-    return agent;
+        } } return agent;
 }
 
 void setDestination(Agent a, int end) {
-    a->destination = end;
-    //when detective meet informant, this will call,
-    //therefore we update their strategy by the way.
+    //when detective meet informant, this will be called to set the
+    //destination for the detective therefore we update their strategy
+    //by the way.
     if (strcmp(a->name, "T") != 0)
-        a->strategy = L_T_P;
+        setStrategy(a, L_T_P);
+    a->destination = end;
 }
 
 void setStrategy(Agent a, int newStrategy) {
     a->strategy = newStrategy;
-    //when detective finish L_T_P, it re-assigned the
-    //original strategy, destination should remove
-    if (strcmp(a->name, "T") != 0)
+    //when detective finish L_T_P, this will be called to re-assigned the
+    //original strategy and remove the destination
+    if (strcmp(a->name, "T") != 0) {
+        //update no destionation
         a->destination = NO_END;
-}
+        //set no path
+        free(a->paths);
+        a->paths = NULL;
 
-// Takes an array with all the possible edges and puts the ones the agent
-// has enough stamina for into the filteredMoves array
-// returns the number of filteredMoves
-int filterEdges(Agent a,int numEdges,Edge *possibleMoves,Edge * filteredMoves) {
-    int numFiltered = 0;
-    int i;
-    for(i=0;i<numEdges;i++) {
-        if(possibleMoves[i].weight <= a->stamina) {
-            filteredMoves[numFiltered++] = possibleMoves[i];
-        }
-    }
-    return numFiltered;
-}
-static Edge * getValidMoves(Graph g, Agent a, int * nValidEdges) {
-    Edge * possibleMoves = malloc(numV(g) * sizeof(Edge));
-    Edge * legalMoves = malloc(numV(g) * sizeof(Edge));
-
-    //Get all edges to adjacent vertices
-    int nEdges = incidentEdges(g, a->currentLocation,possibleMoves);
-
-    //Filter out edges that the agent does not have enough stamina for
-    *nValidEdges = filterEdges(a, nEdges, possibleMoves, legalMoves);
-    free(possibleMoves);
-    return legalMoves;
-}
-// Get a legal move. This should be a move that the agent has enough
-// stamina to make and is a valid edge from the graph.
-// You need to implement all other strategies.
-Edge getNextMove(Agent agent,Graph g) {
-    Edge nextMove;
-    //Stationary strategy useful for debugging
-    if(agent->strategy == STATIONARY) {
-        nextMove = mkEdge(agent->currentLocation,agent->currentLocation,0);
-    } else if(agent->strategy == RANDOM) {
-        Edge * possibleMoves = malloc(numV(g) * sizeof(Edge));
-        Edge * filteredMoves = malloc(numV(g) * sizeof(Edge));
-
-        //Get all edges to adjacent vertices
-        int numEdges = incidentEdges(g,agent->currentLocation,possibleMoves);
-
-        //Filter out edges that the agent does not have enough stamina for
-        int numFilteredEdges = filterEdges(agent,numEdges,possibleMoves,filteredMoves);
-        if(numFilteredEdges!= 0) {
-            //nextMove is randomly chosen from the filteredEdges
-            nextMove = filteredMoves[rand()%numFilteredEdges];
-            agent->stamina -= nextMove.weight;
-        } else {
-            //the agent must stay in the same location
-            nextMove = mkEdge(agent->currentLocation,agent->currentLocation,0);
-            agent->stamina = agent->initialStamina; //max stamina
-        }
-        free(filteredMoves);
-        free(possibleMoves);
-    } else if(agent->strategy == C_L_VISITED) {
-        int nValidEs = 0;
-        Edge * legalMoves = getValidMoves(g, agent, &nValidEs);
-        if(nValidEs!= 0) {
-            nextMove = sortByVisit(agent, legalMoves, 0, nValidEs - 1);
-            agent->stamina -= nextMove.weight;
-        } else {
-            //the agent must stay in the same location
-            Vertex currentGeo = agent->currentLocation;
-            nextMove = mkEdge(currentGeo, currentGeo, 0);
-            agent->stamina = agent->initialStamina; //max stamina
-        }
-        free(legalMoves);
-    } else if (agent->strategy == DFS) {
-        int curGPS = agent->currentLocation;
-        int order = agent->visit[curGPS];
-        printf("%s:\n",agent->name);
-        if (order == 10) {
-            agent->visit[curGPS] = 0;
-            dfSearch(g, curGPS, agent->paths, agent->visit);
-        }
-        order = agent->visit[curGPS];
-        int next = agent->paths[order];
-        if (!isAdjacent(g, curGPS, next)) {
-            agent->paths[order] = agent->paths[order - 1];
-            agent->paths[order - 1] = next;
-            next = agent->paths[order - 2];
-        }
-        nextMove = getEdge(g, curGPS, next);
-        if(nextMove.weight <= agent->stamina)
-            agent->stamina -= nextMove.weight;
-        else {
-            //the agent must stay in the same location
-            nextMove = mkEdge(curGPS, curGPS, 0);
-            agent->stamina = agent->initialStamina; //max stamina
-        }
-    } else {
-        int curGPS = agent->currentLocation;
-        int dest = agent->destination;
-        int next = curGPS;
-        //work out all posible paths (call dijkstra && pathSearch() )
-        /*Pseudo-code:
-         * For a given vertex (city), If the vertex  has an informant
-         * then 1. Compute the least hops path (When
-         * you compute this, you have to take into account the stamina
-         * of the detective at each vertex along the path.  Even if a
-         * destination is only 2 hops away from the src, if the
-         * detective does not have enough stamina at any vertex, he has
-         * to stay at the vertex for that cycle and only move in the
-         * next cycle. This would increment the number of hops).
-         */
-        Vertex * cheapestPath = malloc(sizeof(int*) * numV(g));
-        bfSearch(g, agent->stamina, agent->initialStamina, curGPS,
-                dest);
-        free(cheapestPath);
-        nextMove = getEdge(g, curGPS, next);
-        if(nextMove.weight <= agent->stamina)
-            agent->stamina -= nextMove.weight;
-        else {
-            //the agent must stay in the same location
-            nextMove = mkEdge(curGPS, curGPS, 0);
-            agent->stamina = agent->initialStamina; //max stamina
-        }
-        /* 2. If the search from (1) results in more than one path, then
-         * choose the path that leaves the detective with the lowest
-         * stamina 3. If the filter from (2) results in more than one
-         * path, then it is a tie-breaker. You can choose a path with
-         * the lowest edge cost OR path where the next lowest vertex id.
-         * We will accept both implementations and again the
-         * auto-testing will be relaxed to accept both.*/
-        //compute all paths' cost
-        //compute how many rest each paths
-        //compute the final hops for each path
-        //pick the less hop
-        //pick the less cost
-        //arbitary pick[0]
-
-        printf("Agent strategy not implemented yet\n");
-        abort();
-    }
-    return nextMove;
-}
-
-static Edge sortByVisit(Agent a, Edge mvs[], int lo, int hi) {
-    int size = hi - lo + 1;
-    if (size == 1) return mvs[lo];
-    int i;
-    int least = lo;
-    for (i = lo + 1; i <= hi; i++) {
-        if (a->visit[mvs[least].w] > a->visit[mvs[i].w]) {
-            least = i;
-        } else if (a->visit[mvs[least].w] == a->visit[mvs[i].w]) {
-            if(mvs[least].weight > mvs[i].weight) {
-                least = i;
-            } else if(mvs[least].weight == mvs[i].weight) {
-                if(mvs[least].w > mvs[i].w) {
-                    least = i;
-                }
-            }
-        }
-    }
-    return mvs[least];
-}
-
-
-//Actually perform the move, by changing the agent's state
-//This function needs to be updated to adjust the agent's stamina
-void makeNextMove(Agent agent,Edge move) {
-    agent->currentCycle++;
-    agent->currentLocation = move.w;
-    if (agent->strategy == C_L_VISITED)
-        //??stay the same city count as 2 visits??
-        agent->visit[move.w]++;
-    if (agent->strategy == L_T_P) {
-        if (agent->currentLocation == agent->destination)
-            setStrategy(agent, agent->originStrategy);
     }
 }
 
@@ -273,10 +109,198 @@ char * getName(Agent agent) {
 void printAgent(Agent agent) {
     int city = agent->currentLocation;
     int end = agent->destination;
-    printf("%s %d %s (%d%s)",agent->name,agent->stamina, getCityName(city), city, hasInformant(city));
-    if(end != NO_END)
+    printf("%s %d %s (%d%s)", agent->name, agent->stamina, getCityName(city), city, hasInformant(city));
+    if (end != NO_END)
         printf(" %s(%d)", getCityName(end), end);
     putchar('\n');
+}
+
+static Edge sortByVisit(Agent a, Edge mvs[], int lo, int hi) {
+    int size = hi - lo + 1;
+    if (size == 1) return mvs[lo];
+    int i;
+    int least = lo;
+    for (i = lo + 1; i <= hi; i++) {
+        if (a->visit[mvs[least].w] > a->visit[mvs[i].w]) {
+            least = i;
+        } else if (a->visit[mvs[least].w] == a->visit[mvs[i].w]) {
+            if (mvs[least].weight > mvs[i].weight) {
+                least = i;
+            } else if (mvs[least].weight == mvs[i].weight) {
+                if (mvs[least].w > mvs[i].w) {
+                    least = i;
+                }
+            }
+        }
+    }
+    return mvs[least];
+}
+
+
+// Takes an array with all the possible edges and puts the ones the agent
+// has enough stamina for into the filteredMoves array
+// returns the number of filteredMoves
+int filterEdges(Agent a, int numEdges, Edge *possibleMoves, Edge * filteredMoves) {
+    int numFiltered = 0;
+    int i;
+    for (i=0;i<numEdges;i++) {
+        if (possibleMoves[i].weight <= a->stamina) {
+            filteredMoves[numFiltered++] = possibleMoves[i];
+        }
+    }
+    return numFiltered;
+}
+
+static Edge * getValidMoves(Graph g, Agent a, int * nValidEdges) {
+    Edge * possibleMoves = malloc(numV(g) * sizeof(Edge));
+    Edge * legalMoves = malloc(numV(g) * sizeof(Edge));
+
+    //Get all edges to adjacent vertices
+    int nEdges = incidentEdges(g, a->currentLocation, possibleMoves);
+
+    //Filter out edges that the agent does not have enough stamina for
+    *nValidEdges = filterEdges(a, nEdges, possibleMoves, legalMoves);
+    free(possibleMoves);
+    return legalMoves;
+}
+// Get a legal move. This should be a move that the agent has enough
+// stamina to make and is a valid edge from the graph.
+// You need to implement all other strategies.
+Edge getNextMove(Agent agent, Graph g) {
+    Edge nextMove;
+    //Stationary strategy useful for debugging
+    if (agent->strategy == STATIONARY) {
+        nextMove = mkEdge(agent->currentLocation, agent->currentLocation, 0);
+    } else if (agent->strategy == RANDOM) {
+        Edge * possibleMoves = malloc(numV(g) * sizeof(Edge));
+        Edge * filteredMoves = malloc(numV(g) * sizeof(Edge));
+
+        //Get all edges to adjacent vertices
+        int numEdges = incidentEdges(g, agent->currentLocation, possibleMoves);
+
+        //Filter out edges that the agent does not have enough stamina for
+        int numFilteredEdges = filterEdges(agent, numEdges, possibleMoves, filteredMoves);
+        if (numFilteredEdges!= 0) {
+            //nextMove is randomly chosen from the filteredEdges
+            nextMove = filteredMoves[rand()%numFilteredEdges];
+            agent->stamina -= nextMove.weight;
+        } else {
+            //the agent must stay in the same location
+            nextMove = mkEdge(agent->currentLocation, agent->currentLocation, 0);
+            agent->stamina = agent->initialStamina;
+            //max stamina
+        }
+        free(filteredMoves);
+        free(possibleMoves);
+    } else if (agent->strategy == C_L_VISITED) {
+        int nValidEs = 0;
+        Edge * legalMoves = getValidMoves(g, agent, &nValidEs);
+        if (nValidEs!= 0) {
+            nextMove = sortByVisit(agent, legalMoves, 0, nValidEs - 1);
+            agent->stamina -= nextMove.weight;
+        } else {
+            //the agent must stay in the same location
+            Vertex currentGeo = agent->currentLocation;
+            nextMove = mkEdge(currentGeo, currentGeo, 0);
+            agent->stamina = agent->initialStamina;
+            //max stamina
+        }
+        free(legalMoves);
+    } else if (agent->strategy == DFS) {
+        int curGPS = agent->currentLocation;
+        int order = agent->visit[curGPS];
+        printf("%s:\n", agent->name);
+        if (agent->paths == NULL) {
+            order = numV(g);
+        }
+        //if the order of the agent's current location equal to the
+        //number of Cities in the grap/map means the agent arrived the
+        //end of DFS thus it need to reset to 0 and free the old path
+        //then get the new DFS path
+        if (order == numV(g)) {
+            agent->visit[curGPS] = 0;
+            free(agent->paths);
+            agent->paths = dfSearch(g, curGPS, agent->visit);
+        }
+        // update the order of current location in order to get the next
+        // city to visit
+        order = agent->visit[curGPS];
+        Vertex nextCity = agent->paths[order];
+        // check if there is path to nextCity city
+        if (!isAdjacent(g, curGPS, nextCity)) {
+            // if not, then move backward and update the nextCity city to visit
+            agent->paths[order] = agent->paths[order - 1];
+            agent->paths[order - 1] = nextCity;
+            nextCity = agent->paths[order - 2];
+        }
+        //get the nextCity move
+        nextMove = getEdge(g, curGPS, nextCity);
+        //check if the nextCity move is affordable
+        if (nextMove.weight <= agent->stamina)
+            //reduce stamina
+            agent->stamina -= nextMove.weight;
+        else {
+            //the agent must stay in the same location
+            nextMove = mkEdge(curGPS, curGPS, 0);
+            //max stamina
+            agent->stamina = agent->initialStamina;
+        }
+    } else if (agent->strategy == L_T_P) {
+        //get current location and the destination
+        int curGPS = agent->currentLocation;
+        int dest = agent->destination;
+        //check if detective hasn't his less turn path
+        if (agent->paths == NULL) {
+            // get the max stamina to the detective has the stamina reset
+            // the stamina after rest.
+            int max = agent->stamina;
+            // get current stamina to compute the end stamina along the paths
+            int cur = agent->stamina;
+            //work out the less turn path
+            agent->paths = bfSearch(g, max, cur, curGPS, dest);
+        }
+        //first element of the paths record my current spot in the paths
+        // increment 1 to get the next spot in the paths
+        int order = agent->paths[0] + 1;
+        Vertex nextCity = agent->paths[order];
+        //get the nextCity move
+        nextMove = getEdge(g, curGPS, nextCity);
+        //check if the nextCity move is affordable
+        if (nextMove.weight <= agent->stamina) {
+            //reduce stamina
+            agent->stamina -= nextMove.weight;
+            // update the first element
+            agent->paths[0]++;
+        } else {
+            //the agent must stay in the same location
+            nextMove = mkEdge(curGPS, curGPS, 0);
+            //max stamina
+            agent->stamina = agent->initialStamina;
+        }
+
+    } else {
+        printf("Agent strategy not implemented yet\n");
+        abort();
+    }
+    return nextMove;
+}
+
+//Actually perform the move, by changing the agent's state
+//This function needs to be updated to adjust the agent's stamina
+void makeNextMove(Agent agent, Edge move) {
+    agent->currentCycle++;
+    agent->currentLocation = move.w;
+    if (agent->strategy == C_L_VISITED)
+        //??stay the same city count as 2 visits??
+        agent->visit[move.w]++;
+    if (agent->strategy == L_T_P) {
+        // update the visit array if the agent original strategy is
+        // C_L_VISITED
+        if (agent->originStrategy == C_L_VISITED)
+            agent->visit[move.w]++;
+        if (agent->currentLocation == agent->destination)
+            setStrategy(agent, agent->originStrategy);
+    }
 }
 
 //You may need to update this to free any extra memory you use
