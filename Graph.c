@@ -51,7 +51,7 @@ Vertex getThief() {
 }
 // Create an edge from v to w
 Edge mkEdge(Vertex v, Vertex w, int weight) {
-    Edge e = {-1, -1, -1};
+    Edge e = {NO_EDGE, NO_EDGE, NO_EDGE};
     if (v >= 0 && w >= 0 && weight >=0) {
         e.v = v;
         e.w = w;
@@ -194,7 +194,7 @@ int incidentEdges(Graph g, Vertex v, Edge edges[]) {
     }
     if (edges == NULL) {
         printf("System runs out memory\n");
-        return -1;
+        return NO_EDGE;
     }
     for (i = 0; i < v; i++)
         if (g->edges[v][i] != NO_EDGE) {
@@ -238,7 +238,7 @@ int numV(Graph g) {
 int numE(Graph g) {
     if (g == NULL) {
         printf("Invalid NULL Graph has no edges.\n");
-        return -1;
+        return NO_EDGE;
     }
     return g->ne;
 }

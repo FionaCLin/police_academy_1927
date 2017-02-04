@@ -7,7 +7,7 @@
 #define GRAPH_H
 
 #define NOT_YET (-1)
-#define NO_EDGE INT_MAX
+#define NO_EDGE (-1)
 
 // vertices denoted by integers 0..N-1
 typedef int Vertex;
