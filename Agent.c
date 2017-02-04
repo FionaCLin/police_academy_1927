@@ -111,7 +111,7 @@ void printAgent(Agent agent) {
     int end = agent->destination;
     printf("%s %d %s (%d%s)", agent->name, agent->stamina, getCityName(city), city, hasInformant(city));
     if (end != NO_END)
-        printf(" %s(%d)", getCityName(end), end);
+        printf(" %s (%d)", getCityName(end), end);
     putchar('\n');
 }
 
