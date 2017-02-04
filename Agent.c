@@ -209,7 +209,6 @@ Edge getNextMove(Agent agent, Graph g) {
     } else if (agent->strategy == DFS) {
         int curGPS = agent->currentLocation;
         int order = agent->visit[curGPS];
-        printf("%s:\n", agent->name);
         if (agent->paths == NULL) {
             order = numV(g);
         }
