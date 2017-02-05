@@ -25,19 +25,19 @@ Edge mkEdge(Vertex, Vertex, int);
 typedef struct graphRep *Graph;
 
 // check if the city has informant
-char * hasInformant(int city);
+char * hasInformant(Graph map, int city) ;
 
 //set thief location
-void setThief(Vertex city) ;
+void setThief(Graph map, Vertex city);
 //get thief location
-Vertex getThief() ;
+Vertex getThief(Graph map);
 
 // Create an edge from v to w
 // read std io for each city info
-void readCityInfo(int city, char info,char * name);
+void readCityInfo(Graph map, int city, char info,char * name);
 
 // fetch city's name
-char * getCityName(int city);
+char * getCityName(Graph map, int city);
 
 // operations on graphs
 Graph newGraph(int nV); // #vertices

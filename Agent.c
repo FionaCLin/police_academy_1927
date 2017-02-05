@@ -61,10 +61,10 @@ Agent initAgent(Vertex start, int maxCycles, int stamina, int strategy,
     //of the visit;
     if (strategy == DFS) agent->visit[start] = numV(g);
     if (strcmp(name, "T") == 0 ) {
-        setThief(start);
+        setThief(g, start);
     } else {
-        if (strcmp(hasInformant(start), "*") == 0) { Vertex target =
-            getThief();
+        if (strcmp(hasInformant(g, start), "*") == 0) { Vertex target =
+            getThief(g);
             setDestination(agent, target);
         }
     }
@@ -113,9 +113,11 @@ char * getName(Agent agent) {
 void printAgent(Agent agent) {
     int city = agent->currentLocation;
     int end = agent->destination;
-    printf("%s %d %s (%d%s)", agent->name, agent->stamina, getCityName(city), city, hasInformant(city));
+    printf("%s %d %s (%d%s)", agent->name, agent->stamina,
+            getCityName(agent->map, city), city,
+            hasInformant(agent->map, city));
     if (end != NO_END)
-        printf(" %s (%d%s)", getCityName(end), end, hasInformant(end));
+        printf(" %s (%d%s)", getCityName(agent->map, end), end, hasInformant(agent->map, end));
     putchar('\n');
 }
 

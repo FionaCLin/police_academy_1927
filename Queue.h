@@ -24,4 +24,8 @@ void QueueJoin(Queue,Path);
 // remove item from queue
 Path QueueLeave(Queue);
 
+// check for no items
+int QueueIsEmpty(Queue);
+
+
 #endif

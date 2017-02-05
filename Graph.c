@@ -21,7 +21,6 @@ struct graphRep {
     int ** edges;
 };
 
-Graph map = NULL;
 
 static int validE(Graph g, Edge e) {
     return (e.v >= 0 && e.v < g->nv && e.w >= 0 && e.w < g->nv) &&
@@ -31,21 +30,21 @@ static int validV(Graph g, Vertex v) {
     return (v >= 0 && v < g->nv);
 }
 
-char * hasInformant(int city) {
+char * hasInformant(Graph map, int city) {
     if (map == NULL) return 0;
     return (map->informants[city] == 'i')? "*" : "";
 }
 
-char * getCityName(int city) {
+char * getCityName(Graph map, int city) {
     if (map == NULL) return NULL;
     return map->names[city];
 }
 
-void setThief(Vertex city) {
+void setThief(Graph map, Vertex city) {
     map->thief = city;
 }
 
-Vertex getThief() {
+Vertex getThief(Graph map) {
     return map->thief;
 }
 
@@ -90,11 +89,10 @@ Graph newGraph(int nV) {
     g->names = malloc(sizeof(char *) * nV);
     g->nv = nV;
     g->ne = 0;
-    map = g;
     return g;
 }
 
-void readCityInfo(int index, char info, char * name) {
+void readCityInfo(Graph map, int index, char info, char * name) {
     if (map == NULL) {
         printf("Map is undefined yet\n");
         return;
@@ -267,7 +265,7 @@ int edges(Edge es[], int nE, Graph g) {
     return count;
 }
 
-static int edgeWeight(Vertex v, Vertex w) {
+static int edgeWeight(Graph map, Vertex v, Vertex w) {
     int row = v;
     int col = w;
     if (v < w) {
@@ -337,7 +335,7 @@ int * dfSearch(Graph g, int maxStamina, int src, int *st, int *pre) {
         pre[e.v] = count++;
         st[e.v] = e.w;
         for (i = numV(g) - 1; i >= 0; i--) {
-            int cost = edgeWeight(e.v, i);
+            int cost = edgeWeight(g, e.v, i);
             if ((cost <= maxStamina && cost != NO_EDGE) && (pre[i] == -1)) {
                 Edge item = getEdge(g, i, e.v);
                 StackPush(stk, item);
@@ -417,7 +415,7 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
         else visit[dest(p)] = count++;
         for (i = 0; i < numV(g); i++) {
             if (dest(p) == i || visit[i] != NOT_YET) continue;
-            int cost = edgeWeight(dest(p), i);
+            int cost = edgeWeight(g, dest(p), i);
             //when the edge weight greater than agent max stamina, it means no
             //possible path/edge in the map.
             if (cost > maxStamina || cost == NO_EDGE) continue;
