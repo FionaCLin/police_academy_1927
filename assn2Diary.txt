@@ -148,6 +148,18 @@ TO-DD : Stage 3: Least Turns Path Strategy
 2) amend print destination to print out agent's goal city
 3) add logic for set detective destination once they encounter informant
 
+30 Jan 2017
+review the sorting and bfs and dfs as well as the dijkstra algorithms
+for stage 3
+
+31 Jan 2017
+Try to implement Diijstrak and bfs for the stage 3
+First attemp, I was thinking all we care about the shortest paths
+
+
+5 Feb 2017
+
+
 
 
 
