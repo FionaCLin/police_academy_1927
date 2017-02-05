@@ -237,11 +237,12 @@ Edge getNextMove(Agent agent, Graph g) {
         //when detective finish 1 dfs or it is 0 hour
         if (order == numV(g) || agent->currentCycle == 0) {
             agent->visit[curGPS] = 0;
-            agent->dfsCurMove = 1;
+            agent->dfsCurMove = 0;
             free(agent->paths);
             agent->paths = dfSearch(g, agent->initialStamina, curGPS, agent->st,agent->visit);
         }
-        Vertex nextCity = agent->paths[agent->dfsCurMove + 1];
+        int nextMv = agent->dfsCurMove + 1;
+        Vertex nextCity = agent->paths[nextMv];
         //make the nextCity move to return
         nextMove = getEdge(g, curGPS, nextCity);
         //check if the nextCity move is affordable
