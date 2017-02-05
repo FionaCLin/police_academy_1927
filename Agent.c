@@ -18,9 +18,10 @@ struct agentRep{
     int initialStamina; //max stamina
     int stamina; //current stamina
     int strategy;
-    int nextOrder;
+    int dfsCurMove;
     int originStrategy;
     int * visit;
+    int * st;
     int * paths;
     Graph map;
     char * name;
@@ -55,10 +56,10 @@ Agent initAgent(Vertex start, int maxCycles, int stamina, int strategy,
     agent->strategy = strategy;
     agent->originStrategy = strategy;
     agent->map = g;
-    agent->nextOrder = NOT_YET;
+    agent->dfsCurMove = 0;
     agent->name = strdup(name);
     agent->visit = calloc(sizeof(int), numV(g));
-    //agent->paths = calloc(sizeof(int), numV(g));
+    agent->st = calloc(sizeof(int), numV(g));
     agent->paths = NULL;
     if (strategy == C_L_VISITED)
         agent->visit[start]++;
@@ -72,7 +73,9 @@ Agent initAgent(Vertex start, int maxCycles, int stamina, int strategy,
         if (strcmp(hasInformant(start), "*") == 0) { Vertex target =
             getThief();
             setDestination(agent, target);
-        } } return agent;
+        }
+    }
+    return agent;
 }
 
 void setDestination(Agent a, int end) {
@@ -230,29 +233,16 @@ Edge getNextMove(Agent agent, Graph g) {
     } else if (agent->strategy == DFS) {
         int curGPS = agent->currentLocation;
         int order = agent->visit[curGPS];
-
-        if (agent->paths == NULL) {
-            order = numV(g);
-        }
-        //if the order of the agent's current location equal to the
-        //number of Cities in the grap/map means the agent arrived the
-        //end of DFS thus it need to reset to 0 and free the old path
-        //then get the new DFS path
-        if (order == numV(g)) {
+        //check if it need reset the path
+        //when detective finish 1 dfs or it is 0 hour
+        if (order == numV(g) || agent->currentCycle == 0) {
             agent->visit[curGPS] = 0;
+            agent->dfsCurMove = 0;
             free(agent->paths);
-            agent->paths = dfSearch(g, agent->initialStamina, curGPS, agent->visit);
+            agent->paths = dfSearch(g, agent->initialStamina, curGPS, agent->st,agent->visit);
         }
-        // update the order of current location in order to get the next
-        // city to visit
-        order = agent->visit[curGPS];
-        Vertex nextCity = agent->paths[order];
-        // check if there is path to nextCity city
-        if (!isAdjacent(g, curGPS, nextCity)) {
-            // if not, then move backward and update the nextCity city to visit
-            nextCity = agent->paths[order - 1];
-        }
-        //get the nextCity move
+        Vertex nextCity = agent->paths[++agent->dfsCurMove];
+        //make the nextCity move to return
         nextMove = getEdge(g, curGPS, nextCity);
         //check if the nextCity move is affordable
         if (nextMove.weight <= agent->stamina)
@@ -264,41 +254,7 @@ Edge getNextMove(Agent agent, Graph g) {
             //max stamina
             agent->stamina = agent->initialStamina;
         }
-        // if (agent->nextOrder != YET) order = agent->nextOrder;
-        // Vertex nextCity = agent->paths[order];
-        // if(!isAdjacent(g, nextCity, curGPS)) {
-        //     agent->nextOrder = order;
-        //     //get all possible incident edges
-        //     int nValidEs = 0;
-        //     //remove all edge that hasn't been visit
-        //     Edge * legalMoves = filterVisistedEdges(agent, agent->paths, 0, order, &nValidEs);
-        //     //random choose one of edges
-        //     if (nValidEs!= 0) {
-        //         nextMove = legalMoves[rand()%nValidEs];
-        //         //reduce stamina
-        //         agent->stamina -= nextMove.weight;
-        //     } else {
-        //         //the agent must stay in the same location
-        //         nextMove = mkEdge(curGPS, curGPS, 0);
-        //         //max stamina
-        //         agent->stamina = agent->initialStamina;
-        //     }
-        //     return nextMove;
-        // } else {
-        //     if (agent->nextOrder != YET) agent->nextOrder = YET;
-        //     //get the nextCity move
-        //     nextMove = getEdge(g, curGPS, nextCity);
-        // }
-        // //check if the nextCity move is affordable
-        // if (nextMove.weight <= agent->stamina)
-        //     //reduce stamina
-        //     agent->stamina -= nextMove.weight;
-        // else {
-        //     //the agent must stay in the same location
-        //     nextMove = mkEdge(curGPS, curGPS, 0);
-        //     //max stamina
-        //     agent->stamina = agent->initialStamina;
-        // }
+
     } else if (agent->strategy == L_T_P) {
         //get current location and the destination
         int curGPS = agent->currentLocation;

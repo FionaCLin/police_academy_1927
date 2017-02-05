@@ -62,7 +62,7 @@ void showStack(Stack s)
 {
 	int i;
 	for (i = 0; i <= s->top; i++) {
-		ItemShow(s->item[i]);
+		ItemShow(s->item[i].v);
 		printf("<");
 	}
 	printf("top\n");

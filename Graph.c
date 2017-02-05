@@ -57,9 +57,9 @@ Edge mkEdge(Vertex v, Vertex w, int weight) {
         e.w = w;
         e.weight = weight;
     } else if (weight < 0) {
-        printf("Weight can't be nagtive.\n");
+        //    printf("Weight can't be nagtive.\n");
     } else {
-        printf("Vertices can't be nagtive.\n");
+        //    printf("Vertices can't be nagtive.\n");
     }
     return e;
 }
@@ -218,6 +218,7 @@ void destroyGraph(Graph g) {
         if(g->names != NULL) {
             for (i = 0; i < g->nv; i++)
                 free(g->names[i]);
+
         }
         free(g->names);
         free(g->informants);
@@ -309,43 +310,71 @@ void show(Graph g) {
 }
 // dfSearch using Stack
 //The initialisation of variables etc before we call the dfs function
-int * dfSearch(Graph g, int maxStamina, Vertex src, int * visit) {
+int * dfSearch(Graph g, int maxStamina, int src,int *st, int *pre) {
     if (g == NULL) {
         printf("The graph g can't be NULL\n");
         return NULL;
     }
-    int i, count = 1;
+    int i, count = 0;
     int * path = calloc(sizeof(int), numV(g) + 1);
     for (i = 0; i < numV(g); i++) {
-        path[i] = 0;
-        visit[i] = 0;
+        path[i] = -1;
+        st[i] = -1;
+        pre[i] = -1;
     }
     //make a stack and push the 1st edge
     Stack stk = newStack();
-    StackPush(stk, src);
+    Edge ini = {src, -1 , src};
+    StackPush(stk, ini);
     while (!StackIsEmpty(stk)) {
-        Vertex w = StackPop(stk);
-        if (visit[w]) continue;
-        path[count - 1] = w;
-        visit[w] = count++;
+        Edge e = StackPop(stk);
+        if (pre[e.v] != -1) continue;
+        path[count] = e.v;
+        pre[e.v] = count++;
+        st[e.v] = e.w;
         for (i = numV(g) - 1; i >= 0; i--) {
-            int cost = edgeWeight(w, i);
-            if (cost <= maxStamina || cost != NO_EDGE)
-                StackPush(stk, i);
+            int cost = edgeWeight(e.v, i);
+            if ((cost <= maxStamina && cost != NO_EDGE) && (pre[i] == -1)) {
+                Edge item = getEdge(g, i, e.v);
+                StackPush(stk, item);
+
+            }
         }
 
     }
-    // printf("i: \t");
-    // for (i = 0; i < g->nv; i++)
-        // printf(" %d", i);
-    // printf("\ncount: \t");
-    // for (i = 0; i < g->nv; i++)
-        // printf(" %d", visit[i]);
-    // printf("\npath: \t");
-    // for (i = 0; i < g->nv; i++)
-        // printf(" %d", path[i]);
-    // putchar('\n');
-    // putchar('\n');
+    int j = 0, k = 0;
+    int base = 3 * numV(g);
+    int * travelPath = malloc(sizeof(int) * base);
+    travelPath[j] = path[j];
+    for (i = 1; i < g->nv;) {
+        if (isAdjacent(g, travelPath[j], path[i])) {
+            travelPath[++j] = path[i++];
+        } else if (isAdjacent(g,travelPath[j],st[path[i]])) {
+            travelPath[++j] = st[path[i]];
+        } else {
+            k = j;
+            travelPath[++j] = st[travelPath[k]];
+        }
+    }
+    free(path);
+    path = realloc(travelPath , (sizeof(int)*(j+1)));
+//    printf("i: \t");
+//    for (i = 0; i < g->nv; i++)
+//        printf(" %d", i);
+//    printf("\ncount: \t");
+//    for (i = 0; i < g->nv; i++)
+//        printf(" %d", pre[i]);
+//    printf("\npath: \t");
+//    for (i = 0; i < g->nv+1; i++)
+//        printf(" %d", path[i]);
+//    printf("\nst: \t");
+//    for (i = 0; i < g->nv; i++)
+//        printf(" %d", st[i]);
+//    printf("\ntr: \t");
+//    for (i = 0; i < j+1; i++)
+//        printf(" %d", travelPath[i]);
+//    putchar('\n');
+//    putchar('\n');
     dropStack(stk);
     return path;
 }
