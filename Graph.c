@@ -1,8 +1,5 @@
 /*
    Graph.c
-
-
-
 */
 
 #include <assert.h>
@@ -43,12 +40,15 @@ char * getCityName(int city) {
     if (map == NULL) return NULL;
     return map->names[city];
 }
+
 void setThief(Vertex city) {
-    map -> thief = city;
+    map->thief = city;
 }
+
 Vertex getThief() {
-    return map -> thief;
+    return map->thief;
 }
+
 // Create an edge from v to w
 Edge mkEdge(Vertex v, Vertex w, int weight) {
     Edge e = {NO_EDGE, NO_EDGE, NO_EDGE};
@@ -83,7 +83,7 @@ Graph newGraph(int nV) {
     }
     for (i = 0; i < nV; i++) {
         g->edges[i] = malloc(sizeof(int)* (i + 1));
-        for(j = 0; j < i + 1; j++)
+        for (j = 0; j < i + 1; j++)
             g->edges[i][j] = NO_EDGE;
     }
     g->informants = malloc(sizeof(char) * nV);
@@ -92,10 +92,9 @@ Graph newGraph(int nV) {
     g->ne = 0;
     map = g;
     return g;
-
 }
 
-void readCityInfo(int index, char info,char * name) {
+void readCityInfo(int index, char info, char * name) {
     if (map == NULL) {
         printf("Map is undefined yet\n");
         return;
@@ -103,6 +102,7 @@ void readCityInfo(int index, char info,char * name) {
     map->informants[index] = info;
     map->names[index] = strdup(name);
 }
+
 //Insert an edge into a graph
 //the edge must not be inserted if
 //     the vertices are not valid
@@ -112,11 +112,11 @@ void insertE(Graph g, Edge e) {
     int col, row;
     if (g == NULL) {
         printf("Invalid Graph.\n");
-        return ;
+        return;
     }
     if (!validE(g, e)) {
         printf("Invalid edge {%d, %d, %d}.\n", e.v, e.w, e.weight);
-        return ;
+        return;
     }
     row = e.v;
     col = e.w;
@@ -210,12 +210,12 @@ int incidentEdges(Graph g, Vertex v, Edge edges[]) {
 void destroyGraph(Graph g) {
     if (g != NULL) {
         int i;
-        if(g->edges != NULL) {
+        if (g->edges != NULL) {
             for (i = 0; i < g->nv; i++)
                 free(g->edges[i]);
         }
         free(g->edges);
-        if(g->names != NULL) {
+        if (g->names != NULL) {
             for (i = 0; i < g->nv; i++)
                 free(g->names[i]);
 
@@ -255,7 +255,7 @@ int edges(Edge es[], int nE, Graph g) {
     }
     int v, w, count = 0;
     for (v = 1; v < g->nv; v++)
-        for(w = 0; w < v; w++) {
+        for (w = 0; w < v; w++) {
             if (v < w) {
                 int tmp = v;
                 v = w;
@@ -266,6 +266,7 @@ int edges(Edge es[], int nE, Graph g) {
         }
     return count;
 }
+
 static int edgeWeight(Vertex v, Vertex w) {
     int row = v;
     int col = w;
@@ -275,6 +276,7 @@ static int edgeWeight(Vertex v, Vertex w) {
     }
     return map->edges[row][col];
 }
+
 Edge getEdge(Graph g, Vertex v, Vertex w) {
     int row = v;
     int col = w;
@@ -288,6 +290,7 @@ Edge getEdge(Graph g, Vertex v, Vertex w) {
     }
     return e;
 }
+
 //Display the graph
 void show(Graph g) {
     assert(g != NULL);
@@ -297,7 +300,7 @@ void show(Graph g) {
         int nshown = 0;
         for (j = 0; j < numV(g); j++) {
             if (i == j) continue;
-            if (isAdjacent(g,i,j)) {
+            if (isAdjacent(g, i, j)) {
                 Edge e = getEdge(g, i, j);
                 printf("%d-%d : %d ", e.v, e.w, e.weight);
                 nshown++;
@@ -308,9 +311,10 @@ void show(Graph g) {
         }
     }
 }
+
 // dfSearch using Stack
 //The initialisation of variables etc before we call the dfs function
-int * dfSearch(Graph g, int maxStamina, int src,int *st, int *pre) {
+int * dfSearch(Graph g, int maxStamina, int src, int *st, int *pre) {
     if (g == NULL) {
         printf("The graph g can't be NULL\n");
         return NULL;
@@ -324,7 +328,7 @@ int * dfSearch(Graph g, int maxStamina, int src,int *st, int *pre) {
     }
     //make a stack and push the 1st edge
     Stack stk = newStack();
-    Edge ini = {src, -1 , src};
+    Edge ini = {src, -1, src};
     StackPush(stk, ini);
     while (!StackIsEmpty(stk)) {
         Edge e = StackPop(stk);
@@ -337,44 +341,23 @@ int * dfSearch(Graph g, int maxStamina, int src,int *st, int *pre) {
             if ((cost <= maxStamina && cost != NO_EDGE) && (pre[i] == -1)) {
                 Edge item = getEdge(g, i, e.v);
                 StackPush(stk, item);
-
             }
         }
-
     }
     int j = 0, k = 0;
     int base = 3 * numV(g);
     int * travelPath = malloc(sizeof(int) * base);
     travelPath[j] = path[j];
-    for (i = 1; i < g->nv;) {
+    for (i = 1; i < g->nv; ) {
         if (isAdjacent(g, travelPath[j], path[i])) {
             travelPath[++j] = path[i++];
-        } else if (isAdjacent(g,travelPath[j],st[path[i]])) {
-            travelPath[++j] = st[path[i]];
         } else {
             k = j;
             travelPath[++j] = st[travelPath[k]];
         }
     }
     free(path);
-    path = realloc(travelPath , (sizeof(int)*(j+1)));
-//    printf("i: \t");
-//    for (i = 0; i < g->nv; i++)
-//        printf(" %d", i);
-//    printf("\ncount: \t");
-//    for (i = 0; i < g->nv; i++)
-//        printf(" %d", pre[i]);
-//    printf("\npath: \t");
-//    for (i = 0; i < g->nv+1; i++)
-//        printf(" %d", path[i]);
-//    printf("\nst: \t");
-//    for (i = 0; i < g->nv; i++)
-//        printf(" %d", st[i]);
-//    printf("\ntr: \t");
-//    for (i = 0; i < j+1; i++)
-//        printf(" %d", travelPath[i]);
-//    putchar('\n');
-//    putchar('\n');
+    path = realloc(travelPath, (sizeof(int)*(j+1)));
     dropStack(stk);
     return path;
 }
@@ -388,13 +371,13 @@ Path lessTurnsPaths(Queue possiblePaths) {
     Path tem = NULL;
     while (!QueueIsEmpty(possiblePaths)) {
         Path cur = QueueLeave(possiblePaths);
-        if(greater(res, cur)) {
+        if (greater(res, cur)) {
             tem = res;
             res = cur;
             cur = tem;
         } else {
-            if(equal(res, cur)) {
-                if(stamina(res) < stamina(cur)) {
+            if (equal(res, cur)) {
+                if (stamina(res) < stamina(cur)) {
                     tem = res;
                     res = cur;
                     cur = tem;
@@ -411,7 +394,6 @@ Path lessTurnsPaths(Queue possiblePaths) {
     return res;
 }
 
-
 // bfSearch using Queue
 //The initialisation of variables etc before we call the dfs function
 int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest) {
@@ -420,7 +402,8 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
         return NULL;
     }
     int i, count = 0;
-    int visit[g -> nv];
+
+    int visit[g->nv];
     for (i = 0; i < numV(g); i++) visit[i] = NOT_YET;
     //make a queue and join the 1st edge
     Queue q = newQueue();
@@ -428,14 +411,14 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
     QueueJoin(q, newPath(src, 0, curStamina, NULL));
     while (!QueueIsEmpty(q)) {
         Path p = QueueLeave(q);
-        if(visit[dest(p)] != NOT_YET) continue;
-        if(dest(p) == dest)
+        if (visit[dest(p)] != NOT_YET) continue;
+        if (dest(p) == dest)
             QueueJoin(possiblePaths, PathCopy(p));
         else visit[dest(p)] = count++;
         for (i = 0; i < numV(g); i++) {
             if (dest(p) == i || visit[i] != NOT_YET) continue;
             int cost = edgeWeight(dest(p), i);
-            //when the edge weight greater than agent max stamina,it means no
+            //when the edge weight greater than agent max stamina, it means no
             //possible path/edge in the map.
             if (cost > maxStamina || cost == NO_EDGE) continue;
             int turn = hops(p);
@@ -458,11 +441,11 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
     int nPath = numPaths(routine);
     int *paths = NULL;
     if (routine != NULL) {
-        paths =  malloc(sizeof(int) * ++nPath);
+        paths =  malloc(sizeof(int) *++nPath);
         Path cur = routine;
         while (cur != NULL) {
             paths[--nPath] = dest(cur);
-            cur = cur -> prev;
+            cur = cur->prev;
         }
         paths[--nPath] = 1;
     }
