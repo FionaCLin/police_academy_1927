@@ -1,6 +1,6 @@
 /*
    Graph.c
-*/
+   */
 
 #include <assert.h>
 #include <stdio.h>
@@ -11,6 +11,7 @@
 #include "Path.h"
 #include "Graph.h"
 
+#define MAXITEMS 500
 
 struct graphRep {
     int nv;
@@ -318,7 +319,7 @@ int * dfSearch(Graph g, int maxStamina, int src, int *st, int *pre) {
         return NULL;
     }
     int i, count = 0;
-    int * path = calloc(sizeof(int), numV(g) + 1);
+    int * path = calloc(sizeof(int), numV(g));
     for (i = 0; i < numV(g); i++) {
         path[i] = -1;
         st[i] = -1;
@@ -342,21 +343,27 @@ int * dfSearch(Graph g, int maxStamina, int src, int *st, int *pre) {
             }
         }
     }
+    dropStack(stk);
     int j = 0, k = 0;
-    int base = 3 * numV(g);
-    int * travelPath = malloc(sizeof(int) * base);
+    int travelPath[MAXITEMS];
     travelPath[j] = path[j];
     for (i = 1; i < g->nv; ) {
         if (isAdjacent(g, travelPath[j], path[i])) {
             travelPath[++j] = path[i++];
         } else {
-            k = j;
-            travelPath[++j] = st[travelPath[k]];
+            if(path[i] == -1) {
+                i++;
+            } else {
+                k = j;
+                travelPath[++j] = st[travelPath[k]];
+            }
         }
     }
     free(path);
-    path = realloc(travelPath, (sizeof(int)*(j+1)));
-    dropStack(stk);
+    path = calloc(sizeof(int), j + 1);
+    for (i = 0; i < j+1; i++) {
+        path[i] = travelPath[i];
+    }
     return path;
 }
 
@@ -445,7 +452,11 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
             paths[--nPath] = dest(cur);
             cur = cur->prev;
         }
-        paths[--nPath] = 1;
+        if (nPath != 0) {
+            paths[--nPath] = 1;
+        } else {
+            paths[--nPath] = -1;
+        }
     }
     freePath(routine);
     return paths;

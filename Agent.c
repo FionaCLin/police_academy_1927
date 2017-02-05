@@ -18,7 +18,7 @@ struct agentRep{
     int initialStamina; //max stamina
     int stamina; //current stamina
     int strategy;
-    int dfsCurMove;
+    int curMove;
     int originStrategy;
     int * visit;
     int * st;
@@ -49,7 +49,7 @@ Agent initAgent(Vertex start, int maxCycles, int stamina, int strategy,
     agent->strategy = strategy;
     agent->originStrategy = strategy;
     agent->map = g;
-    agent->dfsCurMove = 0;
+    agent->curMove = 0;
     agent->name = strdup(name);
     agent->visit = calloc(sizeof(int), numV(g));
     agent->st = calloc(sizeof(int), numV(g));
@@ -78,6 +78,7 @@ void setDestination(Agent a, int end) {
     if (strcmp(a->name, "T") != 0)
         setStrategy(a, L_T_P);
     a->destination = end;
+    a->curMove = -1;
 }
 
 void setStrategy(Agent a, int newStrategy) {
@@ -91,8 +92,7 @@ void setStrategy(Agent a, int newStrategy) {
         free(a->paths);
         a->paths = NULL;
     }
-    if (a->strategy == DFS)
-        a->dfsCurMove = 0;
+    a->curMove = 0;
 
 }
 
@@ -213,13 +213,13 @@ Edge getNextMove(Agent agent, Graph g) {
         int curGPS = agent->currentLocation;
         //check if it need reset the path
         //when detective finish 1 dfs or it is 0 hour
-        if (agent -> dfsCurMove == 0 || agent->currentCycle == 0) {
+        if (agent -> curMove == 0 || agent->currentCycle == 0) {
             agent->visit[curGPS] = 0;
-            agent->dfsCurMove = 0;
+            agent->curMove = 0;
             free(agent->paths);
             agent->paths = dfSearch(g, agent->initialStamina, curGPS, agent->st,agent->visit);
         }
-        int nextMv = agent->dfsCurMove + 1;
+        int nextMv = agent->curMove + 1;
         Vertex nextCity = agent->paths[nextMv];
         //make the nextCity move to return
         nextMove = getEdge(g, curGPS, nextCity);
@@ -227,7 +227,7 @@ Edge getNextMove(Agent agent, Graph g) {
         if (nextMove.weight <= agent->stamina) {
             //reduce stamina
             agent->stamina -= nextMove.weight;
-            agent->dfsCurMove++;
+            agent->curMove++;
         } else {
             //the agent must stay in the same location
             nextMove = mkEdge(curGPS, curGPS, 0);
@@ -240,7 +240,7 @@ Edge getNextMove(Agent agent, Graph g) {
         int curGPS = agent->currentLocation;
         int dest = agent->destination;
         //check if detective hasn't his less turn path
-        if (agent->paths == NULL) {
+        if (agent->paths == NULL || agent -> curMove == 0 || agent->currentCycle == 0) {
             // get the max stamina to the detective has the stamina reset
             // the stamina after rest.
             int max = agent->stamina;
@@ -248,27 +248,32 @@ Edge getNextMove(Agent agent, Graph g) {
             int cur = agent->stamina;
             //work out the less turn path
             free(agent->paths);
+            agent->curMove = 0;
             agent->paths = bfSearch(g, max, cur, curGPS, dest);
         }
-        //first element of the paths record my current spot in the paths
-        // increment 1 to get the next spot in the paths
-        int order = agent->paths[0] + 1;
-        Vertex nextCity = agent->paths[order];
-        //get the nextCity move
-        nextMove = getEdge(g, curGPS, nextCity);
-        //check if the nextCity move is affordable
-        if (nextMove.weight <= agent->stamina) {
-            //reduce stamina
-            agent->stamina -= nextMove.weight;
-            // update the first element
-            agent->paths[0]++;
+        //first element of the paths record how many moves in the paths
+        if (&(agent->paths[0]) != NULL && agent->paths[0] != -1) {
+            Vertex nextCity = agent->paths[agent->curMove+1];
+            //get the nextCity move
+            nextMove = getEdge(g, curGPS, nextCity);
+            //check if the nextCity move is affordable
+            if (nextMove.weight <= agent->stamina) {
+                //reduce stamina
+                agent->stamina -= nextMove.weight;
+                // update the first element
+                agent->curMove++;
+            } else {
+                //the agent must stay in the same location
+                nextMove = mkEdge(curGPS, curGPS, 0);
+                //max stamina
+                agent->stamina = agent->initialStamina;
+            }
         } else {
             //the agent must stay in the same location
-            nextMove = mkEdge(curGPS, curGPS, 0);
-            //max stamina
+            nextMove = mkEdge(agent->currentLocation, agent->currentLocation, 0);
             agent->stamina = agent->initialStamina;
+            //max stamina
         }
-
     } else {
         printf("Agent strategy not implemented yet\n");
         abort();
