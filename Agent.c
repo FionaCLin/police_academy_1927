@@ -318,6 +318,7 @@ void destroyAgent(Agent agent) {
     //YOU MAY NEED TO MODIFY THIS
     free(agent->name);
     free(agent->visit);
+    free(agent->st);
     free(agent->paths);
     free(agent);
 }
