@@ -237,18 +237,19 @@ Edge getNextMove(Agent agent, Graph g) {
         //when detective finish 1 dfs or it is 0 hour
         if (order == numV(g) || agent->currentCycle == 0) {
             agent->visit[curGPS] = 0;
-            agent->dfsCurMove = 0;
+            agent->dfsCurMove = 1;
             free(agent->paths);
             agent->paths = dfSearch(g, agent->initialStamina, curGPS, agent->st,agent->visit);
         }
-        Vertex nextCity = agent->paths[++agent->dfsCurMove];
+        Vertex nextCity = agent->paths[agent->dfsCurMove + 1];
         //make the nextCity move to return
         nextMove = getEdge(g, curGPS, nextCity);
         //check if the nextCity move is affordable
-        if (nextMove.weight <= agent->stamina)
+        if (nextMove.weight <= agent->stamina) {
             //reduce stamina
             agent->stamina -= nextMove.weight;
-        else {
+            agent->dfsCurMove++;
+        } else {
             //the agent must stay in the same location
             nextMove = mkEdge(curGPS, curGPS, 0);
             //max stamina
