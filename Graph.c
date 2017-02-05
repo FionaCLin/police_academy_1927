@@ -446,16 +446,16 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
     int nPath = numPaths(routine);
     int *paths = NULL;
     if (routine != NULL) {
-        paths =  malloc(sizeof(int) *++nPath);
-        Path cur = routine;
-        while (cur != NULL) {
-            paths[--nPath] = dest(cur);
-            cur = cur->prev;
-        }
+        paths =  malloc(sizeof(int) *nPath);
         if (nPath != 0) {
             paths[--nPath] = 1;
         } else {
             paths[--nPath] = -1;
+        }
+        Path cur = routine;
+        while (cur -> prev != NULL) {
+            paths[--nPath] = dest(cur);
+            cur = cur->prev;
         }
     }
     freePath(routine);

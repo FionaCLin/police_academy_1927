@@ -253,7 +253,7 @@ Edge getNextMove(Agent agent, Graph g) {
         }
         //first element of the paths record how many moves in the paths
         if (&(agent->paths[0]) != NULL && agent->paths[0] != -1) {
-            Vertex nextCity = agent->paths[agent->curMove+1];
+            Vertex nextCity = agent->paths[agent->curMove];
             //get the nextCity move
             nextMove = getEdge(g, curGPS, nextCity);
             //check if the nextCity move is affordable
