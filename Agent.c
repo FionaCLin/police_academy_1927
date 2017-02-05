@@ -97,8 +97,10 @@ void setStrategy(Agent a, int newStrategy) {
         //set no path
         free(a->paths);
         a->paths = NULL;
-
     }
+    if (a->strategy == DFS)
+        a->dfsCurMove = 0;
+
 }
 
 Vertex getDestination(Agent agent) {
@@ -232,10 +234,9 @@ Edge getNextMove(Agent agent, Graph g) {
         free(legalMoves);
     } else if (agent->strategy == DFS) {
         int curGPS = agent->currentLocation;
-        int order = agent->visit[curGPS];
         //check if it need reset the path
         //when detective finish 1 dfs or it is 0 hour
-        if (order == numV(g) || agent->currentCycle == 0) {
+        if (agent -> dfsCurMove == 0 || agent->currentCycle == 0) {
             agent->visit[curGPS] = 0;
             agent->dfsCurMove = 0;
             free(agent->paths);
