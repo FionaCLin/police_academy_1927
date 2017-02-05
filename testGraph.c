@@ -23,6 +23,7 @@
 #define MAXE 10
 
 
+
 void testMkEdge();
 void testNewGraphNumV();
 void testInsertE();
@@ -450,8 +451,8 @@ void testEdges() {
    printf("--------------------------------------------");
    printf("\n>>>Test edges funtion<<<\n");
    printf("--------------------------------------------");
-   
-   
+
+
    for (v = 1; v < 10; v++) {
       printf("\n## Test %d vertices graph\n", v);
       g = newGraph(v);

@@ -1,19 +1,4 @@
-As you complete your work on this assignment, you must maintain an
-assignment diary where you will reflect on what you have done. In a text
-file called assn2Diary.txt, place the date and time of your work
-together with some brief comments of the work you have completed such as
-what you worked on, what you accomplished and what bugs you fixed.
-
-You should discuss your choices of data structures and additional ADTs
-you have used in your implementation. It should also discuss how you
-have tested your implementation.
-
-You may like to base your assignment diary on logs from a version
-control system, like Git or Subversion. Make sure your commit messages
-are informative!
-
-
-##Jan 14 2017
+##Jan 14, 2017
 Set up assign2 git repository, set up assign2Diary.txt
 Create branch 'task0' for Task0
 Add testGraph.c to branch task0
@@ -23,7 +8,7 @@ Add more test cases to task0
 Read spec and lecture slides to understand graph's implementation
 Research and design the graph representation struct
 
-##Jan 21 2017
+##Jan 21, 2017
 Consolidate Graph theory and implementation
 Understand each representation pros and cons
 
@@ -31,44 +16,44 @@ Apply the optimised 2d array graph representation for assignment2
 Go through the graph.c and implement graph init function
 
 >>Reasons for 2D array representation:
-The map of city is weighted graph, it is easy record the weight of each
+The map of city is weighted graph; it is easy to record the weight of each
 edge.
 Adapt the optimised 2D array because the graph is undirected graph, it
 can be stored only once in triangle matrix.
 
 
-##Jan 22 2017
-Finish Graph.c basic function prototype
+##Jan 22, 2017
+Finish Graph.c primary function prototype
 
-##Jan 25 2017
-More understanding for dfs and bfs and find shortest path from lab6
+##Jan 25, 2017
+More understanding for dfs and bfs and find the shortest path from lab6
 Study lab6 test data so as to understand different search strategies
 
-##Jan 26 2017
-Complete testGraph.c
+##Jan 26, 2017
+Complete testGraph.C
 add invalid test cases
 Refactor Graph.c prototype to handle invalid params
 
-##Jan 27 2017
+##Jan 27, 2017
 Start to implement Agent.c and Agent.h
 Complete stage0
 Start stage0 for task2
 >> Tasks to complete:
  1) Each vertex(city) has a name, which is scanned in by the program.
-amend the graph struct to contain this informantion so as to retain when
-user check the status of the game.
- 2) Each vertex(city) might has an informant, which is scanned in by the program.
-amend the graph struct to contain this informantion so as to retain when
-user check the status of the game or step the game.
+Amend the graph struct to contain this information so as to retain when
+user checks the status of the game.
+ 2) Each vertex(city) might have an informant, which is scanned in by the program.
+Amend the graph struct to contain this information so as to retain when
+user checks the status of the game or step the game.
  3) Make sure all the information shown in stats and map have all the
 correct details.
- 4) Stamina limitations and move weight reduction and stamina reset
+ 4) Stamina limitations and move weight reduction, and stamina reset
 implementation
  5) Comply Winning and Losing Rules:
-* The detectives win the game if at the end of the turn, they are
+* The detectives win the game if, at the end of the turn, they are
 located in the same city as the thief.
 * The thief wins the game if at the end of a turn they is located in the
-goal city and there are no detectives there.
+goal city, and there are no detectives there.
 * If the thief reaches the goal location at the same time as one of the
 detectives, the detective catches the thief and wins.
 
@@ -102,29 +87,29 @@ TO-DD :
 
 ##Jan 29 2017
 * Finish stage 1 & stage 2 of task2
-Problem encounting:
-1. for stage 1, first attemp is to quick sort and merge sort those
-filtered moves based on less visited times, however quicksort is not a
+Problem encountering:
+1. for stage 1, the first attempt is to quick sort and merge sort those
+filtered moves based on less visited times, however, quicksort is not a
 stable sort plus each move are sorted based on weight and end vertex if
-the visited times are tied. However all we need is 1 move from the
+The visited times are tied. However, all we need is one move from the
 filtered moves.
 Hence my solution:
 Visited times is recorded by int visit[], and all the filteredMoves is
-an array too therefore I mark the least index then compare the visited
+an array too, therefore, I mark the least index then compare the visited
 times and weight also the id of those filteredMoves update the least
 index along the comparisons.
 
 2. for stage 2, I give the path array to agent struct. Thus DFS has
 implementation will work out those vertices visit order in agent->visit
-array(use this same field for different strategy). So detective have the
-plan(order) to visit all the vertices. Also the vertices in the path
+array(use this same field for different strategy). So detective has the
+plan(order) to visit all the vertices. Also, the vertices in the path
 array to form the next move.
-However I miss the point that those ordered visit vertices might be not
+However, I miss the point that those ordered visit vertices might be not
 adjacent, therefore it can't form a path to next vertex.
 
->>problems I got to solve for this situation:
-1 . firstly I need to check the next vertex and the current location is
-adjacent. that means if there is move to form.
+>>problems I got to solve this situation:
+1 . Firstly I need to check the next vertex, and the current location is
+adjacent. That means if there is the move to form.
 2. if it is not adjacent, we need to remember this next move as well as
 go back to the last location.
 3. how can backtrack also find the vertex has a path to
@@ -133,7 +118,7 @@ next unvisited vertex.
 Hence my solution:
 1. get next visit vertex and check if it is adjacent to the current
 location.
-2. if not, swap the unvisit with the current spot in the path array; and
+2. if not, swap the visit with the current spot in the path array; and
 update next visit vertex to the last visited vertex;
 (this swap will update the next proper move in the paths array;
 therefore it can stop it go forward again and only go back till it check
@@ -149,22 +134,130 @@ TO-DD : Stage 3: Least Turns Path Strategy
 3) add logic for set detective destination once they encounter informant
 
 30 Jan 2017
-review the sorting and bfs and dfs as well as the dijkstra algorithms
-for stage 3
+Review the sorting and bfs and dfs as well as the dijkstra algorithms
+for stage 3. Implement Stack.c and Queue.c with the Item structure and MinHeap.c the HItem structure I need as well as, quicksort to sort the edge for prim's algorithm
 
 31 Jan 2017
 Try to implement Diijstrak and bfs for the stage 3
-First attemp, I was thinking all we care about the shortest paths
+The first attemp, I was thinking all we care about the shortest paths and the least cost paths. So it can work out the route for the detective.
+But I did not take the initial stamina, and the rest hops into consideration.
+2 Feb 2017
+After all the attempts, I tried to simply the problem with the original bfs.
+What matters to the route for the detective to take in Less Turn Pass are the hops and end stamina? So I make a path structure to capture and compute this information along the traversal.
+Therefore, I remove all the irrelevant structure and methods and start from scratch.
 
+3 Feb 2017
+I refactor the Queue.c and Path.c to count the below:
+- track what detective's current stamina is
+- for every outgoing edge
+- if not enough stamina, add the cost of resting to the hops
+- keep track of the turns each possible paths takes.
+
+4 Feb
+1. Attempt the bfSearch and get all the possible path
+2. make another function to compare the result, choose the least turns path.
+3. make an array of that paths and return to an agent.
+
+First attempt submission, it fails the second and third cases, because I did not use edge for the dfs, so I did not have backtrack st array. Therefore I spent lots of time to fix that.
+
+With dfs, but need to consider the cities are not connected. Then it uses the st array to backtrack to the conjunction of the next city.
+What I did in dfs,  I work out the visit vertices order also st array, then I work out the disconnected vertices route and make up the paths return to agent in the dfs function
 
 5 Feb 2017
 
+Finish up all the stuff at the last minute.
 
 
+Commits on Jan 14, 2017
+Create assn2Diary.txt
+set up task testGraph.c
+
+Commits on Jan 18, 2017
+Delete unwanted whitespaces, establish testGraph.c test cases
+
+Commits on Jan 21, 2017
+all testcases prototype
+add last week diary
+add more graph test cases
+
+Commits on Jan 22, 2017
+Graph init function
+
+Commits on Jan 23, 2017
+Reasons for 2D optimised array of grapRep
+Finish prototype Graph.c
+
+Commits on Jan 25, 2017
+back up test
+
+Commits on Jan 28, 2017
+Implement winning and losing the game logic
+show informants and city name in stats and show weight in map
+complete task0 test cases and valgrind
+
+Commits on Jan 29, 2017
+add back track for disconnect vertices
+stage2 Graph files
+update stage2 makefile
+stage2 agent.c
+back up stage1
+QuickSort implementation
+
+Commits on Jan 29, 2017
+add back track for disconnect vertices
+stage2 Graph files
+update stage2 makefile
+stage2 agent.c
+back up stage1
+QuickSort implementation
+
+Commits on Jan 30, 2017
+update function name and variable name as well as today's diary
+
+Commits on Jan 31, 2017
+add quick sort by weight
+
+Commits on Feb 1, 2017
+update edge variable name
+add part of stage 3 logic prototype
+add limits.h include file, refactor NO_EDGE macro
+add L_T_P macro
+reformat indention
+add encounter informant and set detective destionation in main
+add Dijkstra algorithms
+add #ifndef
+add min heap files for Dijkstra shortest path algorithms
+
+Commits on Feb 2, 2017
+add BFS and DijkStra algorithms
+add originStrategy fielf (stage 3) and update printAgent with destination and update set destination for detective and add setStrategy function
+add original strategy field to agent struct, and update set destination and printAgent with destination for all kind of agent and add strategy switch checking
+add BFS
+fix HItem its weight and vertex field name in macro
+
+Commits on Feb 3, 2017
+update makefile with min heap
+update header files
+add min heap helper function for Graph Dijkstra
+update macro
+
+Commits on Feb 4, 2017
+delete debugging print agent name
+correct output format distination
+draft stage3, memory leaking
+remove all other algorithms not necessary
+backup before I do more my solution for stage 3
+
+Commits on Feb 5, 2017
+auto format and remove debugging print
+fix reset dfsCurMove when swapping strategy from LTP to DFS
+Edit diary writing
+final complete dfs
+fix dfscurmove counting
+fix leaking
+first attemp dfs
+update macro
+fix part of stage 3
 
 
-- track what your current stamina is
-- for every outgoing edge:
-- if not enough stamina, add the cost of resting to the weight
-done
 

@@ -27,15 +27,8 @@ struct agentRep{
     char * name;
 };
 
-
 int filterEdges(Agent a, int numEdges, Edge *possibleMoves, Edge * filteredMoves) ;
-// static Edge * filterVisistedEdges(Agent a, int * path, int lo, int hi, int * numEdges) ;
 static Edge * getValidMoves(Graph g, Agent a, int * nValidEdges) ;
-
-// static void swap(Edge *a, Edge* b) ; static int
-// partitionByWeight(Edge moves[], int lo, int hi) ; static void
-// quicksort(Edge mvs[], int lo, int hi, char sortBy) ; static void
-// sortByWeight(Edge moves[], int lo, int hi) ;
 static Edge sortByVisit(Agent a, Edge moves[], int lo, int hi) ;
 //This creates one individual thief or detective You may need to add
 //more to this
@@ -174,24 +167,6 @@ static Edge * getValidMoves(Graph g, Agent a, int * nValidEdges) {
     return legalMoves;
 }
 
-// static Edge * filterVisistedEdges(Agent a, int * path, int lo, int hi, int * numEdges) {
-//     int numFiltered = 0;
-//     *numEdges = 0;
-//     int i, j;
-//     Edge * possibleMoves = getValidMoves(a->map, a, numEdges);
-//     Edge * filteredMoves = malloc((*numEdges) * sizeof(Edge));
-//     for (i=0;i < *numEdges;i++) {
-//         for (j = lo; j < hi; j++) {
-//             if (possibleMoves[i].w == path[j]) {
-//                 filteredMoves[numFiltered++] = possibleMoves[i];
-//             }
-//         }
-//     }
-//     return filteredMoves;
-// }
-// Get a legal move. This should be a move that the agent has enough
-// stamina to make and is a valid edge from the graph.
-// You need to implement all other strategies.
 Edge getNextMove(Agent agent, Graph g) {
     Edge nextMove;
     //Stationary strategy useful for debugging
@@ -325,101 +300,4 @@ void destroyAgent(Agent agent) {
     free(agent->paths);
     free(agent);
 }
-
-// static void swap(Edge *a, Edge* b) {
-//     Edge temp = *a;
-//     *a = *b;
-//     *b = temp;
-// }
-
-// static int partitionByVisit(Edge moves[], int lo, int hi) {
-//     int i, j;
-//     i = lo - 1;
-//     j = hi;
-
-//     int pivot = moves[hi].v;
-
-//     // pivot element
-//     while (1) {
-//         // increment i until we approach the element that shouldnt be in pivot
-//         while (moves[++i].v < pivot);
-//         // get the element towards the hi
-//         while (pivot < moves[--j].v && j != lo);
-
-//         // if the lo hand counter is greater than the hi, we stop
-//         if (i >= j) {
-//             break;
-//         }
-
-//         // now we swap elements
-//         swap(&(moves[i]), &(moves[j]));
-//     }
-
-//     // place the pivot
-//     swap(&(moves[i]), &(moves[hi]));
-//     // return the pivot index
-//     return i;
-// }
-
-// static int partitionByWeight(Edge moves[], int lo, int hi) {
-//     int i, j;
-//     i = lo - 1;
-//     j = hi;
-
-//     int pivot = moves[hi].weight;
-
-//     // pivot element
-//     while (1) {
-//         // increment i until we approach the element that shouldnt be in pivot
-//         while (moves[++i].weight < pivot);
-//         // get the element towards the hi
-//         while (pivot < moves[--j].weight && j != lo);
-
-//         // if the lo hand counter is greater than the hi, we stop
-//         if (i >= j) {
-//             break;
-//         }
-
-//         // now we swap elements
-//         swap(&(moves[i]), &(moves[j]));
-//     }
-
-//     // place the pivot
-//     swap(&(moves[i]), &(moves[hi]));
-//     // return the pivot index
-//     return i;
-// }
-
-// static void quicksort(Edge mvs[], int lo, int hi, char sortBy) {
-//     int i;
-//     if (lo >= hi) return;
-//     swap(&mvs[hi - 1], &mvs[(lo + hi) / 2]);
-//     if (sortBy == 'w') {
-//         if (mvs[lo].weight > mvs[hi - 1].weight)
-//             swap(&mvs[lo], &mvs[hi - 1]);
-//         if (mvs[hi - 1].weight > mvs[hi].weight)
-//             swap(&mvs[hi - 1], &mvs[hi]);
-//         if (mvs[lo].weight > mvs[hi - 1].weight)
-//             swap(&mvs[lo], &mvs[hi - 1]);
-//         i = partitionByWeight(mvs, lo, hi - 1);
-//         quicksort(mvs, lo, i - 1, sortBy);
-//         quicksort(mvs, i + 1, hi, sortBy);
-//     } else if (sortBy == 'v') {
-//         if (mvs[lo].v > mvs[hi - 1].v)
-//             swap(&mvs[lo], &mvs[hi - 1]);
-//         if (mvs[hi - 1].v > mvs[hi].v)
-//             swap(&mvs[hi - 1], &mvs[hi]);
-//         if (mvs[lo].v > mvs[hi - 1].v)
-//             swap(&mvs[lo], &mvs[hi - 1]);
-
-//         i = partitionByVisit(mvs, lo, hi - 1);
-//         quicksort(mvs, lo, i - 1, sortBy);
-//         quicksort(mvs, i + 1, hi, sortBy);
-//     }
-
-// }
-
-// static void sortByWeight(Edge moves[], int lo, int hi) {
-//     quicksort(moves, lo, hi, 'w');
-// }
 

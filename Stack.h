@@ -23,6 +23,4 @@ Item  StackPop(Stack);
 // check whether stack is empty
 int StackIsEmpty(Stack);
 
-// display contents of stack
-void showStack(Stack);
 #endif

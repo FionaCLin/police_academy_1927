@@ -42,20 +42,7 @@ void dropQueue(Queue Q) {
 	// free queue rep
 	free(Q);
 }
-//
-//void showQueue(Queue Q) {
-//	QueueNode *curr;
-//	assert(Q != NULL);
-//	// free list nodes
-//	curr = Q->head;
-//	while (curr != NULL) {
-//		PathShow(curr->value);
-//		if (curr->next != NULL)
-//		curr = curr->next;
-//	}
-//	printf("\n");
-//}
-//
+
 // add item at end of Queue
 void QueueJoin(Queue Q, Path it) {
 	assert(Q != NULL);
