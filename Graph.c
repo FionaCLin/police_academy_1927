@@ -87,7 +87,7 @@ Graph newGraph(int nV) {
             g->edges[i][j] = NO_EDGE;
     }
     g->informants = malloc(sizeof(char) * nV);
-    g->names = malloc(sizeof(char *) * nV);
+    g->names = calloc(nV, sizeof(char *));
     g->nv = nV;
     g->ne = 0;
     return g;
@@ -217,7 +217,6 @@ void destroyGraph(Graph g) {
         if (g->names != NULL) {
             for (i = 0; i < g->nv; i++)
                 free(g->names[i]);
-
         }
         free(g->names);
         free(g->informants);
@@ -319,7 +318,7 @@ int * dfSearch(Graph g, int maxStamina, int src, int *st, int *pre) {
         return NULL;
     }
     int i, count = 0;
-    int * path = calloc(sizeof(int), numV(g));
+    int * path = calloc(numV(g), sizeof(int));
     for (i = 0; i < numV(g); i++) {
         path[i] = -1;
         st[i] = -1;
@@ -360,8 +359,8 @@ int * dfSearch(Graph g, int maxStamina, int src, int *st, int *pre) {
         }
     }
     free(path);
-    path = calloc(sizeof(int), j + 1);
-    for (i = 0; i < j+1; i++) {
+    path = calloc(j + 1, sizeof(int));
+    for (i = 0; i < j + 1; i++) {
         path[i] = travelPath[i];
     }
     return path;

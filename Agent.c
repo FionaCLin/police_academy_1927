@@ -51,8 +51,8 @@ Agent initAgent(Vertex start, int maxCycles, int stamina, int strategy,
     agent->map = g;
     agent->curMove = 0;
     agent->name = strdup(name);
-    agent->visit = calloc(sizeof(int), numV(g));
-    agent->st = calloc(sizeof(int), numV(g));
+    agent->visit = calloc(numV(g), sizeof(int));
+    agent->st = calloc(numV(g), sizeof(int));
     agent->paths = NULL;
     if (strategy == C_L_VISITED)
         agent->visit[start]++;
@@ -234,7 +234,6 @@ Edge getNextMove(Agent agent, Graph g) {
             //max stamina
             agent->stamina = agent->initialStamina;
         }
-
     } else if (agent->strategy == L_T_P) {
         //get current location and the destination
         int curGPS = agent->currentLocation;

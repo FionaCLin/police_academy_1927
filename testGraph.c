@@ -23,7 +23,6 @@
 #define MAXE 10
 
 
-
 void testMkEdge();
 void testNewGraphNumV();
 void testInsertE();
