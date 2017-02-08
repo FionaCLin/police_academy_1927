@@ -5,26 +5,22 @@
 #include <stdio.h>
 #include <assert.h>
 #include "Path.h"
-
 Path PathCopy(Path it) {
-    Path copy = NULL;
-    if (it != NULL && it->prev == NULL) {
-        copy = newPath(it->vertex, it->turn, it->stamina, NULL);
-    } else {
-        copy = PathCopy(it->prev);
-        copy = newPath(it->vertex, it->turn, it->stamina, copy);
+    if (it == NULL) {
+        return NULL;
     }
-
-    return copy;
+    Path cpy = newPath(it->vertex, it->turn, it->stamina);
+    cpy->prev = PathCopy(cpy->prev);
+    return cpy;
 }
 
-Path newPath(int v, Key turns, int stamina, Path prev){
+Path newPath(int v, Key turns, int stamina){
     Path i = malloc(sizeof(struct record));
     assert(i != NULL);
     i->turn = turns;
     i->vertex= v;
     i->stamina = stamina;
-    i->prev = prev;
+    i->prev = NULL;
     return i;
 }
 
