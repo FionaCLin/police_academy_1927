@@ -11,7 +11,7 @@
 
 <h1 id="police-academy-1927">police academy 1927</h1>
 <p class="lead">
-<small><strong> 23:59 Sunday 5th February 2017 </strong></small>
+<small><strong>Sunday 5th February 2017 </strong></small>
 </p>
 </header>
 <p class="text-center lead">
