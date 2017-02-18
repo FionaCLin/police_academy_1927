@@ -2,8 +2,10 @@
 
 <body class="container" data-gr-c-s-loaded="true">
 <header id="jumbotron page-header">
-<h1 class="title">COMP1927 17x1 / police academy 1927(Assignment 2)</h1>
+<center><strong>
 <a class="nav-link active" href="https://fionaclin.github.io/index.html">Home</a>
+</strong></center>
+<h1 class="title">COMP1927 17x1 / police academy 1927(Assignment 2)</h1>
 </header>
 <header class="jumbotron text-center">
 
