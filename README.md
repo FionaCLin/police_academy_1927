@@ -1,42 +1,9 @@
 
 
 <body class="container" data-gr-c-s-loaded="true">
-<header id="jumbotron">
-      <canvas id="myCanvas"></canvas>
-        <script type="text/javascript" src="https://fionaclin.github.io/stylesheets/js/bubbles.js"></script>
-        <script type="text/javascript" src="https://fionaclin.github.io/stylesheets/js/main.js"></script>
-      <h2>Welcome to My Personal Learning Journal</h2>
-    </header>
-     <nav>
-          <div class='nav-open-btn'>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-          </div>
-            <ul class='nav-display'>
-            <li>
-              <a class="nav-link active" href="https://fionaclin.github.io/index.html">Home</a>
-            </li>
-            <li>
-              <a class="nav-link" href="https://fionaclin.github.io/resume.html">Resume</a>
-            </li>
-            <li>
-              <a class="nav-link" href="https://fionaclin.github.io/study.html">Current Study</a>
-            </li>
-              <li>
-                        <a class="nav-link" href="https://fionaclin.github.io/resource.html">Project List</a>
-            </li>
-          </ul>
-     </nav>
-    <script>
-      $('nav .nav-open-btn').on('click', function(){
-        $('nav .nav-display').toggleClass('open');
-      })
-    </script>
-<header class="page-header">
+<header id="jumbotron page-header">
 <h1 class="title">COMP1927 17x1 / police academy 1927(Assignment 2)</h1>
+<a class="nav-link active" href="https://fionaclin.github.io/index.html">Home</a>
 </header>
 <header class="jumbotron text-center">
 
