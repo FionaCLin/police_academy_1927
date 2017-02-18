@@ -40,10 +40,10 @@
 <dt><code>main.c</code></dt>
 <dd><p>The client program that runs the game. This program reads in the data and creates a graph that represents a map of the city. The 5 agents are also created and a game starts. This will need to be completed by you.</p>
 </dd>
-<dt><code>cities*.data</code> files</dt>
+<dt><code>input/cities*.data</code> files</dt>
 <dd><p>Sample test files to use as a starting point for your testing. Some test files have graphs with small numbers of cities, some with more; some have informants, some don’t, etc… but you should also create your own test files.</p>
 </dd>
-<dt><code>agentsS*.data</code> files</dt>
+<dt><code>input/agentsS*.data</code> files</dt>
 <dd><p>Sample test files that you can use once you have completed the different stages of the assignment. agents1.data should work if you have implemented stage 1 and above, agents2.data should work if you have implemented stage 2 and above, and so on. Note that stage 4 must be tested by using one of the cities data files with informants. And, of course, you should create your own <code>agents.data</code> files for testing.</p>
 </dd>
 </dl>
@@ -143,7 +143,7 @@
 <p>In this example all detectives are following the <code>RANDOM</code> strategy (strategy 0). The thief uses the random strategy.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesSmall.data agentsS0.data 10 6</b></tt>
+<tt>$ <b>./assn2 citiesSmall.data input/agentsS0.data 10 6</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -216,7 +216,7 @@ GAME OVER: YOU LOSE - THIEF GOT TO GETAWAY</code></pre>
 <p>In this example all detectives are using the <code>CHEAPEST_LEAST_VISITED</code> strategy and the thief is following the usual random strategy.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesMedium.data agentsS1.data 10 4</b></tt>
+<tt>$ <b>./assn2 input/citiesMedium.data input/agentsS1.data 10 4</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -264,7 +264,7 @@ YOU WIN - THIEF CAUGHT!</code></pre>
 <p>In this example detective 1 and 2 are sill following the <code>CHEAPEST_LEAST_VISITED</code> strategy and the thief is of course using the <code>RANDOM</code> strategy.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesMedium.data agentsS2.data 10 2</b></tt>
+<tt>$ <b>./assn2 input/citiesMedium.data input/agentsS2.data 10 2</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -311,7 +311,7 @@ YOU WIN - THIEF CAUGHT!</code></pre>
 <p>In Hour 3 D3 runs into an informant and calculates the path from 1 to 4.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesInformants.data agentsS3.data 20 2</b></tt>
+<tt>$ <b>./assn2 citiesInformants.data input/agentsS3.data 20 2</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
