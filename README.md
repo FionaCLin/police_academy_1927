@@ -84,17 +84,17 @@
 5 1 2 D3
 5 4 2 D4</code></pre>
 <h2 id="the-tasks">The Tasks</h2>
-<h3 id="task-0-graph-black-box-unit-testing-4-marks">Task 0: Graph Black-Box Unit Testing <small>4 marks</small></h3>
+<h3 id="task-0-graph-black-box-unit-testing-4-marks">Task 0: Graph Black-Box Unit Testing </h3>
 <p>You must write a <code>testGraph.c</code> that tests the functions defined in the given <code>Graph.h</code> file. You must create <code>assert(3)</code>-based tests. We run your <code>testGraph.c</code> code with our own working and broken graph implementations to check they pass and fail the implementations accordingly.</p>
 <p>Only use and test functions from the original <code>Graph.h</code>. Do not need to submit tests for any additional functions you add to your graph when you complete the other tasks of the assignment.</p>
 <p>You do not need <code>assert(3)</code>-based tests for the functions <em>show</em> or <em>destroyGraph</em>.</p>
-<h3 id="task-1-assignment-diary-1-mark">Task 1: Assignment Diary <small>1 mark</small></h3>
+<h3 id="task-1-assignment-diary-1-mark">Task 1: Assignment Diary </h3>
 <p>As you complete your work on this assignment, you must maintain an assignment diary where you will reflect on what you have done. In a text file called <code>assn2Diary.txt</code>, place the date and time of your work together with some brief comments of the work you have completed such as what you worked on, what you accomplished and what bugs you fixed.</p>
 <p>You should discuss your choices of data structures and additional ADTs you have used in your implementation. It should also discuss how you have tested your implementation.</p>
 <p>You may like to base your assignment diary on logs from a version control system, like Git or Subversion. Make sure your commit messages are informative!</p>
 <h3 id="task-2-implementation">Task 2: Implementation</h3>
 <p>You may create additional <code>.h</code> and <code>.c</code> files to use in your implementation for all/any of the stages.</p>
-<h4 id="stage-0-random-strategy-1.5-automarks">Stage 0: <code>RANDOM</code> strategy <small>1.5 automarks</small></h4>
+<h4 id="stage-0-random-strategy-1.5-automarks">Stage 0: <code>RANDOM</code> strategy </h4>
 <p>For stage 0 we will test detectives using the random strategy only. The random strategy has been implemented, however you will need to modify the provided code in these ways to pass stage 0.</p>
 <p>The data for each vertex including whether there is an informant in the city and the name of the city is read in by the program, but is never stored in the graph or displayed when printing out the stats. You must implement this.</p>
 <p>You must complete the implementation of a weighted graph in <code>Graph.c</code> You should decide which implementation will make it easiest to implement the rest of the assignment!</p>
@@ -107,13 +107,13 @@
 <li><p>If the thief reaches the goal location at the same time as one of the detectives, the detective catches the thief and wins.</p></li>
 </ul>
 <p>Note: If one of the detectives starts in the same city as the thief, the thief is caught immediately. However, throughout the game, the thief is caught only if one of the detectives is in the same city as the thief <em>at the end of the cycle</em>.</p>
-<h4 id="stage-1-cheapest_least_visited-strategy-2.4-automarks">Stage 1: <code>CHEAPEST_LEAST_VISITED</code> strategy <small>2.4 automarks</small></h4>
+<h4 id="stage-1-cheapest_least_visited-strategy-2.4-automarks">Stage 1: <code>CHEAPEST_LEAST_VISITED</code> strategy </h4>
 <p>If a detective is assigned this strategy, it means that at every opportunity he has to move, he will move to the city he has visited the least number of times, out of the legal options that are available. This means the detective must work out what cities are actually adjacent to the current city and pick from those the one that has been visited the least. In situations where there are more than one location with the same number of visits, the one with the smallest weight is chosen. If there is more than one location with the same number of visits <em>and</em> the same weight, the one with the lowest Vertex Id should be chosen.</p>
 <p>The stamina limitations described in stage 0 should also be enforced for this stage and all stages of the assignment, so cities that the agent does not have enough stamina to visit are not considered legal moves.</p>
 <p>This stage will be tested by supplying agent files with only this or the random strategy being used.</p>
-<h4 id="stage-2-dfs-strategy-2.2-automarks">Stage 2: <code>DFS</code> strategy <small>2.2 automarks</small></h4>
+<h4 id="stage-2-dfs-strategy-2.2-automarks">Stage 2: <code>DFS</code> strategy </h4>
 <p>In this stage a DFS strategy must be implemented. When following this strategy, the agent maps out an entire route that will take him through every city on the map using the DFS algorithm. At every cycle, the agent attempts to move to the next city on the plan. If the agent does not have enough stamina he will wait in the same ciy to recover. When the agent has visited all cities at least once, a new dfs path from the final location is mapped out and is followed.</p>
-<h4 id="stage-3-least-turns-path-1.4-automarks">Stage 3: Least Turns Path <small>1.4 automarks</small></h4>
+<h4 id="stage-3-least-turns-path-1.4-automarks">Stage 3: Least Turns Path </h4>
 <p>In this stage we will test your implementation using city data with informants. Thus at any cycle during the game a detective might go to a city where there is an informant. In this situation the detective finds out where the thief is currently located. The detective must then find the path to that location that will take the least number of turns. Of course the thief may be gone by the time the detective gets there and the detective must restart his original strategy from his new location. Any cities the detective passes through on the shortest path are counted as being visited if the detective returns to the <code>CHEAPEST_LEAST_VISITED</code> strategy. The detective may also pass through a city with another informant in which the detective would find a new least turns path from the current location.</p>
 <p>You must take into account the stamina of the agent. For example, if one path requires the agent to travel through 3 vertices, but would have to rest twice (5 turns), that is more turns that an agent travelling through 4 vertices but not having to rest (4 turns).</p>
 <p>If there are 2 paths that would take equal turns, choose the one that results in the agent having the most stamina when he reaches his goal.</p>
