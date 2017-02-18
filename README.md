@@ -115,8 +115,7 @@
 <p>If there are 2 paths that would take equal turns, choose the one that results in the agent having the most stamina when he reaches his goal.</p>
 <p>If there are 2 paths that would take equal turns and would result in the agent having the same resulting stamina, either path is valid. (We will not autotest this situation).</p>
 <h3 id="the-model-solution">The Model Solution</h3>
-<p>A sample solution is available at <code>~cs1927/bin/assn2Model</code> on CSE machines. The program takes 3 command line arguments as outlined above. These are the filename with the city data, the filename with the agent data, the maximum number of cycles and it optionally takes a fourth command line argument that is used to seed the random number generator that is used for random movement. This is provided to facilitate automarking and testing.</p>
-<p>If the <code>~cs1927/bin/assn2Model</code> program fails (e.g., segmentation fault, bus error, etc.) or behaves incorrectly according to the specification, please email <code>cs1927@cse.unsw.edu.au</code> and attach the test file or a description of the input that caused the failure/bug.</p>
+<p>A sample solution <code>assn2</code> is available after you run <code>make</code>. The program takes 3 command line arguments as outlined above. These are the filename with the city data, the filename with the agent data, the maximum number of cycles and it optionally takes a fourth command line argument that is used to seed the random number generator that is used for random movement. This is provided to facilitate automarking and testing.</p>
 <h4 id="the-commands">The Commands</h4>
 <p>Once the program has started the user will be prompted for input. The available commands are listed below:</p>
 <dl>
@@ -143,7 +142,7 @@
 <p>In this example all detectives are following the <code>RANDOM</code> strategy (strategy 0). The thief uses the random strategy.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesSmall.data agentsS0.data 10 6</b></tt>
+<tt>$ <b>./assn2 input/citiesSmall.data input/agentsS0.data 10 6</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -216,7 +215,7 @@ GAME OVER: YOU LOSE - THIEF GOT TO GETAWAY</code></pre>
 <p>In this example all detectives are using the <code>CHEAPEST_LEAST_VISITED</code> strategy and the thief is following the usual random strategy.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesMedium.data agentsS1.data 10 4</b></tt>
+<tt>$ <b>./assn2 input/citiesMedium.data input/agentsS1.data 10 4</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -264,7 +263,7 @@ YOU WIN - THIEF CAUGHT!</code></pre>
 <p>In this example detective 1 and 2 are sill following the <code>CHEAPEST_LEAST_VISITED</code> strategy and the thief is of course using the <code>RANDOM</code> strategy.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesMedium.data agentsS2.data 10 2</b></tt>
+<tt>$ <b>./assn2 input/citiesMedium.data input/agentsS2.data 10 2</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -311,7 +310,7 @@ YOU WIN - THIEF CAUGHT!</code></pre>
 <p>In Hour 3 D3 runs into an informant and calculates the path from 1 to 4.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesInformants.data agentsS3.data 20 2</b></tt>
+<tt>$ <b>./assn2 input/citiesInformants.data input/agentsS3.data 20 2</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -346,41 +345,4 @@ Hour 5
 D1 caught the thief in darwin (4)
 YOU WIN - THIEF CAUGHT!</code></pre>
 </div>
-<h2 id="assessment">Assessment</h2>
-<p>Assignment 2 is worth 15 marks. Your Assignment 2 submission will be assessed in the following way:</p>
-<ul>
-<li>Automarking of Stage 0: 1.5</li>
-<li>Automarking of Stage 1: 2.4</li>
-<li>Automarking of Stage 2: 2.2</li>
-<li>Automarking of stage 3: 1.4</li>
-<li>Graph unit testing: 4</li>
-<li>Assignment diary: 1</li>
-<li>Programming style: 2.5</li>
-</ul>
-<p>A late penalty of 10% per day applies to the maximum mark. Assignments can not be submitted at all after 5th February 2017, 23:59:59.</p>
-<div class="panel panel-danger" role="alert">
-<div class="panel-heading text-center">
-<strong>DO NOT COPY FROM OTHERS. DO NOT ALLOW OTHERS TO SEE YOUR CODE.</strong>
-</div>
-<div class="panel-body">
-<p>All work submitted for this assignment must be your own work and it must be completed individually. We regard copying of assignments, in whole or part, as a serious offence.</p>
-<p>We use plagiarism detection software to search for multiply-submitted work and work that is similar to programs found on the Internet and other sources.</p>
-<p>Be warned:</p>
-<ul>
-<li><p>The submission of work derived from another person, or jointly written with someone else, will, at the very least, result in automatic failure for COMP1927 with a mark of zero.</p></li>
-<li><p>Allowing another student to copy from you will, at the very least, result in a mark of zero for your own assignment.</p></li>
-<li><p>Accidentally publishing your code on public source code sharing services like Github, Bitbucket, Gitlab, or Codeplex is not a valid excuse for your code being copied; you will be prosecuted as will students who copy your work. Many services provide private source code repositories free or at low cost for students.</p></li>
-<li><p>Severe or second offences will result in automatic failure, exclusion from the University, and possibly other academic discipline.</p></li>
-<li><p>Group submissions will not be allowed. Your program must be entirely your own work.</p></li>
-</ul>
-</div>
-<div class="panel-footer text-center">
-<p>If you require further clarification on this matter please refer to:</p>
-<p><em>on the UNSW Current Students site</em><br><a href="https://student.unsw.edu.au/plagiarism">Academic Integrity and Plagiarism</a><br><a href="https://student.unsw.edu.au/conduct">Academic Misconduct and Student Misconduct</a></p>
-<p><em>resources for CSE Students</em><br><a href="https://www.engineering.unsw.edu.au/computer-science-engineering/about-us/organisational-structure/student-services/policies/student-conduct">Student Conduct</a> <small>(formerly known as the Yellow Form)</small></p>
-</div>
-</div>
-<h2 id="submission">Submission</h2>
-<p>You need to submit your assignment using the <code>give</code> command on a CSE machine:</p>
-<pre><code>$ 1927 classrun 17x1 give assn2 *.c *.h Makefile assn2Diary.txt</code></pre>
 <hr>
