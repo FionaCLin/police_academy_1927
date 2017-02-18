@@ -3,6 +3,7 @@
 <header class="page-header">
 <h1 class="title">COMP1927 17x1 / Assignment 2</h1>
 </header>
+
 <header class="jumbotron text-center">
 
 <h1 id="master-thief">master thief</h1>
@@ -31,47 +32,7 @@
 <p>During the competition, the number of times the thief gets away will be recorded. The number of times the thief is caught will also be recorded, along with as the number of hours the thief can resist being caught by the detectives in situations when the thief gets caught or time runs out..</p>
 <p>The score is calculated by the number of getaways minus the number of times the thief is caught.</p>
 <p>The person with the highest score wins. In cases of ties, the total number of hours the thief resisted being caught will be taken into account.</p>
-<h2 id="marks">Marks</h2>
-<p>Marks will be given as follows:</p>
-<ol style="list-style-type: decimal">
-<li>Winner 2/2</li>
-<li>Second 1.9/2</li>
-<li>Third 1.8/2</li>
-<li>Fourth 1.6/2</li>
-<li>Fifth 1.5/2</li>
-</ol>
-<p>Any other entries that can beat the Random Thief will be given a score of 1.</p>
-<p>Any other serious attempts that do not beat the Random Thief will get 0.5.</p>
-<div class="panel panel-danger" role="alert">
-<div class="panel-heading text-center">
-<strong>DO NOT COPY FROM OTHERS. DO NOT ALLOW OTHERS TO SEE YOUR CODE.</strong>
-</div>
-<div class="panel-body">
-<p>All work submitted for this assignment must be your own work and it must be completed individually. We regard copying of assignments, in whole or part, as a serious offence.</p>
-<p>We use plagiarism detection software to search for multiply-submitted work and work that is similar to programs found on the Internet and other sources.</p>
-<p>Be warned:</p>
-<ul>
-<li><p>The submission of work derived from another person, or jointly written with someone else, will, at the very least, result in automatic failure for COMP1927 with a mark of zero.</p></li>
-<li><p>Allowing another student to copy from you will, at the very least, result in a mark of zero for your own assignment.</p></li>
-<li><p>Accidentally publishing your code on public source code sharing services like Github, Bitbucket, Gitlab, or Codeplex is not a valid excuse for your code being copied; you will be prosecuted as will students who copy your work. Many services provide private source code repositories free or at low cost for students.</p></li>
-<li><p>Severe or second offences will result in automatic failure, exclusion from the University, and possibly other academic discipline.</p></li>
-<li><p>Group submissions will not be allowed. Your program must be entirely your own work.</p></li>
-</ul>
-</div>
-<div class="panel-footer text-center">
-<p>If you require further clarification on this matter please refer to:</p>
-<p><em>on the UNSW Current Students site</em><br><a href="https://student.unsw.edu.au/plagiarism">Academic Integrity and Plagiarism</a><br><a href="https://student.unsw.edu.au/conduct">Academic Misconduct and Student Misconduct</a></p>
-<p><em>resources for CSE Students</em><br><a href="https://www.engineering.unsw.edu.au/computer-science-engineering/about-us/organisational-structure/student-services/policies/student-conduct">Student Conduct</a> <small>(formerly known as the Yellow Form)</small></p>
-</div>
-</div>
-<h2 id="submission">Submission</h2>
-<p>You need to submit your assignment using the <code>give</code> command on a CSE machine:</p>
-<pre><code>$ 1927 classrun 17x1 give assn2Bonus *.c *.h Makefile assn2BonusDiary.txt</code></pre>
-<div class="alert alert-warning">
-<strong>Heads-up!</strong> You must submit <code>assn2Bonus</code> to join the bonus round.
-</div>
-<div class="alert alert-info">
-<strong>Hint</strong> Careful construction of your assignment solution will let you share code and a Makefile between both <code>assn2</code> and <code>assn2Bonus</code>.
+
 </div>
 <hr>
 

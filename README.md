@@ -1,4 +1,4 @@
-</head>
+
 <body class="container" data-gr-c-s-loaded="true">
 <header class="page-header">
 <h1 class="title">COMP1927 17x1 / Assignment 2</h1>
@@ -346,41 +346,4 @@ Hour 5
 D1 caught the thief in darwin (4)
 YOU WIN - THIEF CAUGHT!</code></pre>
 </div>
-<h2 id="assessment">Assessment</h2>
-<p>Assignment 2 is worth 15 marks. Your Assignment 2 submission will be assessed in the following way:</p>
-<ul>
-<li>Automarking of Stage 0: 1.5</li>
-<li>Automarking of Stage 1: 2.4</li>
-<li>Automarking of Stage 2: 2.2</li>
-<li>Automarking of stage 3: 1.4</li>
-<li>Graph unit testing: 4</li>
-<li>Assignment diary: 1</li>
-<li>Programming style: 2.5</li>
-</ul>
-<p>A late penalty of 10% per day applies to the maximum mark. Assignments can not be submitted at all after 5th February 2017, 23:59:59.</p>
-<div class="panel panel-danger" role="alert">
-<div class="panel-heading text-center">
-<strong>DO NOT COPY FROM OTHERS. DO NOT ALLOW OTHERS TO SEE YOUR CODE.</strong>
-</div>
-<div class="panel-body">
-<p>All work submitted for this assignment must be your own work and it must be completed individually. We regard copying of assignments, in whole or part, as a serious offence.</p>
-<p>We use plagiarism detection software to search for multiply-submitted work and work that is similar to programs found on the Internet and other sources.</p>
-<p>Be warned:</p>
-<ul>
-<li><p>The submission of work derived from another person, or jointly written with someone else, will, at the very least, result in automatic failure for COMP1927 with a mark of zero.</p></li>
-<li><p>Allowing another student to copy from you will, at the very least, result in a mark of zero for your own assignment.</p></li>
-<li><p>Accidentally publishing your code on public source code sharing services like Github, Bitbucket, Gitlab, or Codeplex is not a valid excuse for your code being copied; you will be prosecuted as will students who copy your work. Many services provide private source code repositories free or at low cost for students.</p></li>
-<li><p>Severe or second offences will result in automatic failure, exclusion from the University, and possibly other academic discipline.</p></li>
-<li><p>Group submissions will not be allowed. Your program must be entirely your own work.</p></li>
-</ul>
-</div>
-<div class="panel-footer text-center">
-<p>If you require further clarification on this matter please refer to:</p>
-<p><em>on the UNSW Current Students site</em><br><a href="https://student.unsw.edu.au/plagiarism">Academic Integrity and Plagiarism</a><br><a href="https://student.unsw.edu.au/conduct">Academic Misconduct and Student Misconduct</a></p>
-<p><em>resources for CSE Students</em><br><a href="https://www.engineering.unsw.edu.au/computer-science-engineering/about-us/organisational-structure/student-services/policies/student-conduct">Student Conduct</a> <small>(formerly known as the Yellow Form)</small></p>
-</div>
-</div>
-<h2 id="submission">Submission</h2>
-<p>You need to submit your assignment using the <code>give</code> command on a CSE machine:</p>
-<pre><code>$ 1927 classrun 17x1 give assn2 *.c *.h Makefile assn2Diary.txt</code></pre>
 <hr>
