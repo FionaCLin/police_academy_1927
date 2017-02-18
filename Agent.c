@@ -212,7 +212,6 @@ Edge getNextMove(Agent agent, Graph g) {
     } else if (agent->strategy == DFS) {
         int curGPS = agent->currentLocation;
         //check if it need reset the path
-        //when detective finish 1 dfs or it is 0 hour
         if (agent -> curMove == 0 || agent->currentCycle == 0) {
             agent->visit[curGPS] = 0;
             agent->curMove = 0;

@@ -22,7 +22,7 @@ struct record{
 };
 
 // make new item to join the queue
-Path newPath(int turns, int v, int stamina, Path prev);
+Path newPath(int turns, int v, int stamina);
 int numPaths(Path p);
 Path PathCopy(Path it);
 void freePath(Path p);

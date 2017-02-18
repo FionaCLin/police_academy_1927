@@ -412,10 +412,13 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
     //make a queue and join the 1st edge
     Queue q = newQueue();
     Queue possiblePaths = newQueue();
-    QueueJoin(q, newPath(src, 0, curStamina, NULL));
+    QueueJoin(q, newPath(src, 0, curStamina));
     while (!QueueIsEmpty(q)) {
         Path p = QueueLeave(q);
-        if (visit[dest(p)] != NOT_YET) continue;
+        if (visit[dest(p)] != NOT_YET) {
+            freePath(p);
+            continue;
+        }
         if (dest(p) == dest)
             QueueJoin(possiblePaths, PathCopy(p));
         else visit[dest(p)] = count++;
@@ -431,8 +434,12 @@ int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest)
                 turn++;
                 stamina = maxStamina;
             }
-            QueueJoin(q, newPath(i, ++turn, stamina-cost, PathCopy(p)));
+            Path pre = PathCopy(p);
+            Path add = newPath(i, ++turn, stamina-cost);
+            add->prev = pre;
+            QueueJoin(q, add);
         }
+
         freePath(p);
     }
     dropQueue(q);
