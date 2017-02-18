@@ -19,7 +19,7 @@
 <p>In our simulation, the detectives have a map of the city, but do not know where the thief is or where he is trying to get to. The thief also has a map but does not really know how to use it and wanders randomly through the cities trying to reach the goal destination. The detectives employ different strategies depending on what they have been assigned to.</p>
 <h2 id="setting-up">Setting Up</h2>
 <p>The supplied files are in <samp><a href="https://github.com/FionaCLin/assign2Comp1927/tree/setup-README/files">https://github.com/FionaCLin/assign2Comp1927/files</a></samp>. Change to your assignment 2 directory, and copy them down by running</p>
-<pre><code>$ cp /web/cs1927/17x1/assignments/assn2/files/* .</code></pre>
+<pre><code>$ cp ./files/* .</code></pre>
 <p>If you’ve done the above correctly, you should find the following files now in the directory:</p>
 <dl>
 <dt><code>Makefile</code></dt>
@@ -115,8 +115,8 @@
 <p>If there are 2 paths that would take equal turns, choose the one that results in the agent having the most stamina when he reaches his goal.</p>
 <p>If there are 2 paths that would take equal turns and would result in the agent having the same resulting stamina, either path is valid. (We will not autotest this situation).</p>
 <h3 id="the-model-solution">The Model Solution</h3>
-<p>A sample solution is available at <code>~cs1927/bin/assn2Model</code> on CSE machines. The program takes 3 command line arguments as outlined above. These are the filename with the city data, the filename with the agent data, the maximum number of cycles and it optionally takes a fourth command line argument that is used to seed the random number generator that is used for random movement. This is provided to facilitate automarking and testing.</p>
-<p>If the <code>~cs1927/bin/assn2Model</code> program fails (e.g., segmentation fault, bus error, etc.) or behaves incorrectly according to the specification, please email <code>cs1927@cse.unsw.edu.au</code> and attach the test file or a description of the input that caused the failure/bug.</p>
+<p>A sample solution is available at <code>./assn2</code>. The program takes 3 command line arguments as outlined above. These are the filename with the city data, the filename with the agent data, the maximum number of cycles and it optionally takes a fourth command line argument that is used to seed the random number generator that is used for random movement. This is provided to facilitate automarking and testing.</p>
+
 <h4 id="the-commands">The Commands</h4>
 <p>Once the program has started the user will be prompted for input. The available commands are listed below:</p>
 <dl>
@@ -143,7 +143,7 @@
 <p>In this example all detectives are following the <code>RANDOM</code> strategy (strategy 0). The thief uses the random strategy.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesSmall.data input/agentsS0.data 10 6</b></tt>
+<tt>$ <b>./assn2 input/citiesSmall.data input/agentsS0.data 10 6</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
@@ -311,7 +311,7 @@ YOU WIN - THIEF CAUGHT!</code></pre>
 <p>In Hour 3 D3 runs into an informant and calculates the path from 1 to 4.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
-<tt>$ <b>./assn2 citiesInformants.data input/agentsS3.data 20 2</b></tt>
+<tt>$ <b>./assn2 input/citiesInformants.data input/agentsS3.data 20 2</b></tt>
 </div>
 <pre><code>POLICE ACADEMY 1927
 
