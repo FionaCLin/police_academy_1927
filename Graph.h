@@ -25,7 +25,7 @@ Edge mkEdge(Vertex, Vertex, int);
 typedef struct graphRep *Graph;
 
 // check if the city has informant
-char * hasInformant(Graph map, int city) ;
+char * hasInformant(Graph map, int city);
 
 //set thief location
 void setThief(Graph map, Vertex city);
@@ -79,7 +79,7 @@ void show(Graph g);
 
 // dfSearch using Stack
 //The initialisation of variables etc before we call the dfs function
-int * dfSearch(Graph g, int maxStamina, Vertex src, int * st, int * visit) ;
+int * dfSearch(Graph g, int maxStamina, Vertex src, int * st, int * visit);
 Edge getEdge(Graph g, Vertex v, Vertex w);
-int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest) ;
+int * bfSearch(Graph g, int maxStamina, int curStamina, Vertex src, Vertex dest);
 #endif
