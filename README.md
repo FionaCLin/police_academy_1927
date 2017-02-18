@@ -3,7 +3,7 @@
 <body class="container" data-gr-c-s-loaded="true">
 <header id="jumbotron page-header">
 <h1 class="title"><center><strong>
-<a class="nav-link active" href="https://fionaclin.github.io/index.html">Home</a>
+<a href="https://fionaclin.github.io/index.html">Home</a>
 </strong></center>
 </h1>
 </header>
@@ -15,7 +15,7 @@
 </p>
 </header>
 <p class="text-center lead">
-— <a href="#setting-up">setup</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#program-inputs">inputs</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#the-tasks">tasks</a> — <a href="https://www.cse.unsw.edu.au/~cs1927/17x1/assignments/assn2/#assessment">assessment</a> —
+— <a href="#setting-up">setup</a> — <a href="#program-inputs">inputs</a> — <a href="#the-tasks">tasks</a> —
 </p>
 
 <p>In this assignment, you are the police! You will control 4 detectives as they travel through a network of cities trying to catch a thief.</p>
