@@ -3,8 +3,8 @@
 <body class="container" data-gr-c-s-loaded="true">
 <header id="jumbotron">
       <canvas id="myCanvas"></canvas>
-        <script type="text/javascript" src="stylesheets/js/bubbles.js"></script>
-        <script type="text/javascript" src="stylesheets/js/main.js"></script>
+        <script type="text/javascript" src="https://fionaclin.github.io/stylesheets/js/bubbles.js"></script>
+        <script type="text/javascript" src="https://fionaclin.github.io/stylesheets/js/main.js"></script>
       <h2>Welcome to My Personal Learning Journal</h2>
     </header>
      <nav>
