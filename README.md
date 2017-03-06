@@ -3,7 +3,7 @@
 <body class="container" data-gr-c-s-loaded="true">
 <header id="jumbotron page-header">
 <h1 class="title"><center><strong>
-<a href="https://fionaclin.github.io/index.html">Home</a>
+<a href="https://fiona-lin.github.io/index.html">Home</a>
 </strong></center>
 </h1>
 </header>
